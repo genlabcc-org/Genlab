@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>From Wireframes to Wow’s · UX Portfolio</title>
+    <meta name="description" content="Elevating UX to the remarkable. Product design, digital strategy, web design, brand identity and service design." />
+    <link rel="preload" href="/fonts/ClashDisplay-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/TWKLausanne-300.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Manier-Italic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Authentic Liquid Glass Morphism SVG Filter -->
+    <svg aria-hidden="true" width="0" height="0" style="position:absolute;pointer-events:none">
+      <filter id="liquid-glass" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.011 0.011" numOctaves="2" seed="14" result="noise"></feTurbulence>
+        <feGaussianBlur in="noise" stdDeviation="3.2" result="map"></feGaussianBlur>
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="57.1" xChannelSelector="R" yChannelSelector="G" result="dR"></feDisplacementMap>
+        <feColorMatrix in="dR" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="cR"></feColorMatrix>
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="49" xChannelSelector="R" yChannelSelector="G" result="dG"></feDisplacementMap>
+        <feColorMatrix in="dG" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="cG"></feColorMatrix>
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="40.9" xChannelSelector="R" yChannelSelector="G" result="dB"></feDisplacementMap>
+        <feColorMatrix in="dB" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="cB"></feColorMatrix>
+        <feBlend in="cR" in2="cG" mode="screen" result="rg"></feBlend>
+        <feBlend in="rg" in2="cB" mode="screen"></feBlend>
+      </filter>
+    </svg>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
