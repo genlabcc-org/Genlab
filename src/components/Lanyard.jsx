@@ -23,7 +23,7 @@ const RING_RADIUS = 0.095;
 const RING_TUBE = 0.0135;
 const EYELET_RADIUS = 0.036;
 const CLAMP_BODY = 0.15;
-const FACE_WIDTH = 1024;
+const FACE_WIDTH = 512;
 
 const FINISHES = {
   glossy: { roughness: 0.42, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.06, foil: 0, anisotropy: 0 },
@@ -198,8 +198,27 @@ const traceRoundedRect = (path, x, y, width, height, radius) => {
   path.bezierCurveTo(x, y + k, x + k, y, x + r, y);
 };
 
+const globalImageCache = new Map();
+
+const getSourceKey = (src) => {
+  if (!src) return '';
+  if (typeof src === 'string') return src;
+  if (src._canvasId) return src._canvasId;
+  if (src._id) return src._id;
+  return src.src || '';
+};
+
 const loadImage = (cache, url) => {
   if (!url) return Promise.resolve(null);
+  if (typeof HTMLCanvasElement !== 'undefined' && url instanceof HTMLCanvasElement) {
+    return Promise.resolve(url);
+  }
+  if (typeof ImageBitmap !== 'undefined' && url instanceof ImageBitmap) {
+    return Promise.resolve(url);
+  }
+  if (typeof HTMLImageElement !== 'undefined' && url instanceof HTMLImageElement) {
+    return Promise.resolve(url);
+  }
   const cached = cache.get(url);
   if (cached) return cached;
   const promise = new Promise(resolve => {
@@ -336,13 +355,16 @@ const makeCanvasTexture = (canvas, anisotropy) => {
   return texture;
 };
 
-const buildGrainTexture = () => {
+let cachedGrainCanvas = null;
+
+const getSharedGrainCanvas = () => {
+  if (cachedGrainCanvas) return cachedGrainCanvas;
   const size = 128;
   const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext('2d');
-  if (!ctx) return new THREE.CanvasTexture(canvas);
+  if (!ctx) return canvas;
   const random = seeded(7);
   const field = Float32Array.from({ length: size * size }, () => random());
   const height = (x, y) => {
@@ -366,6 +388,12 @@ const buildGrainTexture = () => {
     }
   }
   ctx.putImageData(image, 0, 0);
+  cachedGrainCanvas = canvas;
+  return canvas;
+};
+
+const buildGrainTexture = () => {
+  const canvas = getSharedGrainCanvas();
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
@@ -373,7 +401,10 @@ const buildGrainTexture = () => {
   return texture;
 };
 
-const buildWeaveTexture = () => {
+let cachedWeaveData = null;
+
+const getSharedWeaveData = () => {
+  if (cachedWeaveData) return cachedWeaveData;
   const size = 128;
   const threads = 8;
   const random = seeded(19);
@@ -406,6 +437,13 @@ const buildWeaveTexture = () => {
       data[i + 3] = 255;
     }
   }
+  cachedWeaveData = data;
+  return data;
+};
+
+const buildWeaveTexture = () => {
+  const size = 128;
+  const data = getSharedWeaveData();
   const texture = new THREE.DataTexture(data, size, size);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
@@ -965,13 +1003,13 @@ const Lanyard = ({
         }
       }
 
-      const imageKey = `${s.frontImage}|${s.backImage}|${s.strapImage}`;
+      const imageKey = `${getSourceKey(s.frontImage)}|${getSourceKey(s.backImage)}|${getSourceKey(s.strapImage)}`;
       if (imageKey !== applied.imageKey) {
         const token = ++imageToken;
         Promise.all([
-          loadImage(imageCache, s.frontImage),
-          loadImage(imageCache, s.backImage),
-          loadImage(imageCache, s.strapImage)
+          loadImage(globalImageCache, s.frontImage),
+          loadImage(globalImageCache, s.backImage),
+          loadImage(globalImageCache, s.strapImage)
         ]).then(([front, back, strap]) => {
           if (!alive || token !== imageToken) return;
           images.front = front;

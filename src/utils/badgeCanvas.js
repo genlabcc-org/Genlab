@@ -328,11 +328,29 @@ export async function getBadgeTextures(member) {
   }
 
   // ==========================================
-  // 3. STRAP CANVAS (Black strap with GenLab mark)
+  // 3. STRAP CANVAS (Shared Black strap with GenLab mark)
   // ==========================================
+  frontCanvas._canvasId = `gl_front_${member.id}`;
+  backCanvas._canvasId = `gl_back_${member.id}`;
+
+  const result = {
+    frontUrl: frontCanvas,
+    backUrl: backCanvas,
+    strapUrl: getSharedStrapCanvas()
+  };
+
+  cache.set(cacheKey, result);
+  return result;
+}
+
+let sharedStrapCanvas = null;
+
+function getSharedStrapCanvas() {
+  if (sharedStrapCanvas) return sharedStrapCanvas;
   const strapCanvas = document.createElement('canvas');
   strapCanvas.width = 192;
   strapCanvas.height = 384;
+  strapCanvas._canvasId = 'gl_strap_shared';
   const sctx = strapCanvas.getContext('2d');
   if (sctx) {
     sctx.fillStyle = '#0f1013';
@@ -341,13 +359,6 @@ export async function getBadgeTextures(member) {
     // White GenLab pinwheel on strap
     drawGenLabLogo(sctx, 72, 168, 48, '#ffffff');
   }
-
-  const result = {
-    frontUrl: frontCanvas.toDataURL('image/png'),
-    backUrl: backCanvas.toDataURL('image/png'),
-    strapUrl: strapCanvas.toDataURL('image/png')
-  };
-
-  cache.set(cacheKey, result);
-  return result;
+  sharedStrapCanvas = strapCanvas;
+  return strapCanvas;
 }

@@ -15,8 +15,8 @@ export default function Footer() {
 
         {/* Mission and Subtext */}
         <p className="footer-mission">
-          I build products that move people, and move the business.{' '}
-          <a href="mailto:hello@kstoimenov.com" className="footer-write-link">
+          We build products that move people, and move the business.{' '}
+          <a href="mailto:info@genlab.cc" className="footer-write-link">
             Prefer to write? Send a note.
           </a>
         </p>
@@ -24,7 +24,7 @@ export default function Footer() {
         {/* Contact CTA */}
         <div className="footer-cta-wrap">
           <a
-            href="mailto:hello@kstoimenov.com"
+            href="mailto:info@genlab.cc"
             className="footer-contact-btn"
             aria-label="Contact — send an email"
           >
@@ -36,7 +36,7 @@ export default function Footer() {
         {/* Social Links Cards */}
         <div className="footer-social-row">
           <a
-            href="https://www.linkedin.com"
+            href="https://in.linkedin.com/company/genlabz"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-social-card"
@@ -46,22 +46,22 @@ export default function Footer() {
           </a>
 
           <a
-            href="https://x.com"
+            href="https://www.instagram.com/genlab.cc/"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-social-card"
           >
-            <span>Twitter / X</span>
+            <span>Instagram</span>
             <span className="social-arrow">↗</span>
           </a>
 
           <a
-            href="https://dribbble.com"
+            href="https://wa.me/919994535120"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-social-card"
           >
-            <span>Dribbble</span>
+            <span>WhatsApp</span>
             <span className="social-arrow">↗</span>
           </a>
         </div>
@@ -69,7 +69,7 @@ export default function Footer() {
         {/* Bottom Credits & Back to Top */}
         <div className="footer-bottom-bar">
           <div className="footer-copy">
-            <span>© {new Date().getFullYear()} Krasimir Stoimenov. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} GenLab Pvt. Ltd. All rights reserved.</span>
           </div>
 
           <button

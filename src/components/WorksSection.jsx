@@ -2,16 +2,21 @@ import React from 'react';
 
 export default function WorksSection() {
   return (
-    <section className="works-section" id="works">
+    <section className="works-section" id="work">
       <div className="works-inner">
         {/* Project Header */}
         <div className="works-header">
           <div className="works-header-left">
-            <span className="works-tag">Cyber security</span>
-            <h2 className="works-title">Acronis Cyber Protect</h2>
+            <span className="works-tag">AI Platform</span>
+            <h2 className="works-title">GenLab AI Forge &amp; Voice Agent</h2>
           </div>
-          <a href="#work" className="works-link-view">
-            <span>View project</span>
+          <a
+            href="https://chat.whatsapp.com/L0n2kNQfSbR3lwhmN5mNVJ"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="works-link-view"
+          >
+            <span>View platform</span>
             <span className="works-arrow">↗</span>
           </a>
         </div>
@@ -21,8 +26,8 @@ export default function WorksSection() {
           {/* Main Large Showcase */}
           <div className="works-media-main">
             <img
-              src="/assets/works/acronis-main.avif"
-              alt="Acronis Cyber Protect showcase"
+              src="/genlab/images/hero-products.jpg"
+              alt="GenLab AI Showcase"
               className="works-img"
               loading="lazy"
             />
@@ -31,8 +36,8 @@ export default function WorksSection() {
           {/* Side Media */}
           <div className="works-media-side">
             <img
-              src="/assets/works/acronis-side.avif"
-              alt="Acronis side details"
+              src="/genlab/hero.png"
+              alt="GenLab Voice Platform"
               className="works-img"
               loading="lazy"
             />
@@ -41,8 +46,8 @@ export default function WorksSection() {
           {/* Gallery Lower Two */}
           <div className="works-media-bottom-left">
             <img
-              src="/assets/works/acronis-g1.avif"
-              alt="Acronis gallery 1"
+              src="/genlab/Genlab.png"
+              alt="GenLab Ecosystem"
               className="works-img"
               loading="lazy"
             />
@@ -50,8 +55,8 @@ export default function WorksSection() {
 
           <div className="works-media-bottom-right">
             <img
-              src="/assets/works/acronis-g2.avif"
-              alt="Acronis gallery 2"
+              src="/genlab/images/s1_1.png"
+              alt="GenLab Launchpad"
               className="works-img"
               loading="lazy"
             />

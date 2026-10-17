@@ -133,5 +133,35 @@ export const TEAM_MEMBERS = [
     metal: 'silver',
     strapColor: '#0c0e12',
     accentColor: '#34d399'
+  },
+  {
+    id: 10,
+    slug: 'ashmi',
+    name: 'Ashmi',
+    role: 'Brand Growth Strategist',
+    department: 'Brand Studio & Growth',
+    badgeId: 'GL/EE/26/14',
+    bloodGroup: 'A+',
+    bio: 'Spearheading viral content frameworks, Gen Z narrative campaigns, and community growth.',
+    image: '/assets/team/Ashmi.webp',
+    finish: 'glossy',
+    metal: 'silver',
+    strapColor: '#120d18',
+    accentColor: '#f43f5e'
+  },
+  {
+    id: 11,
+    slug: 'britta',
+    name: 'Britta',
+    role: 'Software Engineer',
+    department: 'Core Engineering',
+    badgeId: 'GL/EE/26/15',
+    bloodGroup: 'B+',
+    bio: 'Developing resilient full-stack architectures, API integrations, and cloud deployments.',
+    image: '/assets/team/Britta.webp',
+    finish: 'glossy',
+    metal: 'silver',
+    strapColor: '#0a1017',
+    accentColor: '#06b6d4'
   }
 ];

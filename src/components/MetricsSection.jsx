@@ -3,27 +3,27 @@ import React from 'react';
 export default function MetricsSection() {
   const metrics = [
     {
-      value: '12',
+      value: '6+',
       unit: 'Years',
-      desc: 'Crafting digital products\nglobally',
+      desc: 'Of experience in AI\n& digital solutions',
       highlight: false
     },
     {
-      value: '87',
+      value: '100+',
       unit: 'Projects',
-      desc: 'Across 6 continents\nin 6 core domains',
-      highlight: true // Green active card
-    },
-    {
-      value: '3+',
-      unit: 'Years',
-      desc: 'Average period of\nwork cooperation',
+      desc: 'Delivered for startups\nand global brands',
       highlight: false
     },
     {
-      value: '6k',
-      unit: 'Hours',
-      desc: 'In UX research and\nprototyping UI solutions',
+      value: '10+',
+      unit: 'Partners',
+      desc: 'Enterprise & academic\npartners scaling',
+      highlight: false
+    },
+    {
+      value: '15K+',
+      unit: 'Creators',
+      desc: 'Skilled in autonomous\nAI workflows',
       highlight: false
     }
   ];

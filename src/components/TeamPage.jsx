@@ -23,8 +23,12 @@ export default function TeamPage({ onBackToPortfolio }) {
 
       {/* 3-Column Grid of 3D Lanyard ID Cards */}
       <div className="reference-team-grid">
-        {TEAM_MEMBERS.map((member) => (
-          <TeamLanyardCard key={`${member.id}_v6`} member={member} />
+        {TEAM_MEMBERS.map((member, index) => (
+          <TeamLanyardCard
+            key={`${member.id}_v6`}
+            member={member}
+            priority={index < 3}
+          />
         ))}
       </div>
     </div>

@@ -7,16 +7,16 @@ export default function ShowreelSection() {
       <div className="showreel-marquee">
         <div className="showreel-track">
           <div className="showreel-group">
-            <span className="marquee-sans">Play Real</span>
-            <span className="marquee-display">Play Real</span>
-            <span className="marquee-sans">Play Real</span>
-            <span className="marquee-display">Play Real</span>
+            <span className="marquee-sans">GenLab Reel</span>
+            <span className="marquee-display">AI Powerhouse</span>
+            <span className="marquee-sans">GenLab Reel</span>
+            <span className="marquee-display">AI Powerhouse</span>
           </div>
           <div className="showreel-group" aria-hidden="true">
-            <span className="marquee-sans">Play Real</span>
-            <span className="marquee-display">Play Real</span>
-            <span className="marquee-sans">Play Real</span>
-            <span className="marquee-display">Play Real</span>
+            <span className="marquee-sans">GenLab Reel</span>
+            <span className="marquee-display">AI Powerhouse</span>
+            <span className="marquee-sans">GenLab Reel</span>
+            <span className="marquee-display">AI Powerhouse</span>
           </div>
         </div>
       </div>
@@ -24,8 +24,8 @@ export default function ShowreelSection() {
       {/* Billboard Stage with Circular Play Button */}
       <div className="showreel-stage">
         <img
-          src="/assets/real-billboard.jpg"
-          alt="Showreel billboard"
+          src="/genlab/images/hero-products.jpg"
+          alt="GenLab Showcase"
           className="showreel-billboard-img"
         />
         <div className="showreel-overlay" />
