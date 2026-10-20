@@ -49,7 +49,11 @@ export default function App() {
       <CustomCursor />
 
       {currentView === 'team' ? (
-        <TeamPage onBackToPortfolio={() => navigateTo('portfolio')} />
+        <>
+          <TeamPage onBackToPortfolio={() => navigateTo('portfolio')} />
+          {/* Bottom Floating Navigation Bar */}
+          <Navigation currentView={currentView} onNavigate={navigateTo} />
+        </>
       ) : (
         <>
           {/* iPhone Liquid Glass Morphism Navigation Bar */}

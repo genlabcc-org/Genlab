@@ -49,7 +49,7 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
 
   return (
     <nav
-      className={`liquid-navbar ${isScrolled ? 'is-dock' : 'is-hero'}`}
+      className={`liquid-navbar ${isScrolled || currentView === 'team' ? 'is-dock' : 'is-hero'}`}
       aria-label="Main Navigation"
     >
       {/* Specular Liquid Gloss Reflection */}
@@ -99,13 +99,14 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
         About
       </a>
 
-      {/* 5. Team ✦ */}
+      {/* 5. Team */}
       <button
         type="button"
         onClick={() => onNavigate && onNavigate('team')}
-        className="nav-item-link nav-btn-link"
+        className={`nav-item-link nav-btn-link ${currentView === 'team' ? 'is-active' : ''}`}
       >
-        Team ✦
+        <span>Team</span>
+        {currentView === 'team' && <span className="nav-active-dot" aria-hidden="true" />}
       </button>
 
       {/* 6. Let's talk */}
