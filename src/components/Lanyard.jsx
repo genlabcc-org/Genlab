@@ -18,7 +18,7 @@ const MAX_STEP = 1 / 960;
 const ITERATIONS = 2;
 const SAMPLES = 72;
 const FOV = 24;
-const STRAP_WIDTH = 0.36;
+const STRAP_WIDTH = 0.24;
 const RING_RADIUS = 0.095;
 const RING_TUBE = 0.0135;
 const EYELET_RADIUS = 0.036;
@@ -283,8 +283,8 @@ const buildCardGeometry = layout => {
 
 const buildClampGeometry = width => {
   const shape = new THREE.Shape();
-  const w = width * 1.16;
-  traceRoundedRect(shape, -w / 2 + 0.014, -CLAMP_BODY / 2 + 0.014, w - 0.028, CLAMP_BODY - 0.028, 0.024);
+  const w = Math.max(width * 1.15, 0.12);
+  traceRoundedRect(shape, -w / 2 + 0.014, -CLAMP_BODY / 2 + 0.014, w - 0.028, CLAMP_BODY - 0.028, Math.min(0.024, (w - 0.028) / 2));
   const geometry = new THREE.ExtrudeGeometry(shape, {
     depth: 0.02,
     bevelEnabled: true,
@@ -303,6 +303,17 @@ const buildBandGeometry = count => {
   geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(count * columns * 3), 3));
   geometry.setAttribute('normal', new THREE.BufferAttribute(new Float32Array(count * columns * 3), 3));
   geometry.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(count * columns * 2), 2));
+  
+  // Progress along the strap from top (0.0) to bottom (1.0) for smooth top fade
+  const progress = new Float32Array(count * columns);
+  for (let i = 0; i < count; i++) {
+    const t = i / (count - 1);
+    for (let c = 0; c < columns; c++) {
+      progress[i * columns + c] = t;
+    }
+  }
+  geometry.setAttribute('strapProgress', new THREE.BufferAttribute(progress, 1));
+
   const index = [];
   for (let i = 0; i < count - 1; i++) {
     for (let c = 0; c < columns - 1; c++) {
@@ -875,8 +886,42 @@ const Lanyard = ({
       sheen: 1,
       sheenRoughness: 0.42,
       sheenColor: new THREE.Color(0.32, 0.32, 0.34),
-      side: THREE.DoubleSide
+      side: THREE.DoubleSide,
+      transparent: true,
+      depthWrite: false
     });
+
+    bandMaterial.onBeforeCompile = shader => {
+      shader.vertexShader = shader.vertexShader
+        .replace(
+          '#include <common>',
+          `#include <common>
+attribute float strapProgress;
+varying float vStrapProgress;`
+        )
+        .replace(
+          '#include <begin_vertex>',
+          `#include <begin_vertex>
+vStrapProgress = strapProgress;`
+        );
+
+      shader.fragmentShader = shader.fragmentShader
+        .replace(
+          '#include <common>',
+          `#include <common>
+varying float vStrapProgress;`
+        )
+        .replace(
+          '#include <color_fragment>',
+          `#include <color_fragment>
+diffuseColor.a *= smoothstep(0.0, 0.35, vStrapProgress);`
+        )
+        .replace(
+          '#include <opaque_fragment>',
+          `#include <opaque_fragment>
+gl_FragColor.a *= smoothstep(0.0, 0.35, vStrapProgress);`
+        );
+    };
 
     const cardGroup = new THREE.Group();
     const bodyMesh = new THREE.Mesh(undefined, edgeMaterial);
@@ -1042,7 +1087,7 @@ const Lanyard = ({
       const metalLook = METALS[s.metal] || METALS.silver;
       metalMaterial.color.set(metalLook.color);
       metalMaterial.roughness = metalLook.roughness;
-      strapScale = STRAP_WIDTH * clamp(s.strapWidth, 0.4, 2);
+      strapScale = STRAP_WIDTH * clamp(s.strapWidth, 0.15, 2);
       if (strapScale !== applied.strapScale) {
         clampMesh.geometry.dispose();
         clampMesh.geometry = buildClampGeometry(strapScale);

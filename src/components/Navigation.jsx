@@ -31,7 +31,12 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
     e.preventDefault();
     const scrollToTarget = () => {
       const el = document.getElementById(targetId);
-      if (!el) return;
+      if (!el) {
+        if (targetId === 'launchpad') {
+          window.open('https://genlab.cc/#launchpad', '_blank');
+        }
+        return;
+      }
       if (window.location.hash !== `#${targetId}`) {
         window.history.pushState(null, '', `#${targetId}`);
       }
@@ -69,34 +74,50 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
         )}
       </button>
 
-      {/* 2. Work */}
+      {/* 2. Home */}
+      <a
+        href="#home"
+        onClick={(e) => handleNavClick(e, 'home')}
+        className={`nav-item-link ${currentView === 'portfolio' && !isScrolled ? 'is-active' : ''}`}
+      >
+        <span>Home</span>
+        {currentView === 'portfolio' && !isScrolled && (
+          <span className="nav-active-dot" aria-hidden="true" />
+        )}
+      </a>
+
+      {/* 3. Product */}
       <a
         href="#work"
         onClick={(e) => {
           e.preventDefault();
           onNavigate?.('work');
         }}
-        className="nav-item-link"
+        className={`nav-item-link ${currentView === 'work' ? 'is-active' : ''}`}
       >
-        Work
+        <span>Product</span>
+        {currentView === 'work' && (
+          <span className="nav-active-dot" aria-hidden="true" />
+        )}
       </a>
 
-      {/* 3. Services+ */}
+      {/* 4. Shabdham AI */}
       <a
-        href="#services"
-        onClick={(e) => handleNavClick(e, 'services')}
+        href="https://shabdhamai.in/"
+        target="_blank"
+        rel="noopener noreferrer"
         className="nav-item-link"
       >
-        Services+
+        <span>Shabdham AI</span>
       </a>
 
-      {/* 4. About */}
+      {/* 5. Launchpad */}
       <a
-        href="#about"
-        onClick={(e) => handleNavClick(e, 'about')}
+        href="https://genlab.cc/#launchpad"
+        onClick={(e) => handleNavClick(e, 'launchpad')}
         className="nav-item-link"
       >
-        About
+        <span>Launchpad</span>
       </a>
 
       {/* 5. Team */}

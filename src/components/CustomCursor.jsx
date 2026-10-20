@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import GenLabLogo from './GenLabLogo';
 
 export default function CustomCursor() {
   const cursorRef = useRef(null);
   const scalerRef = useRef(null);
-  const crossRef = useRef(null);
+  const logoRef = useRef(null);
   const rotationRef = useRef(0);
 
   useEffect(() => {
@@ -12,7 +13,7 @@ export default function CustomCursor() {
 
     const cursor = cursorRef.current;
     const scaler = scalerRef.current;
-    const cross = crossRef.current;
+    const logo = logoRef.current;
     if (!cursor || !scaler) return;
 
     let mouseX = -100;
@@ -31,11 +32,10 @@ export default function CustomCursor() {
       cursor.style.opacity = '0';
     };
 
-    // Smooth cursor interpolation loop
+    // Ultra-smooth cursor interpolation loop
     const updateCursor = () => {
-      // Fast responsive lag (0.2)
-      currentX += (mouseX - currentX) * 0.25;
-      currentY += (mouseY - currentY) * 0.25;
+      currentX += (mouseX - currentX) * 0.32;
+      currentY += (mouseY - currentY) * 0.32;
 
       cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
       rafId = requestAnimationFrame(updateCursor);
@@ -43,15 +43,16 @@ export default function CustomCursor() {
     rafId = requestAnimationFrame(updateCursor);
 
     // Hover interactive elements
-    const interactiveSelector = 'a, button, [role="button"], input, select, .hero-logo-wrap, .hero-cta';
+    const interactiveSelector =
+      'a, button, [role="button"], input, select, textarea, .hero-logo-wrap, .team-top-logo-btn, .header-wall-brand, .cell-lanyard-stage, .works-media-card';
 
     const handleMouseOver = (e) => {
       const target = e.target.closest(interactiveSelector);
       if (target) {
-        scaler.style.transform = 'scale(0.72)';
+        scaler.classList.add('is-hovering');
         rotationRef.current += 180;
-        if (cross) {
-          cross.style.transform = `rotate(${rotationRef.current}deg)`;
+        if (logo) {
+          logo.style.transform = `rotate(${rotationRef.current}deg)`;
         }
       }
     };
@@ -59,14 +60,25 @@ export default function CustomCursor() {
     const handleMouseOut = (e) => {
       const target = e.target.closest(interactiveSelector);
       if (target) {
-        scaler.style.transform = 'scale(1)';
+        scaler.classList.remove('is-hovering');
       }
+    };
+
+    // Click press tactile effect
+    const handleMouseDown = () => {
+      scaler.classList.add('is-active');
+    };
+
+    const handleMouseUp = () => {
+      scaler.classList.remove('is-active');
     };
 
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     document.documentElement.addEventListener('mouseleave', onMouseLeave);
     document.addEventListener('mouseover', handleMouseOver);
     document.addEventListener('mouseout', handleMouseOut);
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
 
     return () => {
       cancelAnimationFrame(rafId);
@@ -74,16 +86,17 @@ export default function CustomCursor() {
       document.documentElement.removeEventListener('mouseleave', onMouseLeave);
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseout', handleMouseOut);
+      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mouseup', handleMouseUp);
     };
   }, []);
 
   return (
     <div ref={cursorRef} className="custom-cursor-wrap" aria-hidden="true">
       <div ref={scalerRef} className="custom-cursor-scaler">
-        <div className="custom-cursor-disc">
-          <img src="/assets/cursor-ring-green.svg" alt="" />
+        <div ref={logoRef} className="custom-cursor-logo">
+          <GenLabLogo size={34} color="var(--cursor-color, #c2e600)" />
         </div>
-        <div ref={crossRef} className="custom-cursor-cross" />
       </div>
     </div>
   );

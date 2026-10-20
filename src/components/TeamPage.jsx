@@ -1,50 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { TEAM_MEMBERS } from '../data/teamMembers';
 import TeamLanyardCard from './TeamLanyardCard';
 import GenLabLogo from './GenLabLogo';
 
 export default function TeamPage({ onBackToPortfolio }) {
-  const [pageIndex, setPageIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const pageSize = 3;
-  const totalPages = Math.ceil(TEAM_MEMBERS.length / pageSize);
-
-  const currentMembers = TEAM_MEMBERS.slice(pageIndex * pageSize, pageIndex * pageSize + pageSize);
-
-  const transitionToPage = React.useCallback((targetIndexOrFn) => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setPageIndex(targetIndexOrFn);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 50);
-    }, 400);
-  }, [isTransitioning]);
-
-  // Automatically change team cards with a generous, smooth 6.5-second delay
-  useEffect(() => {
-    if (isPaused) return;
-
-    const timer = setInterval(() => {
-      transitionToPage((prev) => (prev < totalPages - 1 ? prev + 1 : 0));
-    }, 6500);
-
-    return () => clearInterval(timer);
-  }, [totalPages, isPaused, transitionToPage]);
-
-  const handlePrev = () => {
-    transitionToPage((prev) => (prev > 0 ? prev - 1 : totalPages - 1));
-  };
-
-  const handleNext = () => {
-    transitionToPage((prev) => (prev < totalPages - 1 ? prev + 1 : 0));
-  };
-
   return (
     <div className="reference-team-page">
-      {/* Background Architectural Studio Backdrop */}
+      {/* Background Architectural Studio Backdrop (Fixed) */}
       <div className="team-studio-backdrop" aria-hidden="true" />
       <div className="team-studio-overlay" aria-hidden="true" />
 
@@ -70,13 +32,15 @@ export default function TeamPage({ onBackToPortfolio }) {
         <div className="header-col-left">
           <div className="our-team-badge">
             <GenLabLogo size={14} color="#c2e600" className="badge-logo-glyph" />
-            <span>OUR TEAM</span>
+            <span>OUR TEAM ({TEAM_MEMBERS.length})</span>
             <span className="green-bullet">●</span>
           </div>
           <h1 className="reference-team-title">
             Meet the crew<span className="title-green-dot">.</span>
           </h1>
-          <p className="reference-team-subtitle">Team spirit you can feel.</p>
+          <p className="reference-team-subtitle">
+            All {TEAM_MEMBERS.length} creators, designers, and AI architects behind GenLab.
+          </p>
         </div>
 
         {/* Center Wall Logo Watermark using official GenLab SVG */}
@@ -110,53 +74,19 @@ export default function TeamPage({ onBackToPortfolio }) {
         </div>
       </div>
 
-      {/* 3-Column Hanging Lanyard Cards Stage */}
-      <div
-        className="reference-team-stage"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        <div className={`reference-team-grid ${isTransitioning ? 'is-fading-out' : 'is-fading-in'}`}>
-          {currentMembers.map((member, index) => (
+      {/* Full Team Hanging Lanyard Cards Stage - All 11 Teammates */}
+      <div className="reference-team-stage">
+        <div className="reference-team-grid">
+          {TEAM_MEMBERS.map((member, index) => (
             <TeamLanyardCard
-              key={`${member.id}_p${pageIndex}`}
+              key={member.id}
               member={member}
               priority={index < 3}
             />
           ))}
         </div>
-
-        {/* Carousel Pagination Controls to explore all 11 teammates */}
-        {totalPages > 1 && (
-          <div className="team-carousel-controls">
-            <button
-              type="button"
-              className="team-nav-arrow"
-              onClick={handlePrev}
-              aria-label="Previous team members"
-              title="Previous team members"
-            >
-              ←
-            </button>
-
-            <div className="team-page-indicator">
-              <span className="current-page">{String(pageIndex + 1).padStart(2, '0')}</span>
-              <span className="page-slash">/</span>
-              <span className="total-pages">{String(totalPages).padStart(2, '0')}</span>
-            </div>
-
-            <button
-              type="button"
-              className="team-nav-arrow"
-              onClick={handleNext}
-              aria-label="Next team members"
-              title="Next team members"
-            >
-              →
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );
 }
+

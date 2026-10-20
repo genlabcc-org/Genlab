@@ -1,5 +1,5 @@
 // Generates high-resolution ID card textures matching the authentic GenLab ID card
-const TEXTURE_VERSION = 9;
+const TEXTURE_VERSION = 10;
 const cache = new Map();
 
 const GENLAB_PINWHEEL_PATHS = [
@@ -363,30 +363,23 @@ function getSharedStrapCanvas() {
   const strapCanvas = document.createElement('canvas');
   strapCanvas.width = 192;
   strapCanvas.height = 384;
-  strapCanvas._canvasId = 'gl_strap_shared_v9';
+  strapCanvas._canvasId = 'gl_strap_shared_v10';
   const sctx = strapCanvas.getContext('2d');
   if (sctx) {
-    // Matte dark charcoal/black strap
-    sctx.fillStyle = '#0a0b0e';
+    // Clean matte dark charcoal strap - pure fabric, zero logos or text
+    sctx.fillStyle = '#0d0e12';
     sctx.fillRect(0, 0, strapCanvas.width, strapCanvas.height);
 
-    // Green GenLab pinwheel on strap near clamp
-    drawGenLabLogo(sctx, 72, 280, 48, '#c2e600');
+    // Subtle micro weave texture
+    sctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
+    for (let y = 0; y < strapCanvas.height; y += 4) {
+      sctx.fillRect(0, y, strapCanvas.width, 1.5);
+    }
 
-    // Vertical "GenLab ✦" text on strap
-    sctx.save();
-    sctx.translate(108, 240);
-    sctx.rotate(-Math.PI / 2);
-    sctx.fillStyle = '#ffffff';
-    sctx.font = 'bold 32px "Plus Jakarta Sans", sans-serif';
-    sctx.textAlign = 'left';
-    sctx.fillText('GenLab', 0, 0);
-
-    // Gold star
-    sctx.fillStyle = '#f59e0b';
-    sctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
-    sctx.fillText('✦', 125, -10);
-    sctx.restore();
+    // Subtle edge stitch detail
+    sctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+    sctx.fillRect(10, 0, 2, strapCanvas.height);
+    sctx.fillRect(strapCanvas.width - 12, 0, 2, strapCanvas.height);
   }
   sharedStrapCanvas = strapCanvas;
   return strapCanvas;
