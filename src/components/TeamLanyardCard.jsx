@@ -1,40 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Lanyard from './Lanyard';
 import { getBadgeTextures } from '../utils/badgeCanvas';
 
-export default function TeamLanyardCard({ member, priority = false }) {
-  const [inView, setInView] = useState(priority);
+export default function TeamLanyardCard({ member }) {
   const [textures, setTextures] = useState(null);
-  const cardRef = useRef(null);
 
   useEffect(() => {
-    if (priority) {
-      setInView(true);
-      return;
-    }
-
-    const el = cardRef.current;
-    if (!el || typeof IntersectionObserver === 'undefined') {
-      setInView(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '350px 0px 350px 0px' }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [priority]);
-
-  useEffect(() => {
-    if (!inView) return;
     let active = true;
     getBadgeTextures(member).then((res) => {
       if (active) setTextures(res);
@@ -42,13 +13,17 @@ export default function TeamLanyardCard({ member, priority = false }) {
     return () => {
       active = false;
     };
-  }, [inView, member]);
+  }, [member]);
 
   return (
-    <div className="reference-grid-cell" ref={cardRef}>
+    <div className="reference-grid-cell">
+      {/* Radiant Blur Glow Backdrop */}
+      <div className="cell-radiant-glow" aria-hidden="true" />
+
       <div className="cell-lanyard-stage">
         {!textures && (
-          <div className="cell-lanyard-placeholder" aria-hidden="true">
+          <div className="cell-lanyard-placeholder cell-radiant-blur" aria-hidden="true">
+            <div className="cell-radiant-blur-glow" />
             <div className="cell-lanyard-shimmer" />
           </div>
         )}

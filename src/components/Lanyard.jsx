@@ -155,7 +155,7 @@ const parseColor = (value, fallback) => {
     const ctx = document.createElement('canvas').getContext('2d');
     if (!ctx) return fallback;
     ctx.fillStyle = '#000000';
-    ctx.fillStyle = value;
+    ctx.fillStyle = value;  
     const resolved = ctx.fillStyle;
     if (resolved.startsWith('#')) {
       const n = parseInt(resolved.slice(1), 16);

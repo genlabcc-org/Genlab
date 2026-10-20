@@ -2,22 +2,15 @@ import React from 'react';
 
 export default function PartnersSection() {
   const partners = [
-    { name: 'VIT', path: '/genlab/logos/academia/vit.webp' },
-    { name: 'Arunachala', path: '/genlab/logos/academia/a_arunachala.webp' },
-    { name: 'Christ University', path: '/genlab/logos/academia/Christ.webp' },
-    { name: 'NICHE', path: '/genlab/logos/academia/Niche.webp' },
-    { name: 'DMI', path: '/genlab/logos/academia/dmi.webp' },
-    { name: 'FX', path: '/genlab/logos/academia/fx.webp' },
-    { name: 'Fatima', path: '/genlab/logos/academia/fatima.webp' },
-    { name: 'SCAD', path: '/genlab/logos/academia/scad.webp' },
-    { name: 'Partner 1', path: '/genlab/logos/industry/i_1.webp' },
-    { name: 'Partner 2', path: '/genlab/logos/industry/i_2.webp' },
-    { name: 'Partner 3', path: '/genlab/logos/industry/i_3.webp' },
-    { name: 'Partner 4', path: '/genlab/logos/industry/i_4.webp' },
-    { name: 'Partner 5', path: '/genlab/logos/industry/i_5.webp' },
-    { name: 'Partner 6', path: '/genlab/logos/industry/i_6.webp' },
-    { name: 'Partner 7', path: '/genlab/logos/industry/i_7.webp' },
-    { name: 'Institution', path: '/genlab/logos/academia/a_3.webp' }
+    { name: 'GenStrat.ai', path: '/genlab/logos/industry/genstrat.webp' },
+    { name: 'Barbarik AI', path: '/genlab/logos/industry/barbarik.webp' },
+    { name: 'nivas', path: '/genlab/logos/industry/nivas.webp' },
+    { name: 'Hytes IT', path: '/genlab/logos/industry/hytes.webp' },
+    { name: 'ACTIV healthcare', path: '/genlab/logos/industry/activ.webp' },
+    { name: 'WolfPAC', path: '/genlab/logos/industry/wolfpac.webp' },
+    { name: 'TPI', path: '/genlab/logos/industry/tpi.webp' },
+    { name: 'Periscope', path: '/genlab/logos/industry/periscope.webp' },
+    { name: 'Invenza Engineering', path: '/genlab/logos/industry/invenza.webp' }
   ];
 
   return (
@@ -41,7 +34,6 @@ export default function PartnersSection() {
                 alt={p.name}
                 className="partner-logo"
                 loading="lazy"
-                style={{ filter: 'grayscale(1) brightness(1.2)', maxHeight: '42px', objectFit: 'contain' }}
               />
             </div>
           ))}

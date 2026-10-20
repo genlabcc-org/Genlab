@@ -3,6 +3,9 @@ import React from 'react';
 export default function QuoteSection() {
   return (
     <section className="quote-section">
+      {/* Ambient Radiant Blur Glow Backdrop */}
+      <div className="quote-radiant-glow" aria-hidden="true" />
+
       <div className="quote-container">
         <div className="quote-line line-top">
           <span>Build to scale</span>
