@@ -5,40 +5,40 @@ export default function TestimonialsSection() {
   const [progress, setProgress] = useState(0);
   const [overrideIndex, setOverrideIndex] = useState(null);
 
-  const testimonials = [
+  const faqs = [
     {
-      quote:
-        'He treated a cancer-support product with the care it deserved: clearer journeys, less friction, and a system our whole team could finally build on.',
-      author: 'Richard Dood',
-      role: 'Digital Director @Macmillan',
+      question: 'What does GenLab do?',
+      answer:
+        'GenLab is a software development and AI company based in Nagercoil and Bengaluru, India. We build custom web and mobile apps, AI and agentic solutions, cloud infrastructure and product designs for startups and enterprises.',
     },
     {
-      quote:
-        'He turned a developer-first product into something anyone could navigate. Sharp, fast, and grounded in how our users actually work.',
-      author: 'Alex Vanev',
-      role: 'VP Product @Constructor',
+      question: 'Why work with a Gen Z-led team?',
+      answer:
+        "We're native to the tools and habits shaping modern products: AI-assisted development, fast iteration and mobile-first design. Combined with disciplined engineering practices, that means shorter timelines without cutting corners.",
     },
     {
-      quote:
-        'Strategic clarity paired with world-class craft. Krasimir took our initial MVP and turned it into an award-winning digital experience.',
-      author: 'Elena Rostova',
-      role: 'Founder & CEO @Simplebet',
+      question: 'How long does it take to build an MVP?',
+      answer:
+        "MVP timelines depend on scope. After a short discovery call, we'll provide a clear plan and timeline.",
     },
     {
-      quote:
-        'We handed Krasi a rough idea and got back a fundable product. Fast, opinionated, and genuinely invested in whether we won.',
-      author: 'Carlos Strazzer',
-      role: 'CEO @Ventures Lab',
+      question: 'Do you work with international clients?',
+      answer:
+        'Yes. We work across time zones, with overlap hours, async updates and weekly demos as standard.',
     },
     {
-      quote:
-        'Nothing is beyond possibility when working with Krasi. He’s able to rise to any challenge by bringing a deep curiosity, investment and expertise to every project. Not only is he reliable but he’s great to work with. He’s genuinely dedicated to his craft.',
-      author: 'Gaidar Magdanurov',
-      role: 'COO @Acronis',
+      question: 'What technologies do you use?',
+      answer:
+        "React, Next.js, Node.js, Python, Flutter, React Native, AWS, GCP, Azure and modern LLM platforms. We pick the stack that fits your product, not the one we prefer.",
+    },
+    {
+      question: 'Can you take over an existing codebase?',
+      answer:
+        'Yes. We start with a code and architecture review, then stabilize, document and extend what you have.',
     },
   ];
 
-  const totalCards = testimonials.length;
+  const totalCards = faqs.length;
 
   useEffect(() => {
     let animFrame;
@@ -90,43 +90,32 @@ export default function TestimonialsSection() {
     <section className="testimonials-section" ref={sectionRef} id="testimonials">
       <div className="testimonials-sticky-wrap">
         <div className="testimonials-inner">
-          {/* Left Column: Heading, Subtitle, and Green + Button directly below */}
           <div className="testimonials-left">
-            <h2 className="testimonials-heading">
-              What <em>people</em>
-              <br />
-              have to say
-            </h2>
+            <h2 className="testimonials-heading">Frequently asked questions</h2>
 
             <p className="testimonials-desc">
-              Curious what it’s really like to work with me?
-              <br />
-              Don’t take my word for it. Here’s what my clients say.
+              Answers to common questions about working with GenLab.
             </p>
 
-            {/* Circular Green Plus Button below description */}
             <div className="testimonials-plus-wrap">
               <button
                 type="button"
                 className="testimonials-plus-btn"
                 onClick={handleNext}
-                aria-label="Next review"
-                title="Click to view next review"
+                aria-label="Next frequently asked question"
               >
                 <span className="plus-symbol">+</span>
               </button>
             </div>
           </div>
 
-          {/* Right Column: Stacked Cards Deck */}
           <div
             className="testimonials-deck"
             onClick={handleNext}
-            title="Click to view next card"
             role="region"
-            aria-label="Client review cards deck"
+            aria-label="Frequently asked questions"
           >
-            {testimonials.map((t, idx) => {
+            {faqs.map((faq, idx) => {
               const isCurrent = idx === activeIndex;
               const isPast = idx < activeIndex;
               const depth = activeIndex - idx;
@@ -171,11 +160,8 @@ export default function TestimonialsSection() {
                   style={cardStyle}
                   aria-hidden={!isCurrent}
                 >
-                  <p className="testimonial-quote">{t.quote}</p>
-                  <p className="testimonial-author">
-                    <strong>{t.author}</strong> -{' '}
-                    <span className="author-role">{t.role}</span>
-                  </p>
+                  <h3 className="testimonial-quote">{faq.question}</h3>
+                  <p className="faq-answer">{faq.answer}</p>
                 </article>
               );
             })}

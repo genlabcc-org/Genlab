@@ -70,34 +70,85 @@ export default function ServicesSection() {
 
   const capabilities = [
     {
-      left: 'Product',
-      title: 'PRODUCT DESIGN',
+      left: 'Software',
+      title: 'CUSTOM SOFTWARE',
+      description:
+        'We build SaaS platforms, internal tools, dashboards and APIs with clean architecture and tested code. You own everything we write.',
+      details: [
+        'Discovery, architecture and technical roadmaps',
+        'Full-stack development (React, Next.js, Node.js, Python)',
+        'API design and third-party integrations',
+        'QA automation and code reviews',
+      ],
       icon: <SunIcon />,
-      right: 'Design'
+      right: 'Engineering'
     },
     {
-      left: 'Digital',
-      title: 'DIGITAL STRATEGY',
+      left: 'AI',
+      title: 'AI & AGENTIC',
+      description:
+        'We design and ship LLM-powered features and AI agents that plug into your existing systems, not demos that die in a slide deck.',
+      details: [
+        'AI assistants and copilots for customers and teams',
+        'Workflow automation and agentic pipelines',
+        'RAG systems on your own data',
+        'Model evaluation, guardrails and cost control',
+      ],
       icon: <FlowerIcon />,
-      right: 'Strategy'
+      right: 'Automation'
     },
     {
-      left: 'Web',
-      title: 'WEB DESIGN',
+      left: 'Apps',
+      title: 'WEB & MOBILE',
+      description:
+        'Responsive websites, progressive web apps and native-quality mobile apps with technical SEO, Core Web Vitals and accessibility baked in.',
+      details: [
+        'Next.js and React web apps',
+        'iOS and Android with Flutter or React Native',
+        'E-commerce and CMS builds',
+        'Performance, SEO and analytics setup',
+      ],
       icon: <StarIcon />,
-      right: 'Design'
+      right: 'Development'
     },
     {
-      left: 'Brand',
-      title: 'BRAND IDENTITY',
+      left: 'Product',
+      title: 'UI/UX & PRODUCT',
+      description:
+        'We test with real users before we build, so you spend money on features people want.',
+      details: [
+        'User research and journey mapping',
+        'Wireframes, prototypes and design systems',
+        'Usability testing and iteration',
+      ],
       icon: <EyeIcon />,
-      right: 'Identity'
+      right: 'Design'
     },
     {
-      left: 'Service',
-      title: 'SERVICE DESIGN',
+      left: 'Cloud',
+      title: 'CLOUD & DEVOPS',
+      description:
+        'Move faster without breaking things. We modernize legacy systems and automate everything between commit and production.',
+      details: [
+        'AWS, GCP and Azure migration and architecture',
+        'CI/CD pipelines and infrastructure as code',
+        'Monitoring, security hardening and cost optimization',
+      ],
       icon: <AsteriskIcon />,
-      right: 'Design'
+      right: 'Modernization'
+    },
+    {
+      left: 'Research',
+      title: 'RESEARCH & BRANDING',
+      description:
+        'Before you build, validate. We help founders test the market, sharpen positioning and create a brand that looks like it belongs.',
+      details: [
+        'Market and competitor research',
+        'Product strategy and go-to-market planning',
+        'Naming, visual identity and brand guidelines',
+      ],
+      icon: <AsteriskIcon />,
+      right: 'Positioning'
     }
   ];
 
@@ -108,7 +159,7 @@ export default function ServicesSection() {
 
     rowsRef.current.forEach((el, index) => {
       if (!el) return;
-      const rect = el.getBoundingClientRect();
+      const rect = (el.querySelector('.cap-center-wrap') || el).getBoundingClientRect();
       const centerY = rect.top + rect.height / 2;
       const distance = Math.abs(mouseY - centerY);
 
@@ -129,10 +180,10 @@ export default function ServicesSection() {
     <section className="services-section" id="services">
       <div className="services-header">
         <h2 className="services-title">
-          <em>Capabilities</em>+ for modern businesses
+          <em>What</em> we build
         </h2>
         <p className="services-desc">
-          We're a Gen Z team of strategists, designers and AI builders. We take products from rough concept to market-validated platforms that scale.
+          Six disciplines, one team accountable for the outcome.
         </p>
       </div>
 
@@ -151,16 +202,65 @@ export default function ServicesSection() {
               onMouseEnter={() => setActiveIdx(idx)}
             >
               {/* Left Label */}
-              <span className="cap-side-label cap-left">{item.left}</span>
+              <span
+                className="cap-side-label cap-left"
+                style={{ color: isActive ? 'var(--text-headline)' : undefined }}
+              >
+                {item.left}
+              </span>
 
               {/* Center Typography & Rotating Glyph */}
               <div className="cap-center-wrap">
-                <span className="cap-icon-glyph">{item.icon}</span>
-                <span className="cap-name-bold">{item.title}</span>
+                <span
+                  className="cap-icon-glyph"
+                  style={{
+                    color: isActive ? 'var(--text-headline)' : undefined,
+                    transform: isActive ? 'rotate(180deg) scale(1.08)' : undefined,
+                  }}
+                >
+                  {item.icon}
+                </span>
+                <span
+                  className="cap-name-bold"
+                  style={{
+                    color: isActive ? 'var(--text-headline)' : undefined,
+                    fontWeight: isActive ? 700 : undefined,
+                    fontVariationSettings: isActive ? "'wght' 700" : undefined,
+                    transform: isActive ? 'scale(1.025)' : undefined,
+                  }}
+                >
+                  {item.title}
+                </span>
               </div>
 
               {/* Right Label */}
-              <span className="cap-side-label cap-right">{item.right}</span>
+              <span
+                className="cap-side-label cap-right"
+                style={{ color: isActive ? 'var(--text-headline)' : undefined }}
+              >
+                {item.right}
+              </span>
+
+              <div
+                className="service-details"
+                aria-hidden={!isActive}
+                style={isActive ? {
+                  maxHeight: '18rem',
+                  marginTop: '1.25rem',
+                  padding: '1.25rem',
+                  borderColor: 'color-mix(in srgb, var(--text-headline) 12%, transparent)',
+                  backgroundColor: 'color-mix(in srgb, var(--text-headline) 4%, transparent)',
+                  opacity: 1,
+                  transform: 'translateY(0)',
+                } : undefined}
+              >
+                <p className="service-details-description">{item.description}</p>
+                <ul className="service-details-list">
+                  {item.details.map((detail) => (
+                    <li key={detail}>{detail}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           );
         })}

@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import HeroShader from './HeroShader';
 
 function SplitText({ text, startDelay = 0, staggerMs = 30 }) {
@@ -14,53 +13,6 @@ function SplitText({ text, startDelay = 0, staggerMs = 30 }) {
           </span>
         </span>
       ))}
-    </span>
-  );
-}
-
-function ScrambleText({ text, delay = 950, duration = 1100 }) {
-  const [currentText, setCurrentText] = useState('');
-  const chars = 'abcdefghijklmnopqrstuvwxyz';
-
-  useEffect(() => {
-    let timeoutId;
-    let animFrame;
-    let startTimestamp;
-
-    timeoutId = setTimeout(() => {
-      startTimestamp = performance.now();
-
-      const tick = (now) => {
-        const elapsed = now - startTimestamp;
-        const progress = Math.min(1, elapsed / duration);
-        const revealedCount = Math.floor(progress * text.length);
-
-        let output = text.slice(0, revealedCount);
-        for (let i = revealedCount; i < text.length; i++) {
-          output += chars[Math.floor(Math.random() * chars.length)];
-        }
-
-        setCurrentText(output);
-
-        if (progress < 1) {
-          animFrame = requestAnimationFrame(tick);
-        } else {
-          setCurrentText(text);
-        }
-      };
-
-      animFrame = requestAnimationFrame(tick);
-    }, delay);
-
-    return () => {
-      clearTimeout(timeoutId);
-      cancelAnimationFrame(animFrame);
-    };
-  }, [text, delay, duration]);
-
-  return (
-    <span className="scramble-span">
-      {currentText || '\u00A0'.repeat(text.length)}
     </span>
   );
 }
@@ -94,51 +46,40 @@ export default function Hero() {
         {/* Line 1 */}
         <div className="hero-row row-1">
           <h1 className="hero-text-sans">
-            <SplitText text="World's First Gen Z" startDelay={100} staggerMs={28} />
+            <SplitText text="From ideas to" startDelay={100} staggerMs={28} />
           </h1>
         </div>
 
         {/* Line 2 */}
         <div className="hero-row row-2">
           <span className="hero-text-display">
-            <SplitText text="& AI Studio" startDelay={450} staggerMs={35} />
+            <SplitText text="Custom Solutions," startDelay={450} staggerMs={35} />
           </span>
         </div>
 
         {/* Line 3 */}
         <div className="hero-row row-3">
           <span className="hero-text-sans">
-            <SplitText text="autonomous growth for" startDelay={800} staggerMs={28} />
+            <SplitText text="built by Gen Z" startDelay={800} staggerMs={28} />
           </span>
         </div>
 
         {/* Line 4 */}
         <div className="hero-row row-4">
-          <span className="hero-text-display">
-            <ScrambleText text="genlab" delay={1150} duration={1100} />
-          </span>
-          <a
-            href="https://chat.whatsapp.com/L0n2kNQfSbR3lwhmN5mNVJ"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hero-cta-pill cta-pop-in"
-            aria-label="Join with us"
-          >
-            <span>Join with us</span>
+          <a href="#work" className="hero-cta-secondary cta-pop-in">
+            See our work <span aria-hidden="true">↗</span>
           </a>
         </div>
       </div>
 
-      {/* Two Informational Subtitles */}
+      {/* Supporting copy and location trust line */}
       <div className="hero-taglines-wrap taglines-blur-in">
         <p className="hero-tagline-col tagline-left">
-          A Gen Z team of strategists,<br />
-          designers and AI builders
+          GenLab is an AI-first software development company in India. We turn rough ideas into fast, reliable products that people actually use, without the agency overhead.
         </p>
 
         <p className="hero-tagline-col tagline-right">
-          From India to the world ❤️<br />
-          Turning ideas into real solutions
+          Engineering for startups, scale-ups and enterprises. Based in Nagercoil and Bengaluru.
         </p>
       </div>
 

@@ -37,24 +37,23 @@ export default function WorksCtaSection() {
   return (
     <section className="works-cta-section" ref={sectionRef}>
       <div className={`works-cta-inner ${isVisible ? 'is-revealed' : ''}`}>
-        {/* Line 1: Want to see + Eye */}
+        {/* Line 1: Got an idea? */}
         <div className="works-cta-line cta-line-1">
-          <span className="cta-sans">Want to see</span>
+          <span className="cta-sans">Got an idea?</span>
           <span className="cta-eye-wrap" aria-hidden="true">
             <img src="/assets/cta-eye.svg" alt="" className="cta-eye-icon" />
           </span>
         </div>
 
-        {/* Line 2: how I + Switch + enable */}
+        {/* Line 2: Let's make it real */}
         <div className="works-cta-line cta-line-2">
-          <span className="cta-serif">how I</span>
+          <span className="cta-serif">Let's</span>
 
           <button
             type="button"
             className={`cta-toggle-switch ${isOn ? 'is-on' : ''}`}
             onClick={() => setIsOn(!isOn)}
-            aria-label="Toggle enable mode switch"
-            title="Click to toggle switch"
+            aria-label="Toggle the GenLab switch"
           >
             <span className="cta-toggle-knob">
               {/* White GenLab Geometric Logo */}
@@ -77,25 +76,29 @@ export default function WorksCtaSection() {
             </span>
           </button>
 
-          <span className="cta-serif">enable</span>
+          <span className="cta-serif">make it real.</span>
         </div>
 
-        {/* Line 3: companies? */}
-        <div className="works-cta-line cta-line-3">
-          <span className="cta-sans">companies?</span>
-        </div>
-
-        {/* Subtitle description */}
         <p className="cta-subtext">
-          A few projects I&apos;m proud of, built with industry-leading corporations and independent partners alike.
+          Tell us what you&apos;re building. We&apos;ll reply within one business day with honest next steps, even if the answer is &quot;you don&apos;t need us yet.&quot;
         </p>
 
-        {/* Action Button & Arrow */}
         <div className="cta-actions">
-          <a href="#work" className="cta-btn-pill">
-            <span>View all works</span>
+          <a
+            href="https://wa.me/919994535120?text=Hi%20GenLab%2C%20I%27d%20like%20to%20book%20a%2030-minute%20call."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cta-btn-pill"
+          >
+            <span>Book a 30-min call</span>
           </a>
-          <a href="#work" className="cta-btn-circle" aria-label="View all works arrow">
+          <a
+            href="https://wa.me/919994535120?text=Hi%20GenLab%2C%20I%27d%20like%20to%20book%20a%2030-minute%20call."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cta-btn-circle"
+            aria-label="Book a 30-minute call with GenLab on WhatsApp"
+          >
             <svg
               viewBox="0 0 24 24"
               fill="none"

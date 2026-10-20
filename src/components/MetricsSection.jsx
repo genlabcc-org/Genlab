@@ -21,7 +21,7 @@ export default function MetricsSection() {
       highlight: false
     },
     {
-      value: '15K+',
+      value: '20K+',
       unit: 'Creators',
       desc: 'Skilled in autonomous\nAI workflows',
       highlight: false
