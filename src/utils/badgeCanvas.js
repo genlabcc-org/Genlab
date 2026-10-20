@@ -1,50 +1,42 @@
 // Generates high-resolution ID card textures matching the authentic GenLab ID card
-const TEXTURE_VERSION = 6;
+const TEXTURE_VERSION = 9;
 const cache = new Map();
 
+const GENLAB_PINWHEEL_PATHS = [
+  'M14.6512 0C14.6512 1.85035 13.8794 3.62491 12.5055 4.9333C11.1317 6.2417 9.26845 6.97674 7.32558 6.97674C5.38272 6.97674 3.51943 6.2417 2.14561 4.9333C0.7718 3.62491 2.93364e-07 1.85035 0 1.05346e-06L14.6512 0Z',
+  'M1.78814e-07 14.6512C1.78814e-07 12.8008 0.771801 11.0263 2.14561 9.71786C3.51943 8.40947 5.38272 7.67442 7.32558 7.67442C9.26845 7.67442 11.1317 8.40947 12.5055 9.71786C13.8794 11.0263 14.6512 12.8008 14.6512 14.6512L1.78814e-07 14.6512Z',
+  'M15.3488 1.78814e-07C17.1992 1.78814e-07 18.9737 0.771801 20.2821 2.14561C21.5905 3.51943 22.3256 5.38272 22.3256 7.32558C22.3256 9.26845 21.5905 11.1317 20.2821 12.5055C18.9737 13.8794 17.1992 14.6512 15.3488 14.6512L15.3488 1.78814e-07Z',
+  'M30 14.6512C28.1497 14.6512 26.3751 13.8794 25.0667 12.5055C23.7583 11.1317 23.0233 9.26845 23.0233 7.32558C23.0233 5.38272 23.7583 3.51943 25.0667 2.14561C26.3751 0.771801 28.1497 2.93364e-07 30 0V14.6512Z',
+  'M0 15.3488C1.85035 15.3488 3.62491 16.1206 4.9333 17.4945C6.2417 18.8683 6.97674 20.7316 6.97674 22.6744C6.97674 24.6173 6.2417 26.4806 4.9333 27.8544C3.62491 29.2282 1.85035 30 1.05346e-06 30L0 15.3488Z',
+  'M14.6512 30C12.8008 30 11.0263 29.2282 9.71786 27.8544C8.40946 26.4806 7.67442 24.6173 7.67442 22.6744C7.67442 20.7316 8.40946 18.8683 9.71786 17.4945C11.0263 16.1206 12.8008 15.3488 14.6512 15.3488L14.6512 30Z',
+  'M30 15.3488C30 17.1992 29.2282 18.9737 27.8544 20.2821C26.4806 21.5905 24.6173 22.3256 22.6744 22.3256C20.7316 22.3256 18.8683 21.5905 17.4945 20.2821C16.1206 18.9737 15.3488 17.1992 15.3488 15.3488L30 15.3488Z',
+  'M15.3488 30C15.3488 28.1497 16.1206 26.3751 17.4944 25.0667C18.8683 23.7583 20.7316 23.0233 22.6744 23.0233C24.6173 23.0233 26.4806 23.7583 27.8544 25.0667C29.2282 26.3751 30 28.1497 30 30H15.3488Z'
+];
+
+let cachedPathObjects = null;
+
+function getGenLabPaths() {
+  if (cachedPathObjects) return cachedPathObjects;
+  if (typeof Path2D !== 'undefined') {
+    cachedPathObjects = GENLAB_PINWHEEL_PATHS.map((p) => new Path2D(p));
+  }
+  return cachedPathObjects;
+}
+
 /**
- * Draws the GenLab 4-quadrant geometric pinwheel logo
+ * Draws the official GenLab 8-petal geometric pinwheel logo from SVG paths
  */
 function drawGenLabLogo(ctx, x, y, size, color) {
   ctx.save();
+  ctx.translate(x, y);
+  const scale = size / 30;
+  ctx.scale(scale, scale);
   ctx.fillStyle = color;
-  const gap = Math.max(2, size * 0.08);
-  const blade = (size - gap) / 2;
-  const radius = blade * 0.95;
 
-  const drawBlade = (bx, by, roundCorner) => {
-    ctx.beginPath();
-    ctx.moveTo(bx, by);
-    if (roundCorner === 'tl') {
-      ctx.arcTo(bx, by, bx + blade, by, radius);
-      ctx.lineTo(bx + blade, by);
-      ctx.lineTo(bx + blade, by + blade);
-      ctx.lineTo(bx, by + blade);
-    } else if (roundCorner === 'tr') {
-      ctx.lineTo(bx + blade - radius, by);
-      ctx.arcTo(bx + blade, by + blade, bx + blade, by + radius, radius);
-      ctx.lineTo(bx + blade, by + blade);
-      ctx.lineTo(bx, by + blade);
-    } else if (roundCorner === 'br') {
-      ctx.lineTo(bx + blade, by);
-      ctx.lineTo(bx + blade, by + blade - radius);
-      ctx.arcTo(bx + blade, by + blade, bx + blade - radius, by + blade, radius);
-      ctx.lineTo(bx, by + blade);
-    } else if (roundCorner === 'bl') {
-      ctx.lineTo(bx + blade, by);
-      ctx.lineTo(bx + blade, by + blade);
-      ctx.lineTo(bx + radius, by + blade);
-      ctx.arcTo(bx, by + blade, bx, by + blade - radius, radius);
-    }
-    ctx.closePath();
-    ctx.fill();
-  };
-
-  drawBlade(x, y, 'tl');
-  drawBlade(x + blade + gap, y, 'tr');
-  drawBlade(x + blade + gap, y + blade + gap, 'br');
-  drawBlade(x, y + blade + gap, 'bl');
-
+  const paths = getGenLabPaths();
+  if (paths) {
+    paths.forEach((p) => ctx.fill(p));
+  }
   ctx.restore();
 }
 
@@ -153,30 +145,51 @@ export async function getBadgeTextures(member) {
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, width, height);
 
-    // Top: Teammate Name (placed with generous space below clamp/slot reach)
-    ctx.fillStyle = '#111827';
-    ctx.font = '600 56px "Plus Jakarta Sans", -apple-system, sans-serif';
+    // 1. Top-Left: Number Badge (e.g. 01, 02, 03)
+    const numText = String(member.id).padStart(2, '0');
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(member.name, 68, 275);
+    ctx.fillText(numText, 68, 205);
 
-    // Top: Badge ID Code
+    // 2. Member Name (Bold and Crisp)
+    ctx.fillStyle = '#111827';
+    ctx.font = 'bold 44px "Plus Jakarta Sans", -apple-system, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(member.name, 68, 258);
+
+    // 3. Member Role (Subtle Grey under Name)
     ctx.fillStyle = '#64748b';
-    ctx.font = '500 28px "Plus Jakarta Sans", monospace';
-    ctx.fillText(member.badgeId || 'GL/EE/26/01', 68, 320);
+    ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(member.role, 68, 295);
 
-    // Center: Portrait Photo Box
+    // 4. Top-Right: Vibrant Green Diagonal Arrow ↗
+    ctx.fillStyle = '#c2e600';
+    ctx.font = 'bold 38px "Plus Jakarta Sans", sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('↗', 732, 230);
+
+    // 5. Top-Right: Badge ID Code (e.g. GL/EZ/26/01)
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '500 20px monospace';
+    ctx.textAlign = 'right';
+    const badgeCode = member.badgeId ? member.badgeId.replace('EE', 'EZ') : `GL/EZ/26/${numText}`;
+    ctx.fillText(badgeCode, 732, 268);
+    ctx.textAlign = 'left';
+
+    // Center: Portrait Photo Box (starts at Y=320)
     const photoBoxX = 68;
-    const photoBoxY = 345;
+    const photoBoxY = 320;
     const photoBoxW = 664;
-    const photoBoxH = 630;
-    const photoRadius = 20;
+    const photoBoxH = 650;
+    const photoRadius = 18;
 
     ctx.save();
     roundRect(ctx, photoBoxX, photoBoxY, photoBoxW, photoBoxH, photoRadius);
     ctx.clip();
 
     // Soft neutral grey background inside photo box
-    ctx.fillStyle = '#eef1f4';
+    ctx.fillStyle = '#f1f3f5';
     ctx.fillRect(photoBoxX, photoBoxY, photoBoxW, photoBoxH);
 
     if (photo) {
@@ -350,14 +363,30 @@ function getSharedStrapCanvas() {
   const strapCanvas = document.createElement('canvas');
   strapCanvas.width = 192;
   strapCanvas.height = 384;
-  strapCanvas._canvasId = 'gl_strap_shared';
+  strapCanvas._canvasId = 'gl_strap_shared_v9';
   const sctx = strapCanvas.getContext('2d');
   if (sctx) {
-    sctx.fillStyle = '#0f1013';
+    // Matte dark charcoal/black strap
+    sctx.fillStyle = '#0a0b0e';
     sctx.fillRect(0, 0, strapCanvas.width, strapCanvas.height);
 
-    // White GenLab pinwheel on strap
-    drawGenLabLogo(sctx, 72, 168, 48, '#ffffff');
+    // Green GenLab pinwheel on strap near clamp
+    drawGenLabLogo(sctx, 72, 280, 48, '#c2e600');
+
+    // Vertical "GenLab ✦" text on strap
+    sctx.save();
+    sctx.translate(108, 240);
+    sctx.rotate(-Math.PI / 2);
+    sctx.fillStyle = '#ffffff';
+    sctx.font = 'bold 32px "Plus Jakarta Sans", sans-serif';
+    sctx.textAlign = 'left';
+    sctx.fillText('GenLab', 0, 0);
+
+    // Gold star
+    sctx.fillStyle = '#f59e0b';
+    sctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+    sctx.fillText('✦', 125, -10);
+    sctx.restore();
   }
   sharedStrapCanvas = strapCanvas;
   return strapCanvas;
