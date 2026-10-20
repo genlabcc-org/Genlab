@@ -63,22 +63,23 @@ export default function TeamLanyardCard({ member, priority = false }) {
             finish="glossy"
             metal="silver"
             cornerRadius={0.2}
-            size={0.7}
-            strapLength={0.24}
+            size={0.72}
+            strapLength={0.3}
             strapWidth={0.62}
             gravity={1.0}
             damping={0.45}
             elasticity={0.5}
-            breeze={0.08}
+            breeze={0.06}
             interactive={true}
             intro={false}
           />
         )}
       </div>
 
-      <div className="cell-bottom-info">
-        <span className="try-dragging-text">Try dragging</span>
-        <span className="cell-member-title">{member.name} · {member.role}</span>
+      {/* Tiered Pedestal Base Display matching reference image */}
+      <div className="cell-pedestal-base">
+        <span className="pedestal-role">{member.role}</span>
+        <span className="pedestal-name">{member.name}</span>
       </div>
     </div>
   );

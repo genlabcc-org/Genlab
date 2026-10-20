@@ -64,7 +64,7 @@ export default function AboutSection() {
                 style={{
                   height: i % 7 === 0 ? '2px' : '1px',
                   width: i % 7 === 0 ? '10px' : '4px',
-                  backgroundColor: Math.abs(scrollProgress * 28 - i) < 2 ? '#6fff54' : (i % 7 === 0 ? '#929292' : '#555555')
+                  backgroundColor: Math.abs(scrollProgress * 28 - i) < 2 ? '#c2e600' : (i % 7 === 0 ? '#929292' : '#555555')
                 }}
               />
             ))}

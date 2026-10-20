@@ -12,7 +12,7 @@ export const TEAM_MEMBERS = [
     finish: 'glossy',
     metal: 'silver',
     strapColor: '#0c0f12',
-    accentColor: '#6fff54'
+    accentColor: '#c2e600'
   },
   {
     id: 2,
@@ -72,7 +72,7 @@ export const TEAM_MEMBERS = [
     finish: 'glossy',
     metal: 'silver',
     strapColor: '#0d1117',
-    accentColor: '#6fff54'
+    accentColor: '#c2e600'
   },
   {
     id: 6,
