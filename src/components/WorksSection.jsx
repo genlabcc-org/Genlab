@@ -1,66 +1,82 @@
 import React from 'react';
 
-export default function WorksSection() {
+export default function WorksSection({ showIntro = true }) {
+  const projectImages = [
+    {
+      src: '/assets/works/genlab-ai-forge/anika3.png',
+      alt: 'Anika jewelry online store displayed on a laptop',
+      className: 'works-media-main',
+    },
+    {
+      src: '/assets/works/genlab-ai-forge/anika2.png',
+      alt: 'Anika mobile shopping experience',
+      className: 'works-media-side',
+    },
+    {
+      src: '/assets/works/genlab-ai-forge/anika1.png',
+      alt: 'Anika jewelry product page on a mobile phone',
+      className: 'works-media-bottom-left',
+    },
+    {
+      src: '/assets/works/genlab-ai-forge/anika4.png',
+      alt: 'Anika commerce analytics dashboard displayed on a laptop',
+      className: 'works-media-bottom-center',
+    },
+    {
+      src: '/assets/works/genlab-ai-forge/anika5.png',
+      alt: 'Anika jewelry product catalog displayed on a laptop',
+      className: 'works-media-bottom-right',
+    },
+  ];
+
   return (
-    <section className="works-section" id="work">
-      <div className="works-inner">
-        {/* Project Header */}
+    <section className={`works-section${showIntro ? ' has-intro' : ''}`} id="work">
+      {showIntro && (
+        <div className="works-intro">
+          <img
+            className="works-intro-mark"
+            src="/genlab/Genlab.png"
+            alt="GenLab logo"
+          />
+          <div className="works-intro-content">
+            <h2 className="works-intro-title">
+              Curated <em>design</em>
+              <br />
+              <em>work</em> <span aria-hidden="true">→</span>
+              <br />
+              that works
+            </h2>
+            <p className="works-intro-description">
+              Real products, shipped for real teams. Case studies, not mood boards.
+            </p>
+          </div>
+          <span className="works-intro-scroll">Scroll to explore</span>
+        </div>
+      )}
+
+      <div className="works-inner" id="anika">
         <div className="works-header">
           <div className="works-header-left">
-            <span className="works-tag">AI Platform</span>
-            <h2 className="works-title">GenLab AI Forge &amp; Voice Agent</h2>
+            <span className="works-tag">E-commerce</span>
+            <h2 className="works-title">Anika</h2>
           </div>
           <a
-            href="https://chat.whatsapp.com/L0n2kNQfSbR3lwhmN5mNVJ"
+            href="https://www.anikafashion.in/"
             target="_blank"
             rel="noopener noreferrer"
             className="works-link-view"
           >
-            <span>View platform</span>
+            <span>View project</span>
             <span className="works-arrow">↗</span>
           </a>
         </div>
 
-        {/* Media Grid */}
         <div className="works-media-grid">
-          {/* Main Large Showcase */}
-          <div className="works-media-main">
-            <img
-              src="/genlab/images/hero-products.jpg"
-              alt="GenLab AI Showcase"
-              className="works-img"
-              loading="lazy"
-            />
-          </div>
-
-          {/* Side Media */}
-          <div className="works-media-side">
-            <img
-              src="/genlab/hero.png"
-              alt="GenLab Voice Platform"
-              className="works-img"
-              loading="lazy"
-            />
-          </div>
-
-          {/* Gallery Lower Two */}
-          <div className="works-media-bottom-left">
-            <img
-              src="/genlab/Genlab.png"
-              alt="GenLab Ecosystem"
-              className="works-img"
-              loading="lazy"
-            />
-          </div>
-
-          <div className="works-media-bottom-right">
-            <img
-              src="/genlab/images/s1_1.png"
-              alt="GenLab Launchpad"
-              className="works-img"
-              loading="lazy"
-            />
-          </div>
+          {projectImages.map(({ src, alt, className }) => (
+            <div className={`works-media-card ${className}`} key={src}>
+              <img src={src} alt={alt} className="works-img" loading="lazy" />
+            </div>
+          ))}
         </div>
       </div>
     </section>

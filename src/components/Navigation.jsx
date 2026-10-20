@@ -28,14 +28,23 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
   }, []);
 
   const handleNavClick = (e, targetId) => {
-    if (currentView === 'team' && onNavigate) {
-      e.preventDefault();
+    e.preventDefault();
+    const scrollToTarget = () => {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      if (window.location.hash !== `#${targetId}`) {
+        window.history.pushState(null, '', `#${targetId}`);
+      }
+      el.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    if (currentView !== 'portfolio' && onNavigate) {
       onNavigate('portfolio');
-      setTimeout(() => {
-        const el = document.getElementById(targetId);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      setTimeout(scrollToTarget, 100);
+      return;
     }
+
+    scrollToTarget();
   };
 
   return (
@@ -63,7 +72,10 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
       {/* 2. Work */}
       <a
         href="#work"
-        onClick={(e) => handleNavClick(e, 'work')}
+        onClick={(e) => {
+          e.preventDefault();
+          onNavigate?.('work');
+        }}
         className="nav-item-link"
       >
         Work

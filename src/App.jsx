@@ -16,14 +16,19 @@ import TeamPage from './components/TeamPage';
 
 export default function App() {
   const [currentView, setCurrentView] = useState(() => {
-    return window.location.hash === '#team' ? 'team' : 'portfolio';
+    if (window.location.hash === '#team') return 'team';
+    if (window.location.hash === '#work') return 'work';
+    return 'portfolio';
   });
 
   useEffect(() => {
     const handleHash = () => {
       if (window.location.hash === '#team') {
         setCurrentView('team');
-      } else if (window.location.hash === '' || window.location.hash === '#work') {
+      } else if (window.location.hash === '#work') {
+        setCurrentView('work');
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      } else if (window.location.hash === '') {
         setCurrentView('portfolio');
       }
     };
@@ -33,12 +38,9 @@ export default function App() {
 
   const navigateTo = (view) => {
     setCurrentView(view);
-    if (view === 'team') {
-      window.location.hash = '#team';
-    } else {
-      window.location.hash = '';
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const hash = view === 'team' || view === 'work' ? `#${view}` : '';
+    if (window.location.hash !== hash) window.location.hash = hash;
+    window.scrollTo({ top: 0, behavior: 'auto' });
   };
 
   return (
@@ -54,21 +56,29 @@ export default function App() {
           <Navigation currentView={currentView} onNavigate={navigateTo} />
 
           {/* Main Full-Experience Sections */}
-          <main>
-            <Hero />
-            <AboutSection />
-            <ShowreelSection />
-            <MetricsSection />
-            <ServicesSection />
-            <WorksSection />
-            <WorksCtaSection />
-            <TestimonialsSection />
-            <QuoteSection />
-            <PartnersSection />
-          </main>
+          {currentView === 'work' ? (
+            <main className="work-page">
+              <WorksSection />
+            </main>
+          ) : (
+            <>
+              <main>
+                <Hero />
+                <AboutSection />
+                <ShowreelSection />
+                <MetricsSection />
+                <ServicesSection />
+                <WorksSection showIntro={false} />
+                <WorksCtaSection />
+                <TestimonialsSection />
+                <QuoteSection />
+                <PartnersSection />
+              </main>
 
-          {/* Footer */}
-          <Footer />
+              {/* Footer */}
+              <Footer />
+            </>
+          )}
         </>
       )}
     </div>
