@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CustomCursor from './components/CustomCursor';
+import TargetCursor from './components/TargetCursor';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import AboutSection from './components/AboutSection';
@@ -62,8 +62,14 @@ export default function App() {
 
   return (
     <div className="portfolio-app">
-      {/* Interactive Glowing Cursor */}
-      <CustomCursor />
+      {/* Target Cursor with #c2e600 theme */}
+      <TargetCursor
+        cursorColor="#c2e600"
+        cursorColorOnTarget="#c2e600"
+        spinDuration={2}
+        hideDefaultCursor
+        parallaxOn
+      />
 
       {currentView === 'team' ? (
         <>
