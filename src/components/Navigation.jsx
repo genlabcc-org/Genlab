@@ -103,7 +103,7 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
 
       {/* 4. Shabdham AI */}
       <a
-        href="https://shabdhamai.in/"
+        href="https://fot-shabdham.vercel.app/"
         target="_blank"
         rel="noopener noreferrer"
         className="nav-item-link"

@@ -12,7 +12,8 @@ import TestimonialsSection from './components/TestimonialsSection';
 import QuoteSection from './components/QuoteSection';
 import PartnersSection from './components/PartnersSection';
 import Footer from './components/Footer';
-import TeamPage from './components/TeamPage';
+
+const TeamPage = React.lazy(() => import('./components/TeamPage'));
 
 export default function App() {
   const [currentView, setCurrentView] = useState(() => {
@@ -50,7 +51,15 @@ export default function App() {
 
       {currentView === 'team' ? (
         <>
-          <TeamPage onBackToPortfolio={() => navigateTo('portfolio')} />
+          <React.Suspense
+            fallback={
+              <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="nav-active-dot" style={{ width: '1.25rem', height: '1.25rem', background: '#c2e600' }} />
+              </div>
+            }
+          >
+            <TeamPage onBackToPortfolio={() => navigateTo('portfolio')} />
+          </React.Suspense>
           {/* Bottom Floating Navigation Bar */}
           <Navigation currentView={currentView} onNavigate={navigateTo} />
         </>
