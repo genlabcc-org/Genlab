@@ -35,7 +35,7 @@ export default function WorksCtaSection() {
   }, []);
 
   return (
-    <section className="works-cta-section" ref={sectionRef}>
+    <section className="works-cta-section" id="pricing" ref={sectionRef}>
       <div className={`works-cta-inner ${isVisible ? 'is-revealed' : ''}`}>
         {/* Line 1: Got an idea? */}
         <div className="works-cta-line cta-line-1">

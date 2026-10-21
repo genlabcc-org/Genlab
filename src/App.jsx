@@ -14,11 +14,15 @@ import PartnersSection from './components/PartnersSection';
 import Footer from './components/Footer';
 
 const TeamPage = React.lazy(() => import('./components/TeamPage'));
+const LaunchpadPage = React.lazy(() => import('./pages/LaunchPad/launch'));
+const UpskillingPage = React.lazy(() => import('./pages/Upskilling/Upskilling'));
 
 export default function App() {
   const [currentView, setCurrentView] = useState(() => {
     if (window.location.hash === '#team') return 'team';
     if (window.location.hash === '#work') return 'work';
+    if (window.location.hash === '#launchpad') return 'launchpad';
+    if (window.location.hash === '#upskilling') return 'upskilling';
     return 'portfolio';
   });
 
@@ -29,7 +33,13 @@ export default function App() {
       } else if (window.location.hash === '#work') {
         setCurrentView('work');
         window.scrollTo({ top: 0, behavior: 'auto' });
-      } else if (window.location.hash === '') {
+      } else if (window.location.hash === '#launchpad') {
+        setCurrentView('launchpad');
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      } else if (window.location.hash === '#upskilling') {
+        setCurrentView('upskilling');
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      } else if (window.location.hash === '' || window.location.hash === '#home') {
         setCurrentView('portfolio');
       }
     };
@@ -39,8 +49,10 @@ export default function App() {
 
   const navigateTo = (view) => {
     setCurrentView(view);
-    const hash = view === 'team' || view === 'work' ? `#${view}` : '';
-    if (window.location.hash !== hash) window.location.hash = hash;
+    const hash = view === 'portfolio' ? '' : `#${view}`;
+    if (window.location.hash !== hash) {
+      window.location.hash = hash;
+    }
     window.scrollTo({ top: 0, behavior: 'auto' });
   };
 
@@ -60,12 +72,43 @@ export default function App() {
           >
             <TeamPage onBackToPortfolio={() => navigateTo('portfolio')} />
           </React.Suspense>
-          {/* Bottom Floating Navigation Bar */}
           <Navigation currentView={currentView} onNavigate={navigateTo} />
+        </>
+      ) : currentView === 'launchpad' ? (
+        <>
+          <Navigation currentView={currentView} onNavigate={navigateTo} />
+          <main className="launchpad-view-page" style={{ minHeight: '100vh', background: '#010101', paddingTop: '1.5rem' }}>
+            <React.Suspense
+              fallback={
+                <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div className="nav-active-dot" style={{ width: '1.25rem', height: '1.25rem', background: '#c2e600' }} />
+                </div>
+              }
+            >
+              <LaunchpadPage onNavigate={navigateTo} />
+            </React.Suspense>
+          </main>
+          <Footer />
+        </>
+      ) : currentView === 'upskilling' ? (
+        <>
+          <Navigation currentView={currentView} onNavigate={navigateTo} />
+          <main className="upskilling-view-page" style={{ minHeight: '100vh', background: '#0b0b0b', paddingTop: '1.5rem' }}>
+            <React.Suspense
+              fallback={
+                <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div className="nav-active-dot" style={{ width: '1.25rem', height: '1.25rem', background: '#c2e600' }} />
+                </div>
+              }
+            >
+              <UpskillingPage onNavigate={navigateTo} />
+            </React.Suspense>
+          </main>
+          <Footer />
         </>
       ) : (
         <>
-          {/* iPhone Liquid Glass Morphism Navigation Bar */}
+          {/* Main Navigation Bar */}
           <Navigation currentView={currentView} onNavigate={navigateTo} />
 
           {/* Main Full-Experience Sections */}

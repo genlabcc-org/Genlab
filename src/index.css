@@ -335,6 +335,281 @@ html[data-theme='light'] .liquid-navbar.is-dock {
 }
 
 /* =========================================
+   LAUNCHPAD DROPDOWN MENU
+   - High-end Liquid Glassmorphism panel
+   - Launchpad & Upskilling Program items
+   ========================================= */
+.nav-dropdown-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-dropdown-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-dropdown-chevron {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.75;
+}
+
+.nav-dropdown-chevron.is-open {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.nav-dropdown-panel {
+  position: absolute;
+  bottom: calc(100% + 0.55rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: 290px;
+  background: rgba(14, 14, 14, 0.92);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 0.45rem;
+  box-shadow:
+    0 24px 52px -4px rgba(0, 0, 0, 0.75),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+/* Invisible bridge spanning from panel bottom to navbar trigger to prevent mouseleave dropout */
+.nav-dropdown-panel::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  right: -20px;
+  height: 1.5rem;
+  background: transparent;
+  pointer-events: auto;
+}
+
+.nav-dropdown-panel.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-panel-gloss {
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  pointer-events: none;
+}
+
+.nav-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.18s ease, transform 0.15s ease;
+  color: #ffffff;
+}
+
+.nav-dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-dropdown-item.is-active-item {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.dropdown-item-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.dropdown-item-name {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.dropdown-item-tagline {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.25;
+}
+
+.dropdown-item-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c2e600;
+  box-shadow: 0 0 8px #c2e600;
+}
+
+.nav-dropdown-sep {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0.15rem 0.4rem;
+}
+
+/* Light Theme support for desktop dropdown */
+html[data-theme='light'] .nav-dropdown-panel {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 16px 40px -8px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.9);
+}
+
+html[data-theme='light'] .nav-dropdown-item {
+  color: #121212;
+}
+
+html[data-theme='light'] .nav-dropdown-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme='light'] .dropdown-item-name {
+  color: #121212;
+}
+
+html[data-theme='light'] .dropdown-item-tagline {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+html[data-theme='light'] .nav-dropdown-sep {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* Mobile Overlay Accordion for Launchpad */
+.mobile-accordion-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.mobile-accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.mobile-accordion-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+  color: #ffffff;
+  opacity: 0.8;
+  margin-left: auto;
+}
+
+.mobile-accordion-chevron.is-open {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.mobile-subnav-panel {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 0.35rem 0.5rem 0.35rem 1.4rem;
+  gap: 0.35rem;
+  box-sizing: border-box;
+}
+
+.mobile-subnav-panel.is-expanded {
+  display: flex;
+}
+
+.mobile-subnav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.mobile-subnav-item:active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mobile-subnav-item.is-selected {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.mobile-sub-bullet {
+  font-size: 1.1rem;
+  color: #c2e600;
+}
+
+.mobile-sub-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.mobile-sub-title {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.mobile-sub-desc {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.mobile-sub-check {
+  margin-left: auto;
+  color: #c2e600;
+  font-weight: bold;
+}
+
+/* =========================================
    Hero Section
    ========================================= */
 .hero-container {
@@ -2222,7 +2497,7 @@ html[data-theme='light'] .works-intro-mark {
   user-select: none;
 }
 
-.testimonial-card {
+.testimonials-deck .testimonial-card {
   position: absolute;
   top: 0;
   left: 0;
@@ -2245,7 +2520,7 @@ html[data-theme='light'] .works-intro-mark {
   will-change: transform, opacity;
 }
 
-.testimonial-card:hover {
+.testimonials-deck .testimonial-card:hover {
   border-color: rgba(255, 255, 255, 0.28);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
 }
@@ -2945,17 +3220,378 @@ html[data-theme='light'] .works-intro-mark {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .liquid-navbar.is-hero {
-    padding: 0 1rem;
+  .works-intro-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
   }
 
-  .liquid-navbar.is-dock {
-    padding: 0.35rem 0.5rem;
+  .hero-container {
+    padding: 5rem 1.25rem 6.5rem;
+    min-height: 100svh;
+    justify-content: center;
+    overflow-x: hidden;
   }
 
-  .nav-item-link {
+  .hero-headline-wrap {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 1rem;
+    gap: 0.35rem;
+  }
+
+  .hero-row {
+    white-space: normal;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .row-1,
+  .row-2,
+  .row-3 {
+    padding-left: 0;
+    justify-content: flex-start;
+  }
+
+  .row-4 {
+    padding-right: 0;
+    justify-content: flex-start;
+    margin-top: 0.6rem;
+  }
+
+  .hero-text-sans {
+    font-size: clamp(2rem, 8.5vw, 2.75rem);
+    line-height: 1.1;
+  }
+
+  .hero-text-display {
+    font-size: clamp(2.15rem, 9.2vw, 3rem);
+    line-height: 1.1;
+  }
+
+  .split-text-line {
+    white-space: normal;
+  }
+
+  .hero-taglines-wrap {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .hero-tagline-col {
+    max-width: 100%;
+    width: 100%;
     font-size: 0.88rem;
-    padding: 0.35rem 0.5rem;
+    line-height: 1.55;
+  }
+
+  .hero-logo-wrap {
+    top: 1.8rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .showreel-section {
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  .showreel-stage {
+    border-radius: 1rem;
+  }
+
+  /* Desktop Navbar Hidden on Mobile */
+  .desktop-only-navbar {
+    display: none !important;
+  }
+}
+
+/* =========================================
+   MOBILE FLOATING PILL NAVBAR (< 768px)
+   Matches Reference Image 1: [ ☼  Home  = ]
+   ========================================= */
+.mobile-bottom-dock {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-dock {
+    display: flex;
+    position: fixed;
+    bottom: 2rem;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    pointer-events: auto;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .mobile-bottom-dock.is-hidden-by-overlay {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 15px);
+  }
+
+  .mobile-pill-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 0.4rem 1.1rem;
+    background: rgba(14, 14, 14, 0.78);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 14px;
+    box-shadow:
+      0 16px 36px -4px rgba(0, 0, 0, 0.65),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.35);
+    height: 44px;
+    box-sizing: border-box;
+  }
+
+  html[data-theme='light'] .mobile-pill-bar {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(0, 0, 0, 0.14);
+    box-shadow:
+      0 12px 30px -4px rgba(0, 0, 0, 0.12),
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95);
+  }
+
+  .mobile-pill-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    transition: opacity 0.2s ease, transform 0.15s ease;
+  }
+
+  html[data-theme='light'] .mobile-pill-btn {
+    color: #121212;
+  }
+
+  .mobile-pill-btn:active {
+    transform: scale(0.94);
+  }
+
+  .mobile-theme-toggle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+  }
+
+  .mobile-icon-img {
+    width: 17px;
+    height: 17px;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+  }
+
+  html[data-theme='light'] .mobile-icon-img {
+    filter: brightness(0);
+  }
+
+  .mobile-section-label {
+    font-size: 0.95rem;
+    font-weight: 450;
+    letter-spacing: -0.01em;
+    padding: 0 0.4rem;
+    white-space: nowrap;
+  }
+
+  .mobile-hamburger-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+  }
+
+  .mobile-hamburger-btn .ham-line {
+    display: block;
+    width: 18px;
+    height: 1.8px;
+    background-color: #ffffff;
+    border-radius: 9999px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  html[data-theme='light'] .mobile-hamburger-btn .ham-line {
+    background-color: #121212;
+  }
+}
+
+/* =========================================
+   MOBILE FULLSCREEN MENU OVERLAY (< 768px)
+   Matches Reference Image 2:
+   - Pitch black background
+   - Centered folded flag logo at top
+   - Active item in white bar with serif font & eye icon
+   - Other items in white sans-serif
+   ========================================= */
+.mobile-menu-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-overlay {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background: #000000;
+    z-index: 2000;
+    overflow-y: auto;
+    overflow-x: hidden;
+    animation: mobileOverlayFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    padding-bottom: 3rem;
+    box-sizing: border-box;
+  }
+
+  @keyframes mobileOverlayFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .mobile-overlay-top {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 2.8rem 1.5rem 3.5rem;
+    box-sizing: border-box;
+  }
+
+  .mobile-overlay-logo-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+  }
+
+  .mobile-overlay-logo-link:active {
+    transform: scale(0.94);
+  }
+
+  .mobile-overlay-brand-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 16px rgba(255, 255, 255, 0.15));
+  }
+
+  .mobile-overlay-close-btn {
+    position: absolute;
+    right: 1.5rem;
+    top: 2.8rem;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    opacity: 0.8;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+  }
+
+  .mobile-overlay-close-btn:hover {
+    opacity: 1;
+  }
+
+  .mobile-overlay-close-btn:active {
+    transform: scale(0.9);
+  }
+
+  .mobile-overlay-nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .mobile-overlay-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.95rem 1.6rem;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 1.45rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    background: transparent;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .mobile-overlay-link:active {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Active Row (Exact match to Reference Image 2) */
+  .mobile-overlay-link.is-active-row {
+    background: #ffffff;
+    color: #000000;
+    padding: 0.85rem 1.6rem;
+  }
+
+  .mobile-overlay-link.is-active-row .mobile-overlay-text {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 1.95rem;
+    font-weight: 400;
+    color: #000000;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .mobile-overlay-eye-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 18px;
+    margin-left: auto;
+  }
+
+  .mobile-overlay-eye-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0); /* Black eye silhouette */
+  }
+
+  .mobile-overlay-arrow {
+    font-size: 1.4rem;
+    line-height: 1;
+    margin-left: 0.25rem;
+    color: #ffffff;
+    opacity: 0.9;
   }
 }
 
