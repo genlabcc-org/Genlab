@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function AboutSection() {
   const sectionRef = useRef(null);
@@ -9,7 +9,7 @@ export default function AboutSection() {
     [
       {
         type: 'text',
-        value: 'GenLab is a team of young engineers, designers and AI specialists',
+        value: 'We grew up on the internet, so we build like it. GenLab is a team of young engineers, designers and AI specialists',
       },
       {
         type: 'glyph',
@@ -107,13 +107,8 @@ export default function AboutSection() {
       if (!el) return;
       const rect = el.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-
-      // Start revealing as section enters the viewport, completing as it reaches top
-      const startOffset = windowHeight * 0.85;
-      const endOffset = windowHeight * 0.15;
-      const totalDistance = rect.height + (startOffset - endOffset);
-      const currentDistance = startOffset - rect.top;
-      const progress = Math.min(1, Math.max(0, currentDistance / totalDistance));
+      
+      const progress = Math.min(1, Math.max(0, (windowHeight - rect.top) / (rect.height + windowHeight * 0.4)));
       setScrollProgress(progress);
     };
 
@@ -126,83 +121,25 @@ export default function AboutSection() {
     <section className="about-section" id="about" ref={sectionRef}>
       <div className="about-inner">
         <div className="about-text-wrap">
-          {processedParagraphs.map((paragraph, pIdx) => (
-            <p className="about-flow-text" key={pIdx}>
-              {paragraph.map((block, bIdx) => {
-                if (block.type === 'text') {
-                  return (
-                    <React.Fragment key={bIdx}>
-                      {block.items.map((item, iIdx) => {
-                        const threshold = (item.step + 1) / (totalSteps + 1);
-                        const isRevealed = scrollProgress >= threshold;
-                        return (
-                          <React.Fragment key={iIdx}>
-                            <span
-                              className="about-word"
-                              style={{ opacity: isRevealed ? 1 : 0.22 }}
-                            >
-                              {item.word}
-                            </span>
-                            {' '}
-                          </React.Fragment>
-                        );
-                      })}
-                    </React.Fragment>
-                  );
-                }
+          {aboutWords.map((words, paragraphIndex) => (
+            <p className="about-flow-text" key={paragraphIndex}>
+              {words.map((word, wordIndex) => {
+                const wordPosition = aboutWords
+                  .slice(0, paragraphIndex)
+                  .reduce((total, previousWords) => total + previousWords.length, 0) + wordIndex;
+                const revealThreshold = (wordPosition + 1) / totalWords;
 
-                if (block.type === 'underline') {
-                  const endThreshold = (block.endStep + 1) / (totalSteps + 1);
-                  const isUnderlineRevealed = scrollProgress >= endThreshold;
-                  return (
-                    <React.Fragment key={bIdx}>
-                      <span className="about-u-wrap">
-                        {block.items.map((item, iIdx) => {
-                          const threshold = (item.step + 1) / (totalSteps + 1);
-                          const isRevealed = scrollProgress >= threshold;
-                          return (
-                            <React.Fragment key={iIdx}>
-                              <span
-                                className="about-word"
-                                style={{ opacity: isRevealed ? 1 : 0.22 }}
-                              >
-                                {item.word}
-                              </span>
-                              {iIdx < block.items.length - 1 ? ' ' : ''}
-                            </React.Fragment>
-                          );
-                        })}
-                        <span
-                          className="about-u-bar"
-                          style={{
-                            transform: isUnderlineRevealed ? 'scaleX(1)' : 'scaleX(0)',
-                          }}
-                        />
-                      </span>
-                      {' '}
-                    </React.Fragment>
-                  );
-                }
-
-                if (block.type === 'glyph') {
-                  const threshold = (block.step + 1) / (totalSteps + 1);
-                  const isRevealed = scrollProgress >= threshold;
-                  return (
+                return (
+                  <React.Fragment key={`${paragraphIndex}-${wordIndex}`}>
                     <span
-                      key={bIdx}
-                      className="about-glyph-container"
-                      style={{
-                        opacity: isRevealed ? 1 : 0.25,
-                        transform: isRevealed ? 'scale(1)' : 'scale(0.85)',
-                      }}
-                      aria-hidden="true"
+                      className="about-word"
+                      style={{ opacity: scrollProgress >= revealThreshold ? 1 : 0.25 }}
                     >
-                      <span className={`about-glyph ${block.className}`} />
+                      {word}
                     </span>
-                  );
-                }
-
-                return null;
+                    {wordIndex < words.length - 1 ? ' ' : ''}
+                  </React.Fragment>
+                );
               })}
             </p>
           ))}
@@ -218,21 +155,14 @@ export default function AboutSection() {
                 style={{
                   height: i % 7 === 0 ? '2px' : '1px',
                   width: i % 7 === 0 ? '10px' : '4px',
-                  backgroundColor:
-                    Math.abs(scrollProgress * 28 - i) < 2
-                      ? 'var(--green)'
-                      : i % 7 === 0
-                      ? '#929292'
-                      : '#555555',
+                  backgroundColor: Math.abs(scrollProgress * 28 - i) < 2 ? '#c2e600' : (i % 7 === 0 ? '#929292' : '#555555')
                 }}
               />
             ))}
           </div>
           <div
             className="about-rail-indicator"
-            style={{
-              top: `${Math.min(95, Math.max(0, scrollProgress * 100))}%`,
-            }}
+            style={{ top: `${Math.min(95, Math.max(0, scrollProgress * 100))}%` }}
           />
         </div>
       </div>
