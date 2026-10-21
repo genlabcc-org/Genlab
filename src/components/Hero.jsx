@@ -79,7 +79,7 @@ export default function Hero() {
         </p>
 
         <p className="hero-tagline-col tagline-right">
-          Engineering for startups, scale-ups and enterprises. Based in Nagercoil and Bengaluru.
+          Engineering for startups, scale-ups and enterprises. Based in <a href="/ai-company-nagercoil" style={{ color: 'inherit', textDecoration: 'none' }}>Nagercoil</a> and Bengaluru.
         </p>
       </div>
 

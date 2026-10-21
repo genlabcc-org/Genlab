@@ -109,7 +109,7 @@ export default function Launchpad({ onNavigate }) {
             </div>
 
             <div className='launch-img'>
-                <img ref={imgRef} src={launchpadImg} alt="Launchpad" />
+                <img ref={imgRef} src={launchpadImg} alt="GenLab Launchpad AI upskilling and career accelerator" />
             </div>
 
             <Journey/>
@@ -122,24 +122,24 @@ export default function Launchpad({ onNavigate }) {
 
                 <div className='launch-partners'>
                     <div className='partner-one'>
-                        <img src={vit} alt='VIT'></img>
-                        <img src={arunachala} alt='Arunachala'></img>
-                        <img src={sns} alt='SNS'></img>
-                        <img src={hindi} alt='Hindi'></img>
-                        <img src={telugu} alt='Telugu'></img>
-                        <img src={sit} alt='SIT'></img>
-                        <img src={christ} alt='Christ'></img>
-                        <img src={fatima} alt='Fatima'></img>
-                        <img src={fx} alt='FX'></img>
-                        <img src={sm} alt='SM'></img>
-                        <img src={niche} alt='Niche'></img>
-                        <img src={xavier} alt='Xavier'></img>
-                        <img src={dmi} alt='DMI'></img>
-                        <img src={mt} alt='MT'></img>
-                        <img src={scad} alt='SCAD'></img>
-                        <img src={appa} alt='APPA'></img>
-                        <img src={av} alt='AV'></img>
-                        <img src={sree} alt='Sree'></img>
+                        <img src={vit} alt='Vellore Institute of Technology (VIT) partner'></img>
+                        <img src={arunachala} alt='Arunachala College of Engineering partner'></img>
+                        <img src={sns} alt='SNS College of Technology partner'></img>
+                        <img src={hindi} alt='Hindusthan Educational Institutions partner'></img>
+                        <img src={telugu} alt='Institution partner'></img>
+                        <img src={sit} alt='Sethu Institute of Technology partner'></img>
+                        <img src={christ} alt='Christ College of Engineering partner'></img>
+                        <img src={fatima} alt='Fatima Michael College partner'></img>
+                        <img src={fx} alt='Francis Xavier Engineering College partner'></img>
+                        <img src={sm} alt='Stella Marys College of Engineering partner'></img>
+                        <img src={niche} alt='Noorul Islam Centre for Higher Education NICHE partner'></img>
+                        <img src={xavier} alt='St. Xavier Catholic College of Engineering partner'></img>
+                        <img src={dmi} alt='DMI College of Engineering partner'></img>
+                        <img src={mt} alt='Mar Ephraem College of Engineering partner'></img>
+                        <img src={scad} alt='SCAD College of Engineering partner'></img>
+                        <img src={appa} alt='Loyola Institute of Technology partner'></img>
+                        <img src={av} alt='Annai Vailankanni College of Engineering partner'></img>
+                        <img src={sree} alt='Sree Sastha Institute partner'></img>
                     </div>
                 </div>
 
@@ -147,8 +147,8 @@ export default function Launchpad({ onNavigate }) {
                     <h2>Our Events</h2>
                     <div className="launch-ev-img">
                         <div className="ev-row ev-row-left">
-                            <img className="ev-img ev-img-small" src={event1} alt="event1" />
-                            <img className="ev-img ev-img-big" src={event2} alt="event2" />
+                            <img className="ev-img ev-img-small" src={event1} alt="GenLab AI Summit presentation in India" />
+                            <img className="ev-img ev-img-big" src={event2} alt="GenLab AI Summit keynote hall and attendees" />
                             <div className="ev-text">
                                 <h3>AI Summit</h3>
                                 <p>We bring our AI Summit to cities like Bengaluru, Coimbatore, and beyond to accelerate developer and student adoption across India's growing AI future.</p>
@@ -156,8 +156,8 @@ export default function Launchpad({ onNavigate }) {
                         </div>
 
                         <div className="ev-row ev-row-right">
-                            <img className="ev-img ev-img-big" src={event3} alt="event3" />
-                            <img className="ev-img ev-img-small" src={event4} alt="event4" />
+                            <img className="ev-img ev-img-big" src={event3} alt="GenLab National Hackathon coding session" />
+                            <img className="ev-img ev-img-small" src={event4} alt="GenLab Hackathon participants collaborating on AI models" />
                             <div className="ev-text">
                                 <h3>Hackathon</h3>
                                 <p>Our Hackathons bring together students across cities in India to develop innovative AI solutions that define the next era of Indian tech.</p>
@@ -165,8 +165,8 @@ export default function Launchpad({ onNavigate }) {
                         </div>
 
                         <div className="ev-row ev-row-left">
-                            <img className="ev-img ev-img-small" src={event5} alt="event5" />
-                            <img className="ev-img ev-img-big" src={event6} alt="event6" />
+                            <img className="ev-img ev-img-small" src={event5} alt="GenLab developer bootcamp hands-on workshop" />
+                            <img className="ev-img ev-img-big" src={event6} alt="GenLab AI bootcamp interactive coding mentor session" />
                             <div className="ev-text">
                                 <h3>Bootcamp</h3>
                                 <p>Our Bootcamps are built for beginners!
@@ -175,8 +175,8 @@ export default function Launchpad({ onNavigate }) {
                         </div>
 
                         <div className="ev-row ev-row-right">
-                            <img className="ev-img ev-img-big" src={event7} alt="event7" />
-                            <img className="ev-img ev-img-small" src={event8} alt="event8" />
+                            <img className="ev-img ev-img-big" src={event7} alt="GenLab student startup incubation pitch day" />
+                            <img className="ev-img ev-img-small" src={event8} alt="GenLab student founders and mentors networking session" />
                             <div className="ev-text">
                                 <h3>Incubation</h3>
                                 <p>We support early-stage student startups by providing funding, mentorship, infrastructure, and networking opportunities to help great ideas grow into real businesses.</p>
@@ -188,9 +188,9 @@ export default function Launchpad({ onNavigate }) {
 
             <div className="launch-achieve">
                 <div className="achieve-img">
-                    <img src={achieve1} alt='achieve1'></img>
-                    <img src={achieve2} alt='achieve2'></img>
-                    <img src={achieve3} alt='achieve3' ></img>
+                    <img src={achieve1} alt='GenLab learner career placement achievement'></img>
+                    <img src={achieve2} alt='GenLab team and student project milestone'></img>
+                    <img src={achieve3} alt='GenLab industry recognition and award' ></img>
                 </div>
             </div>
 

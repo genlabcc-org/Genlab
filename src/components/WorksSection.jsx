@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const anikaImages = [
   {
@@ -163,6 +163,28 @@ const projects = [
 
 export default function WorksSection({ showIntro = true }) {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [activeLightbox, setActiveLightbox] = useState(null);
+
+  useEffect(() => {
+    if (!activeLightbox) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setActiveLightbox(null);
+      if (e.key === 'ArrowRight') {
+        setActiveLightbox((prev) => prev ? {
+          ...prev,
+          currentIndex: (prev.currentIndex + 1) % prev.images.length,
+        } : null);
+      }
+      if (e.key === 'ArrowLeft') {
+        setActiveLightbox((prev) => prev ? {
+          ...prev,
+          currentIndex: (prev.currentIndex - 1 + prev.images.length) % prev.images.length,
+        } : null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeLightbox]);
 
   const filteredProjects = projects.filter((p) => {
     if (activeCategory === 'all') return true;
@@ -236,35 +258,55 @@ export default function WorksSection({ showIntro = true }) {
         {filteredProjects.map((project) => (
           <div className="works-inner" id={project.id} key={project.id}>
             <div className="works-header">
-              <div className="works-header-left">
-                <span className="works-tag">{project.tag}</span>
+              <span className="works-tag">{project.tag}</span>
+              <div className="works-title-row">
                 <h2 className="works-title">{project.title}</h2>
-                {project.subtitle && (
-                  <p className="works-subtitle">{project.subtitle}</p>
-                )}
-                {project.description && (
-                  <p className="works-description-text">{project.description}</p>
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="works-link-view"
+                  >
+                    <span>{project.linkLabel}</span>
+                    <span className="works-arrow">↗</span>
+                  </a>
                 )}
               </div>
-              {project.link && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="works-link-view"
-                >
-                  <span>{project.linkLabel}</span>
-                  <span className="works-arrow">↗</span>
-                </a>
+              {project.subtitle && (
+                <p className="works-subtitle">{project.subtitle}</p>
+              )}
+              {project.description && (
+                <p className="works-description-text">{project.description}</p>
               )}
             </div>
 
-            {/* E-Commerce Media Grid (Anika & Faywalk) */}
+            {/* Media Grid */}
             {project.type === 'grid' && (
               <div className="works-media-grid">
-                {project.images.map(({ src, alt, className }) => (
-                  <div className={`works-media-card ${className}`} key={src}>
+                {project.images.map(({ src, alt, className }, idx) => (
+                  <div
+                    className={`works-media-card ${className}`}
+                    key={src}
+                    onClick={() => setActiveLightbox({
+                      images: project.images,
+                      currentIndex: idx,
+                      projectTitle: project.title,
+                    })}
+                    role="button"
+                    tabIndex={0}
+                    title="Click to view full image"
+                    aria-label={`View full image of ${alt}`}
+                  >
                     <img src={src} alt={alt} className="works-img" loading="lazy" decoding="async" />
+                    <span className="works-media-zoom-hint" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="11" cy="11" r="7" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        <line x1="11" y1="8" x2="11" y2="14" />
+                        <line x1="8" y1="11" x2="14" y2="11" />
+                      </svg>
+                    </span>
                   </div>
                 ))}
               </div>
@@ -306,6 +348,79 @@ export default function WorksSection({ showIntro = true }) {
           </div>
         ))}
       </div>
+
+      {/* Full Image Lightbox Modal */}
+      {activeLightbox && (
+        <div
+          className="works-lightbox-overlay"
+          onClick={() => setActiveLightbox(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="works-lightbox-modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="works-lightbox-close"
+              onClick={() => setActiveLightbox(null)}
+              aria-label="Close full image view"
+            >
+              ✕
+            </button>
+
+            {activeLightbox.images.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  className="works-lightbox-nav prev"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveLightbox((prev) => ({
+                      ...prev,
+                      currentIndex: (prev.currentIndex - 1 + prev.images.length) % prev.images.length,
+                    }));
+                  }}
+                  aria-label="Previous image"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  className="works-lightbox-nav next"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveLightbox((prev) => ({
+                      ...prev,
+                      currentIndex: (prev.currentIndex + 1) % prev.images.length,
+                    }));
+                  }}
+                  aria-label="Next image"
+                >
+                  ›
+                </button>
+              </>
+            )}
+
+            <div className="works-lightbox-img-wrap">
+              <img
+                src={activeLightbox.images[activeLightbox.currentIndex].src}
+                alt={activeLightbox.images[activeLightbox.currentIndex].alt}
+                className="works-lightbox-img"
+              />
+            </div>
+
+            <div className="works-lightbox-footer">
+              <span className="works-lightbox-title">
+                <strong>{activeLightbox.projectTitle}</strong> · {activeLightbox.images[activeLightbox.currentIndex].alt}
+              </span>
+              {activeLightbox.images.length > 1 && (
+                <span className="works-lightbox-counter">
+                  {activeLightbox.currentIndex + 1} / {activeLightbox.images.length}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

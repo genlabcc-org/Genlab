@@ -88,9 +88,9 @@ export default function Launch({ compact = false, scrollDistanceScale = 1 }) {
             <div className="journey-glow glow-1"></div>
             <div className="journey-glow glow-2"></div>
 
-            <h1 className="journey-hero__title">
+            <h2 className="journey-hero__title">
               Journey<br />Of Our<br />Learners
-            </h1>
+            </h2>
 
             <div className="journey-hero__line"></div>
 

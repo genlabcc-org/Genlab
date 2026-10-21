@@ -16,42 +16,46 @@ import Footer from './components/Footer';
 const TeamPage = React.lazy(() => import('./components/TeamPage'));
 const LaunchpadPage = React.lazy(() => import('./pages/LaunchPad/launch'));
 const UpskillingPage = React.lazy(() => import('./pages/Upskilling/Upskilling'));
+const AiCompanyNagercoil = React.lazy(() => import('./pages/LocalSEO/AiCompanyNagercoil'));
+
+function resolveCurrentView() {
+  if (typeof window === 'undefined') return 'portfolio';
+  const path = window.location.pathname.replace(/\/$/, '');
+  const hash = window.location.hash;
+
+  if (path === '/ai-company-nagercoil' || hash === '#ai-company-nagercoil') return 'local-nagercoil';
+  if (path === '/team' || hash === '#team') return 'team';
+  if (path === '/work' || hash === '#work') return 'work';
+  if (path === '/launchpad' || hash === '#launchpad') return 'launchpad';
+  if (path === '/upskilling' || hash === '#upskilling') return 'upskilling';
+  return 'portfolio';
+}
 
 export default function App() {
-  const [currentView, setCurrentView] = useState(() => {
-    if (window.location.hash === '#team') return 'team';
-    if (window.location.hash === '#work') return 'work';
-    if (window.location.hash === '#launchpad') return 'launchpad';
-    if (window.location.hash === '#upskilling') return 'upskilling';
-    return 'portfolio';
-  });
+  const [currentView, setCurrentView] = useState(resolveCurrentView);
 
   useEffect(() => {
-    const handleHash = () => {
-      if (window.location.hash === '#team') {
-        setCurrentView('team');
-      } else if (window.location.hash === '#work') {
-        setCurrentView('work');
-        window.scrollTo({ top: 0, behavior: 'auto' });
-      } else if (window.location.hash === '#launchpad') {
-        setCurrentView('launchpad');
-        window.scrollTo({ top: 0, behavior: 'auto' });
-      } else if (window.location.hash === '#upskilling') {
-        setCurrentView('upskilling');
-        window.scrollTo({ top: 0, behavior: 'auto' });
-      } else if (window.location.hash === '' || window.location.hash === '#home') {
-        setCurrentView('portfolio');
-      }
+    const handleLocationChange = () => {
+      const nextView = resolveCurrentView();
+      setCurrentView(nextView);
     };
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+
+    window.addEventListener('hashchange', handleLocationChange);
+    window.addEventListener('popstate', handleLocationChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleLocationChange);
+      window.removeEventListener('popstate', handleLocationChange);
+    };
   }, []);
 
   const navigateTo = (view) => {
     setCurrentView(view);
+    const path = view === 'portfolio' ? '/' : `/${view}`;
     const hash = view === 'portfolio' ? '' : `#${view}`;
-    if (window.location.hash !== hash) {
-      window.location.hash = hash;
+
+    if (window.location.pathname !== path && window.location.hash !== hash) {
+      window.history.pushState(null, '', path);
     }
     window.scrollTo({ top: 0, behavior: 'auto' });
   };
@@ -106,6 +110,16 @@ export default function App() {
           </main>
           <Footer />
         </>
+      ) : currentView === 'local-nagercoil' ? (
+        <React.Suspense
+          fallback={
+            <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div className="nav-active-dot" style={{ width: '1.25rem', height: '1.25rem', background: '#c2e600' }} />
+            </div>
+          }
+        >
+          <AiCompanyNagercoil onNavigate={navigateTo} />
+        </React.Suspense>
       ) : (
         <>
           {/* Main Navigation Bar */}
