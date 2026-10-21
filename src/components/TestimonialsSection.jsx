@@ -17,24 +17,34 @@ export default function TestimonialsSection() {
         "We're native to the tools and habits shaping modern products: AI-assisted development, fast iteration and mobile-first design. Combined with disciplined engineering practices, that means shorter timelines without cutting corners.",
     },
     {
-      question: 'How long does it take to build an MVP?',
-      answer:
-        "MVP timelines depend on scope. After a short discovery call, we'll provide a clear plan and timeline.",
+      question: 'What we believe',
+      items: [
+        { lead: 'Ship, then polish.', text: 'Working software beats perfect slide decks.' },
+        { lead: 'Be honest early.', text: 'Bad news is cheaper on day one than on launch day.' },
+        { lead: 'Stay curious.', text: 'We learn new tools fast and use AI where it truly helps.' },
+        { lead: 'Own the outcome.', text: 'Every project has a named person accountable for it.' },
+        { lead: 'Build for people.', text: 'Accessibility, performance and clarity come before cleverness.' },
+      ],
     },
     {
-      question: 'Do you work with international clients?',
-      answer:
-        'Yes. We work across time zones, with overlap hours, async updates and weekly demos as standard.',
+      question: 'How we work',
+      ordered: true,
+      items: [
+        { lead: 'Discover.', text: 'We learn your users, goals and constraints in a short, focused kickoff.' },
+        { lead: 'Design.', text: 'Wireframes and prototypes you can click before we write production code.' },
+        { lead: 'Build.', text: 'Weekly sprints, weekly demos, full access to the repo and the board.' },
+        { lead: 'Launch.', text: 'QA, performance tuning and a smooth release.' },
+        { lead: 'Grow.', text: 'Monitoring, iteration and support as your product evolves.' },
+      ],
     },
     {
-      question: 'What technologies do you use?',
-      answer:
-        "React, Next.js, Node.js, Python, Flutter, React Native, AWS, GCP, Azure and modern LLM platforms. We pick the stack that fits your product, not the one we prefer.",
-    },
-    {
-      question: 'Can you take over an existing codebase?',
-      answer:
-        'Yes. We start with a code and architecture review, then stabilize, document and extend what you have.',
+      question: 'Who we build for',
+      items: [
+        { lead: 'Startups and founders:', text: 'MVPs, prototypes and first-version products.' },
+        { lead: 'Scale-ups:', text: 'Feature velocity, platform rebuilds and extra engineering capacity.' },
+        { lead: 'Enterprises:', text: 'AI pilots, modernization and dedicated product squads.' },
+        { lead: 'Agencies and consultancies:', text: 'White-label development and overflow delivery.' },
+      ],
     },
   ];
 
@@ -94,7 +104,7 @@ export default function TestimonialsSection() {
             <h2 className="testimonials-heading">Frequently asked questions</h2>
 
             <p className="testimonials-desc">
-              Answers to common questions about working with GenLab.
+              Our values, process and the people we work with.
             </p>
 
             <div className="testimonials-plus-wrap">
@@ -102,7 +112,7 @@ export default function TestimonialsSection() {
                 type="button"
                 className="testimonials-plus-btn"
                 onClick={handleNext}
-                aria-label="Next frequently asked question"
+                aria-label="Next GenLab information card"
               >
                 <span className="plus-symbol">+</span>
               </button>
@@ -113,7 +123,7 @@ export default function TestimonialsSection() {
             className="testimonials-deck"
             onClick={handleNext}
             role="region"
-            aria-label="Frequently asked questions"
+            aria-label="GenLab values, process and audience"
           >
             {faqs.map((faq, idx) => {
               const isCurrent = idx === activeIndex;
@@ -161,7 +171,16 @@ export default function TestimonialsSection() {
                   aria-hidden={!isCurrent}
                 >
                   <h3 className="testimonial-quote">{faq.question}</h3>
-                  <p className="faq-answer">{faq.answer}</p>
+                  {faq.answer && <p className="faq-answer">{faq.answer}</p>}
+                  {faq.items && (
+                    <ul className={`faq-points${faq.ordered ? ' is-ordered' : ''}`}>
+                      {faq.items.map((item) => (
+                        <li key={item.lead}>
+                          <strong>{item.lead}</strong> {item.text}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </article>
               );
             })}
