@@ -161,7 +161,7 @@ const projects = [
   },
 ];
 
-export default function WorksSection({ showIntro = true }) {
+export default function WorksSection({ showIntro = true, showFilterNav = true }) {
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeLightbox, setActiveLightbox] = useState(null);
 
@@ -214,44 +214,45 @@ export default function WorksSection({ showIntro = true }) {
         </div>
       )}
 
-      {/* Product Filter & Jump Bar */}
-      <div className="works-filter-nav">
-        <div className="works-filter-pills" role="tablist" aria-label="Filter products by category">
-          <button
-            type="button"
-            className={`works-filter-btn ${activeCategory === 'all' ? 'is-active' : ''}`}
-            onClick={() => setActiveCategory('all')}
-          >
-            <span>All Works</span>
-            <span className="filter-count">5</span>
-          </button>
-          <button
-            type="button"
-            className={`works-filter-btn ${activeCategory === 'ecommerce' ? 'is-active' : ''}`}
-            onClick={() => setActiveCategory('ecommerce')}
-          >
-            <span>E-Commerce</span>
-            <span className="filter-count">2</span>
-          </button>
-          <button
-            type="button"
-            className={`works-filter-btn ${activeCategory === 'website' ? 'is-active' : ''}`}
-            onClick={() => setActiveCategory('website')}
-          >
-            <span>Websites</span>
-            <span className="filter-count">3</span>
-          </button>
-        </div>
+      {showFilterNav && (
+        <div className="works-filter-nav">
+          <div className="works-filter-pills" role="tablist" aria-label="Filter products by category">
+            <button
+              type="button"
+              className={`works-filter-btn ${activeCategory === 'all' ? 'is-active' : ''}`}
+              onClick={() => setActiveCategory('all')}
+            >
+              <span>All Works</span>
+              <span className="filter-count">5</span>
+            </button>
+            <button
+              type="button"
+              className={`works-filter-btn ${activeCategory === 'ecommerce' ? 'is-active' : ''}`}
+              onClick={() => setActiveCategory('ecommerce')}
+            >
+              <span>E-Commerce</span>
+              <span className="filter-count">2</span>
+            </button>
+            <button
+              type="button"
+              className={`works-filter-btn ${activeCategory === 'website' ? 'is-active' : ''}`}
+              onClick={() => setActiveCategory('website')}
+            >
+              <span>Websites</span>
+              <span className="filter-count">3</span>
+            </button>
+          </div>
 
-        {/* Quick jump anchor links */}
-        <div className="works-jump-links" aria-label="Quick jump to project">
-          {filteredProjects.map((p) => (
-            <a key={p.id} href={`#${p.id}`} className="works-jump-pill">
-              {p.title}
-            </a>
-          ))}
+          {/* Quick jump anchor links */}
+          <div className="works-jump-links" aria-label="Quick jump to project">
+            {filteredProjects.map((p) => (
+              <a key={p.id} href={`#${p.id}`} className="works-jump-pill">
+                {p.title}
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Render Product List */}
       <div className="works-list">

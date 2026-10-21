@@ -138,7 +138,7 @@ export default function App() {
                 <ShowreelSection />
                 <MetricsSection />
                 <ServicesSection />
-                <WorksSection showIntro={false} />
+                <WorksSection showIntro={false} showFilterNav={false} />
                 <WorksCtaSection />
                 <TestimonialsSection />
                 <QuoteSection />
