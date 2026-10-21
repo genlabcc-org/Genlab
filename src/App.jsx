@@ -128,7 +128,7 @@ export default function App() {
           {/* Main Full-Experience Sections */}
           {currentView === 'work' ? (
             <main className="work-page">
-              <WorksSection />
+              <WorksSection onNavigate={navigateTo} />
             </main>
           ) : (
             <>
@@ -138,7 +138,7 @@ export default function App() {
                 <ShowreelSection />
                 <MetricsSection />
                 <ServicesSection />
-                <WorksSection showIntro={false} showFilterNav={false} />
+                <WorksSection showIntro={false} showFilterNav={false} limit={3} onNavigate={navigateTo} />
                 <WorksCtaSection />
                 <TestimonialsSection />
                 <QuoteSection />

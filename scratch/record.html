@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Lottie Recorder</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <style>
+    body { margin: 0; background: #000; overflow: hidden; }
+    #container { width: 1600px; height: 1200px; }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+    async function init() {
+      const res = await fetch('/public/assets/Scene (1).json');
+      const data = await res.json();
+      
+      const anim = lottie.loadAnimation({
+        container: document.getElementById('container'),
+        renderer: 'canvas',
+        loop: false,
+        autoplay: false,
+        animationData: data
+      });
+
+      anim.addEventListener('DOMLoaded', () => {
+        const canvas = document.querySelector('canvas');
+        if (!canvas) {
+          console.error("Canvas not found");
+          return;
+        }
+
+        const stream = canvas.captureStream(60);
+        let mimeType = 'video/webm;codecs=vp9';
+        if (!MediaRecorder.isTypeSupported(mimeType)) {
+          mimeType = 'video/webm';
+        }
+
+        const recorder = new MediaRecorder(stream, {
+          mimeType: mimeType,
+          videoBitsPerSecond: 15000000 // 15 Mbps for crisp quality
+        });
+
+        const chunks = [];
+        recorder.ondataavailable = e => {
+          if (e.data.size > 0) chunks.push(e.data);
+        };
+
+        recorder.onstop = async () => {
+          const blob = new Blob(chunks, { type: 'video/webm' });
+          console.log("Recorded blob size:", blob.size);
+          await fetch('/save_video', {
+            method: 'POST',
+            body: blob
+          });
+          document.body.innerHTML += '<h1 style="color:white">DONE</h1>';
+          window.recordingFinished = true;
+        };
+
+        recorder.start();
+        anim.play();
+
+        anim.addEventListener('complete', () => {
+          setTimeout(() => {
+            recorder.stop();
+          }, 300);
+        });
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>

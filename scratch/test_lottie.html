@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Lottie Test</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <style>
+    body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    #anim { width: 1600px; height: 1200px; }
+  </style>
+</head>
+<body>
+  <div id="anim"></div>
+  <script>
+    fetch('/assets/Scene (1).json')
+      .then(res => res.json())
+      .then(data => {
+        window.anim = lottie.loadAnimation({
+          container: document.getElementById('anim'),
+          renderer: 'canvas',
+          loop: false,
+          autoplay: false,
+          animationData: data
+        });
+        window.animReady = true;
+      });
+  </script>
+</body>
+</html>

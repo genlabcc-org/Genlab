@@ -161,7 +161,7 @@ const projects = [
   },
 ];
 
-export default function WorksSection({ showIntro = true, showFilterNav = true }) {
+export default function WorksSection({ showIntro = true, showFilterNav = true, limit, onNavigate }) {
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeLightbox, setActiveLightbox] = useState(null);
 
@@ -186,10 +186,16 @@ export default function WorksSection({ showIntro = true, showFilterNav = true })
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeLightbox]);
 
-  const filteredProjects = projects.filter((p) => {
+  const displayedProjects = limit ? projects.slice(0, limit) : projects;
+
+  const filteredProjects = displayedProjects.filter((p) => {
     if (activeCategory === 'all') return true;
     return p.category === activeCategory;
   });
+
+  const countAll = displayedProjects.length;
+  const countEcommerce = displayedProjects.filter((p) => p.category === 'ecommerce').length;
+  const countWebsite = displayedProjects.filter((p) => p.category === 'website').length;
 
   return (
     <section className={`works-section${showIntro ? ' has-intro' : ''}`} id="work">
@@ -223,7 +229,7 @@ export default function WorksSection({ showIntro = true, showFilterNav = true })
               onClick={() => setActiveCategory('all')}
             >
               <span>All Works</span>
-              <span className="filter-count">5</span>
+              <span className="filter-count">{countAll}</span>
             </button>
             <button
               type="button"
@@ -231,7 +237,7 @@ export default function WorksSection({ showIntro = true, showFilterNav = true })
               onClick={() => setActiveCategory('ecommerce')}
             >
               <span>E-Commerce</span>
-              <span className="filter-count">2</span>
+              <span className="filter-count">{countEcommerce}</span>
             </button>
             <button
               type="button"
@@ -239,7 +245,7 @@ export default function WorksSection({ showIntro = true, showFilterNav = true })
               onClick={() => setActiveCategory('website')}
             >
               <span>Websites</span>
-              <span className="filter-count">3</span>
+              <span className="filter-count">{countWebsite}</span>
             </button>
           </div>
 
@@ -289,11 +295,15 @@ export default function WorksSection({ showIntro = true, showFilterNav = true })
                   <div
                     className={`works-media-card ${className}`}
                     key={src}
-                    onClick={() => setActiveLightbox({
-                      images: project.images,
-                      currentIndex: idx,
-                      projectTitle: project.title,
-                    })}
+                    onClick={() => {
+                      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+                      const lightboxImages = isMobile ? project.images.slice(0, 2) : project.images;
+                      setActiveLightbox({
+                        images: lightboxImages,
+                        currentIndex: Math.min(idx, lightboxImages.length - 1),
+                        projectTitle: project.title,
+                      });
+                    }}
                     role="button"
                     tabIndex={0}
                     title="Click to view full image"
@@ -348,6 +358,24 @@ export default function WorksSection({ showIntro = true, showFilterNav = true })
             )}
           </div>
         ))}
+
+        {limit && displayedProjects.length < projects.length && (
+          <div className="works-view-all-wrap">
+            <a
+              href="/work"
+              className="works-view-all-btn"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('work');
+                }
+              }}
+            >
+              <span>Explore all {projects.length} projects</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        )}
       </div>
 
       {/* Full Image Lightbox Modal */}

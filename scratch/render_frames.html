@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+</head>
+<body style="margin:0;background:#000;">
+  <div id="anim" style="width:1600px;height:1200px;"></div>
+  <script>
+    async function run() {
+      const res = await fetch('/public/assets/Scene (1).json');
+      const data = await res.json();
+      const anim = lottie.loadAnimation({
+        container: document.getElementById('anim'),
+        renderer: 'canvas',
+        loop: false,
+        autoplay: false,
+        animationData: data
+      });
+
+      anim.addEventListener('DOMLoaded', async () => {
+        const canvas = document.querySelector('canvas');
+        console.log("Canvas ready:", canvas.width, canvas.height);
+        const t0 = performance.now();
+        // Render 210 frames (30 fps over 7 seconds is 210 frames)
+        for (let i = 0; i <= 210; i++) {
+          const frame = i * 2; // step by 2 frames (420 / 210 = 2)
+          anim.goToAndStop(frame, true);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+          await fetch('/save_frame', {
+            method: 'POST',
+            headers: { 'X-Frame': String(i).padStart(4, '0') },
+            body: dataUrl
+          });
+          if (i % 30 === 0) console.log("Rendered frame", i, "/", 210);
+        }
+        console.log("Done in", (performance.now() - t0) / 1000, "s");
+        fetch('/done_rendering', { method: 'POST' });
+      });
+    }
+    run();
+  </script>
+</body>
+</html>
