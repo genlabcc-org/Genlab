@@ -265,7 +265,9 @@ export default function WorksSection({ showIntro = true, showFilterNav = true, l
         {filteredProjects.map((project) => (
           <div className="works-inner" id={project.id} key={project.id}>
             <div className="works-header">
-              <span className="works-tag">{project.tag}</span>
+              <span className={`works-tag${project.category === 'ecommerce' ? ' works-tag-ecommerce' : ''}`}>
+                {project.tag}
+              </span>
               <div className="works-title-row">
                 <h2 className="works-title">{project.title}</h2>
                 {project.link && (

@@ -1361,9 +1361,10 @@ html[data-theme='light'] .nav-dropdown-sep {
 }
 
 .service-card {
-  position: absolute;
-  top: 50%;
-  right: 0;
+  position: fixed;
+  top: var(--card-top, 0);
+  left: var(--card-left, 0);
+  right: auto;
   z-index: 5;
   width: min(22rem, 34vw);
   overflow: hidden;
@@ -1373,8 +1374,8 @@ html[data-theme='light'] .nav-dropdown-sep {
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.38);
   opacity: 0;
   pointer-events: none;
-  transform: translate(0.8rem, -50%) scale(0.96);
-  transform-origin: right center;
+  transform: translateY(0.5rem) scale(0.96);
+  transform-origin: left center;
   transition:
     opacity 0.24s ease,
     transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
@@ -1384,7 +1385,7 @@ html[data-theme='light'] .nav-dropdown-sep {
 
 .services-row.is-active .service-card {
   opacity: 1;
-  transform: translate(0, -50%) scale(1);
+  transform: translateY(0) scale(1);
   visibility: visible;
 }
 
@@ -1455,6 +1456,7 @@ html[data-theme='light'] .nav-dropdown-sep {
   .service-card {
     position: relative;
     top: auto;
+    left: auto;
     right: auto;
     width: 100%;
     max-width: 28rem;
@@ -1613,6 +1615,103 @@ html[data-theme='light'] .works-intro-mark {
   animation: works-description-enter 0.8s 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.works-filter-nav {
+  display: flex;
+  width: min(100% - 3rem, 86rem);
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin: 0 auto 6rem;
+}
+
+.works-filter-pills {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.works-filter-btn {
+  display: inline-flex;
+  min-height: 2.35rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-sub);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.works-filter-btn:hover {
+  color: var(--text-headline);
+}
+
+.works-filter-btn.is-active {
+  background: var(--green);
+  color: #121212;
+  font-weight: 600;
+}
+
+.filter-count {
+  display: inline-flex;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.3rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: inherit;
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.works-filter-btn.is-active .filter-count {
+  background: rgba(18, 18, 18, 0.12);
+}
+
+.works-jump-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.works-jump-pill {
+  display: inline-flex;
+  min-height: 2.15rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text-sub);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.works-jump-pill:hover {
+  border-color: rgba(194, 230, 0, 0.45);
+  background: rgba(194, 230, 0, 0.08);
+  color: var(--text-headline);
+}
+
 @keyframes work-page-enter {
   from {
     opacity: 0;
@@ -1726,6 +1825,13 @@ html[data-theme='light'] .works-intro-mark {
   font-size: 0.7rem;
   font-weight: 300;
   line-height: 1.2;
+}
+
+.works-tag-ecommerce {
+  border-color: rgba(194, 230, 0, 0.35);
+  background: rgba(194, 230, 0, 0.08);
+  color: var(--green);
+  font-weight: 500;
 }
 
 .works-title {
@@ -2479,7 +2585,7 @@ html[data-theme='light'] .works-intro-mark {
 }
 
 .faq-points.is-ordered li::marker {
-  color: #a5a5a5;
+  color: var(--green);
 }
 
 .faq-points strong {
@@ -2881,6 +2987,29 @@ html[data-theme='light'] .works-intro-mark {
   .works-intro {
     min-height: 85svh;
     padding: 7rem 1.5rem 5rem;
+  }
+
+  .works-filter-nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .works-filter-pills {
+    align-self: flex-start;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .works-filter-btn {
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+    font-size: 0.82rem;
+  }
+
+  .works-jump-links {
+    justify-content: flex-start;
   }
 
   .works-intro::before {
@@ -4277,6 +4406,14 @@ html[data-theme='light'] .testimonial-quote {
 html[data-theme='light'] .faq-answer {
   color: #2d2d2d !important;
   font-weight: 350 !important;
+}
+
+html[data-theme='light'] .faq-points {
+  color: #333333 !important;
+}
+
+html[data-theme='light'] .faq-points strong {
+  color: #121212 !important;
 }
 
 html[data-theme='light'] .testimonial-author {

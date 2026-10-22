@@ -66,6 +66,7 @@ const AsteriskIcon = () => (
 
 export default function ServicesSection() {
   const [activeIdx, setActiveIdx] = useState(null);
+  const [cardPosition, setCardPosition] = useState({ left: 0, top: 0 });
   const rowsRef = useRef([]);
 
   const capabilities = [
@@ -170,6 +171,23 @@ export default function ServicesSection() {
     });
 
     setActiveIdx(closestIndex);
+
+    if (closestIndex === null) return;
+
+    const card = rowsRef.current[closestIndex]?.querySelector('.service-card');
+    const cardRect = card?.getBoundingClientRect();
+    const cardWidth = cardRect?.width || Math.min(352, window.innerWidth * 0.34);
+    const cardHeight = cardRect?.height || 280;
+    const left = Math.min(
+      Math.max(e.clientX + 24, 16),
+      Math.max(16, window.innerWidth - cardWidth - 16),
+    );
+    const top = Math.min(
+      Math.max(e.clientY - cardHeight / 2, 16),
+      Math.max(16, window.innerHeight - cardHeight - 16),
+    );
+
+    setCardPosition({ left, top });
   };
 
   const handleContainerMouseLeave = () => {
@@ -241,7 +259,14 @@ export default function ServicesSection() {
                 {item.right}
               </span>
 
-              <aside className="service-card" aria-hidden={!isActive}>
+              <aside
+                className="service-card"
+                style={{
+                  '--card-left': `${cardPosition.left}px`,
+                  '--card-top': `${cardPosition.top}px`,
+                }}
+                aria-hidden={!isActive}
+              >
                 <div className="service-card-content">
                   <p className="service-card-description">{item.description}</p>
                   <ul className="service-details-list">
