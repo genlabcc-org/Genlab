@@ -74,7 +74,7 @@ export default function TeamPage({ onBackToPortfolio }) {
         </div>
       </div>
 
-      {/* Full Team Hanging Lanyard Cards Stage - All 11 Teammates */}
+      {/* Full Team Hanging Lanyard Cards Stage */}
       <div className="reference-team-stage">
         <div className="reference-team-grid">
           {TEAM_MEMBERS.map((member, index) => (

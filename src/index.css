@@ -2811,13 +2811,77 @@ html[data-theme='light'] .works-intro-mark {
   flex-direction: column;
 }
 
+.footer-main-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-bottom: 5rem;
+  width: 100%;
+}
+
+.footer-left-content {
+  display: flex;
+  flex-direction: column;
+  order: 1;
+}
+
+.footer-right-form-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  order: 2;
+}
+
+.footer-social-wrap {
+  display: flex;
+  width: 100%;
+  order: 3;
+}
+
+@media (min-width: 1024px) {
+  .footer-main-grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(440px, 560px);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "left right"
+      "social right";
+    gap: 2.2rem 3rem;
+    align-items: start;
+  }
+
+  .footer-left-content {
+    grid-area: left;
+    order: unset;
+  }
+
+  .footer-right-form-wrap {
+    grid-area: right;
+    order: unset;
+    margin-left: -1.75rem;
+  }
+
+  .footer-social-wrap {
+    grid-area: social;
+    order: unset;
+  }
+}
+
+@media (min-width: 1280px) {
+  .footer-main-grid {
+    grid-template-columns: 1.05fr 580px;
+    gap: 2.2rem 3.5rem;
+  }
+}
+
 .footer-heading {
   font-family: var(--font-sans);
-  font-size: clamp(3.5rem, 8vw, 8.5rem);
+  font-size: clamp(2.4rem, 4.2vw, 4.2rem);
   font-weight: 300;
   letter-spacing: -0.03em;
-  line-height: 1;
-  margin-bottom: 2rem;
+  line-height: 1.05;
+  margin-bottom: 1.5rem;
 }
 
 .footer-mission {
@@ -2826,7 +2890,7 @@ html[data-theme='light'] .works-intro-mark {
   font-weight: 300;
   max-width: 48rem;
   line-height: 1.5;
-  margin-bottom: 3.5rem;
+  margin-bottom: 0;
   opacity: 0.85;
 }
 
@@ -2837,67 +2901,125 @@ html[data-theme='light'] .works-intro-mark {
 }
 
 .footer-cta-wrap {
-  margin-bottom: 6rem;
+  margin-bottom: 2.5rem;
 }
 
 .footer-contact-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1.4rem 3.5rem;
+  gap: 0.6rem;
+  padding: 0.85rem 2.2rem;
   border-radius: 9999px;
   background-color: #ffffff;
   color: #121212;
   font-family: var(--font-sans);
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-size: 1.05rem;
+  font-weight: 450;
+  letter-spacing: -0.01em;
   text-decoration: none;
-  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
   transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
 }
 
 .footer-contact-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 40px rgba(255, 255, 255, 0.35);
+  transform: scale(1.04);
+  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.25);
 }
 
 .footer-arrow-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+/* kstoimenov-style Get In Touch Social Boxes */
+:root {
+  --krs-green-grad: linear-gradient(114.41deg, #0ae448 0%, #66ea22 50%, #a9fc83 100%);
+  --krs-green-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 
 .footer-social-row {
-  display: flex;
-  gap: 1.5rem;
-  margin-bottom: 6rem;
-  flex-wrap: wrap;
+  display: inline-flex;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 0.5rem;
 }
 
 .footer-social-card {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1.2rem 2.2rem;
-  border-radius: 1rem;
-  background: #181818;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 145px;
+  height: 145px;
+  padding: 1.5rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
   color: #ffffff;
   text-decoration: none;
-  font-family: var(--font-sans);
-  font-size: 1.2rem;
-  font-weight: 300;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  transition: background-image 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.25s ease,
+              border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.footer-social-card:first-child {
+  border-left: none;
 }
 
 .footer-social-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.25);
-  color: var(--green);
+  background-image: var(--krs-green-noise), var(--krs-green-grad);
+  background-blend-mode: overlay, normal;
+  background-size: 200px 200px, cover;
+  color: #121212 !important;
 }
 
-.social-arrow {
-  font-size: 1.1rem;
-  transition: transform 0.2s ease;
+.footer-social-card-icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: inherit;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.footer-social-card-icon svg {
+  width: 100%;
+  height: 100%;
+  transition: color 0.25s ease;
+}
+
+.footer-social-card:hover .footer-social-card-icon {
+  transform: translateY(-2px);
+}
+
+.footer-social-card-label {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 350;
+  letter-spacing: 0.01em;
+  color: inherit;
+  line-height: 1.2;
+  transition: color 0.25s ease;
+}
+
+@media (max-width: 640px) {
+  .footer-social-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+
+  .footer-social-card {
+    width: auto;
+    height: 120px;
+    padding: 1.15rem;
+  }
 }
 
 .footer-social-card:hover .social-arrow {
@@ -4182,16 +4304,21 @@ html[data-theme='light'] .footer-back-to-top {
   color: #121212 !important;
 }
 
+html[data-theme='light'] .footer-social-row {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
 html[data-theme='light'] .footer-social-card {
   background: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.12) !important;
+  border-left-color: rgba(0, 0, 0, 0.12) !important;
   color: #121212 !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
 }
 
 html[data-theme='light'] .footer-social-card:hover {
-  border-color: rgba(0, 0, 0, 0.25) !important;
-  color: var(--green) !important;
+  background-image: var(--krs-green-noise), var(--krs-green-grad) !important;
+  background-blend-mode: overlay, normal !important;
+  color: #121212 !important;
 }
 
 /* About rail ticks in Light Theme */

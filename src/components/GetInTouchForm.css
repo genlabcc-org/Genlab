@@ -1,0 +1,291 @@
+/* =========================================
+   Get In Touch Contact Form Styles
+   Matches https://gen-lab-cc.vercel.app/
+   ========================================= */
+
+.contact-form-container {
+  width: 100%;
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+
+/* 2-column input row */
+.contact-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .contact-form-row {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+}
+
+.contact-field-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+/* Underline inputs, select, and textarea */
+.contact-input,
+.contact-select,
+.contact-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 0;
+  padding: 14px 4px;
+  color: #ffffff;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  outline: none;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+  box-sizing: border-box;
+}
+
+.contact-input::placeholder,
+.contact-textarea::placeholder {
+  color: #f0f0f0;
+  opacity: 0.85;
+  font-weight: 300;
+}
+
+.contact-input:focus,
+.contact-select:focus,
+.contact-textarea:focus {
+  border-bottom-color: var(--green, #c2e600);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Error state for inputs */
+.contact-input.has-error,
+.contact-select.has-error,
+.contact-textarea.has-error,
+.contact-phone-wrapper.has-error {
+  border-bottom-color: #ff4d4f !important;
+}
+
+.contact-error-msg {
+  color: #ff4d4f;
+  font-size: 13px;
+  margin-top: 6px;
+  display: block;
+  font-weight: 400;
+  animation: fadeIn 0.2s ease;
+}
+
+/* Phone input with country code */
+.contact-phone-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  transition: border-color 0.25s ease;
+}
+
+.contact-phone-wrapper:focus-within {
+  border-bottom-color: var(--green, #c2e600);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.contact-country-code {
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  padding-left: 4px;
+  padding-right: 8px;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.contact-phone-input {
+  border-bottom: none !important;
+  padding-left: 0 !important;
+}
+
+.contact-phone-input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Select dropdown */
+.contact-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='14' height='9' viewBox='0 0 14 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L7 7.5L13 1.5' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  background-size: 12px;
+  cursor: pointer;
+  padding-right: 28px;
+}
+
+.contact-select option {
+  background-color: #141414;
+  color: #ffffff;
+  padding: 8px;
+}
+
+/* Textarea */
+.contact-textarea {
+  min-height: 110px;
+  resize: vertical;
+  line-height: 1.5;
+  padding-top: 14px;
+}
+
+/* Custom Checkbox */
+.contact-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  cursor: pointer;
+  user-select: none;
+  margin-top: 4px;
+}
+
+.contact-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  cursor: pointer;
+}
+
+.contact-checkmark {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--green, #c2e600);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: all 0.2s ease;
+}
+
+.contact-checkbox-input:checked + .contact-checkmark {
+  background: var(--green, #c2e600);
+  border-color: var(--green, #c2e600);
+}
+
+.contact-checkmark-icon {
+  display: none;
+  width: 12px;
+  height: 12px;
+  stroke: #101010;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.contact-checkbox-input:checked + .contact-checkmark .contact-checkmark-icon {
+  display: block;
+}
+
+.contact-checkbox-label:hover .contact-checkmark {
+  box-shadow: 0 0 10px rgba(194, 230, 0, 0.3);
+}
+
+.contact-checkmark.has-error {
+  border-color: #ff4d4f !important;
+}
+
+.contact-checkbox-text {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+}
+
+/* Submit Button */
+.contact-submit-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 6px 6px 6px 28px;
+  border-radius: 9999px;
+  background-color: #171717;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  margin-top: 6px;
+}
+
+.contact-submit-btn:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.75);
+  background-color: #202020;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+}
+
+.contact-submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.contact-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.contact-submit-btn.is-success {
+  border-color: var(--green, #c2e600);
+}
+
+.contact-submit-arrow {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: var(--green, #c2e600);
+  color: #101010;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+  flex-shrink: 0;
+}
+
+.contact-submit-btn:hover:not(:disabled) .contact-submit-arrow {
+  transform: translateX(3px);
+  background-color: #d4f71e;
+}
+
+.contact-arrow-svg {
+  width: 18px;
+  height: 18px;
+  stroke: #101010;
+  stroke-width: 2.2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
