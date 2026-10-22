@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import './TestimonialsSection.css';
 
 export default function TestimonialsSection() {
   const sectionRef = useRef(null);

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 const SECTION_LABELS = {
   home: 'Home',
   work: 'Product',
-  shabdham: 'Shabdham AI',
+  shabdam: 'Shabdam AI',
   launchpad: 'Launchpad',
   upskilling: 'Upskilling',
   team: 'Team',
@@ -157,7 +157,7 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
     setLaunchpadDropdownOpen(false);
     setIsDropdownPinned(false);
 
-    if (targetId === 'shabdham') {
+    if (targetId === 'shabdam') {
       window.open('https://fot-shabdham.vercel.app/', '_blank', 'noopener,noreferrer');
       return;
     }
@@ -220,9 +220,8 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
           1. DESKTOP NAVIGATION (Hidden on <= 768px)
           ========================================= */}
       <nav
-        className={`liquid-navbar desktop-only-navbar ${
-          isScrolled || currentView !== 'portfolio' ? 'is-dock' : 'is-hero'
-        }`}
+        className={`liquid-navbar desktop-only-navbar ${isScrolled || currentView !== 'portfolio' ? 'is-dock' : 'is-hero'
+          }`}
         aria-label="Desktop Navigation"
       >
         <div className="liquid-gloss" aria-hidden="true" />
@@ -268,14 +267,14 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
           )}
         </a>
 
-        {/* Shabdham AI */}
+        {/* Shabdam AI */}
         <a
-          href="https://fot-shabdham.vercel.app/"
+          href="https://shabdam.genlab.cc/"
           target="_blank"
           rel="noopener noreferrer"
           className="nav-item-link"
         >
-          <span>Shabdham AI</span>
+          <span>Shabdam AI</span>
         </a>
 
         {/* Launchpad Dropdown (Launchpad + Upskilling) */}
@@ -498,9 +497,8 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
               <button
                 type="button"
                 onClick={() => setMobileLaunchpadOpen((prev) => !prev)}
-                className={`mobile-overlay-link mobile-accordion-trigger ${
-                  isLaunchpadActive && !mobileLaunchpadOpen ? 'is-active-row' : ''
-                }`}
+                className={`mobile-overlay-link mobile-accordion-trigger ${isLaunchpadActive && !mobileLaunchpadOpen ? 'is-active-row' : ''
+                  }`}
               >
                 <span className="mobile-overlay-text">Launchpad</span>
                 <span className={`mobile-accordion-chevron ${mobileLaunchpadOpen ? 'is-open' : ''}`}>
