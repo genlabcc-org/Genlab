@@ -347,3 +347,83 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+html[data-theme='light'] .contact-form .contact-input,
+html[data-theme='light'] .contact-form .contact-select,
+html[data-theme='light'] .contact-form .contact-textarea {
+  color: #121212;
+  border-bottom-color: rgba(18, 18, 18, 0.48);
+  color-scheme: light;
+}
+
+html[data-theme='light'] .contact-form .contact-input::placeholder,
+html[data-theme='light'] .contact-form .contact-textarea::placeholder,
+html[data-theme='light'] .contact-form .contact-phone-input::placeholder {
+  color: #303030;
+  opacity: 1;
+}
+
+html[data-theme='light'] .contact-form .contact-select {
+  background-image: url("data:image/svg+xml,%3Csvg width='14' height='9' viewBox='0 0 14 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L7 7.5L13 1.5' stroke='%23121212' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+html[data-theme='light'] .contact-form .contact-select option {
+  background-color: #ffffff;
+  color: #121212;
+}
+
+html[data-theme='light'] .contact-form .contact-phone-wrapper {
+  border-bottom-color: rgba(18, 18, 18, 0.48);
+}
+
+html[data-theme='light'] .contact-form .contact-country-code,
+html[data-theme='light'] .contact-form .contact-checkbox-text {
+  color: #1a1a1a;
+}
+
+html[data-theme='light'] .contact-form .contact-input:focus,
+html[data-theme='light'] .contact-form .contact-select:focus,
+html[data-theme='light'] .contact-form .contact-textarea:focus,
+html[data-theme='light'] .contact-form .contact-phone-wrapper:focus-within {
+  background-color: rgba(0, 0, 0, 0.035);
+}
+
+html[data-theme='light'] .contact-form input:-webkit-autofill,
+html[data-theme='light'] .contact-form input:-webkit-autofill:hover,
+html[data-theme='light'] .contact-form input:-webkit-autofill:focus,
+html[data-theme='light'] .contact-form input:-webkit-autofill:active,
+html[data-theme='light'] .contact-form select:-webkit-autofill,
+html[data-theme='light'] .contact-form select:-webkit-autofill:hover,
+html[data-theme='light'] .contact-form select:-webkit-autofill:focus,
+html[data-theme='light'] .contact-form select:-webkit-autofill:active,
+html[data-theme='light'] .contact-form textarea:-webkit-autofill,
+html[data-theme='light'] .contact-form textarea:-webkit-autofill:hover,
+html[data-theme='light'] .contact-form textarea:-webkit-autofill:focus,
+html[data-theme='light'] .contact-form textarea:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #f8f8f6 inset !important;
+  box-shadow: 0 0 0 1000px #f8f8f6 inset !important;
+  -webkit-text-fill-color: #121212 !important;
+  color: #121212 !important;
+  caret-color: #121212 !important;
+}
+
+html[data-theme='light'] .contact-form input:autofill,
+html[data-theme='light'] .contact-form select:autofill,
+html[data-theme='light'] .contact-form textarea:autofill {
+  box-shadow: 0 0 0 1000px #f8f8f6 inset !important;
+  -webkit-text-fill-color: #121212 !important;
+  color: #121212 !important;
+}
+
+html[data-theme='light'] .contact-form .contact-submit-btn {
+  background-color: #ffffff;
+  border-color: rgba(18, 18, 18, 0.35);
+  color: #121212;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme='light'] .contact-form .contact-submit-btn:hover:not(:disabled) {
+  background-color: #f2f2f0;
+  border-color: rgba(18, 18, 18, 0.65);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+}
