@@ -128,6 +128,28 @@ select:-webkit-autofill {
   /* forces it under the field */
 }
 
+.honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.submitMessage,
+.submitError {
+  font-size: 0.9rem;
+}
+
+.submitMessage {
+  color: #c2e600;
+}
+
+.submitError {
+  color: #ff7373;
+}
+
 .customCheckbox .fieldError {
   display: inline;
   /* allows it to appear in parentheses */

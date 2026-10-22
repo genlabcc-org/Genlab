@@ -152,6 +152,11 @@
     object-fit: contain;
 }
 
+.partner-one img.partner-logo-dark {
+    filter: brightness(0);
+    opacity: 0.55;
+}
+
 /* ─── LaunchPad Event─────────────────────────────────────────────────── */
 .launch-event {
     padding-bottom: 120px;

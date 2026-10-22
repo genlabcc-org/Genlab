@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import './GetInTouchForm.css';
 
-const CONTACT_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycbwl1wb6wU5k5mbHNDgda3hbs3oxjvU6DsqURubOftGDKxhytevFRiuGBHYiSLfVCa0E/exec';
-
 export default function GetInTouchForm() {
   const [formData, setFormData] = useState({
     name: '',
@@ -12,11 +9,13 @@ export default function GetInTouchForm() {
     reason: '',
     experience: '',
     project: '',
-    consent: false
+    consent: false,
+    website: '',
   });
 
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(''); // '' | 'loading' | 'success' | 'error'
+  const [submissionMessage, setSubmissionMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -85,31 +84,33 @@ export default function GetInTouchForm() {
     setErrors({});
     setStatus('loading');
 
-    const minDelay = new Promise((resolve) => setTimeout(resolve, 1500));
-
     try {
-      const params = new URLSearchParams({
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        phone: `+91${formData.phone.trim()}`,
-        reason: formData.reason,
-        experience: formData.experience || '',
-        project: formData.project.trim(),
-        consent: String(formData.consent),
-        formType: 'contact'
-      });
-
-      await fetch(CONTACT_ENDPOINT, {
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: params.toString()
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: `+91${formData.phone.trim()}`,
+          project: formData.project.trim(),
+        }),
       });
 
-      await minDelay;
+      const responseText = await response.text();
+      let result;
+      try {
+        result = responseText ? JSON.parse(responseText) : {};
+      } catch {
+        throw new Error(`The contact service returned an invalid response (HTTP ${response.status}). Please try again later.`);
+      }
+
+      if (!response.ok || result.ok !== true || result.deliveryStatus !== 'accepted') {
+        throw new Error(result.error || `The contact service could not accept your request (HTTP ${response.status}). Please try again later.`);
+      }
+
       setStatus('success');
+      setSubmissionMessage('Form submitted successfully!');
       setFormData({
         name: '',
         email: '',
@@ -117,21 +118,40 @@ export default function GetInTouchForm() {
         reason: '',
         experience: '',
         project: '',
-        consent: false
+        consent: false,
+        website: '',
       });
 
-      setTimeout(() => setStatus(''), 4000);
+      setTimeout(() => {
+        setStatus('');
+        setSubmissionMessage('');
+      }, 6000);
     } catch (err) {
-      console.error('Submission error:', err);
-      await minDelay;
       setStatus('error');
-      setTimeout(() => setStatus(''), 4000);
+      setSubmissionMessage(err.message || "We couldn't send your message right now. Please try again.");
+      setTimeout(() => {
+        setStatus('');
+        setSubmissionMessage('');
+      }, 6000);
     }
   };
 
   return (
     <div className="contact-form-container">
       <form onSubmit={handleSubmit} className="contact-form" noValidate>
+        <div className="contact-honeypot" aria-hidden="true">
+          <label htmlFor="get-in-touch-website">Leave this field empty</label>
+          <input
+            id="get-in-touch-website"
+            type="text"
+            name="website"
+            value={formData.website}
+            onChange={handleChange}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
+
         {/* Row 1: Name & Email Address */}
         <div className="contact-form-row">
           <div className="contact-field-group">
@@ -188,8 +208,8 @@ export default function GetInTouchForm() {
               <option value="" disabled>
                 Reason
               </option>
-              <option value="careers">Career enquiry</option>
               <option value="business">Business enquiry</option>
+              <option value="careers">Career enquiry</option>
             </select>
             {errors.reason && <span className="contact-error-msg">{errors.reason}</span>}
           </div>
@@ -284,6 +304,15 @@ export default function GetInTouchForm() {
             </svg>
           </div>
         </button>
+        {submissionMessage && (
+          <p
+            className={`contact-submit-message ${status === 'error' ? 'is-error' : 'is-success'}`}
+            role={status === 'error' ? 'alert' : 'status'}
+            aria-live="polite"
+          >
+            {submissionMessage}
+          </p>
+        )}
       </form>
     </div>
   );

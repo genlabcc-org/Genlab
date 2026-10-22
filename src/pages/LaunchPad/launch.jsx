@@ -122,17 +122,17 @@ export default function Launchpad({ onNavigate }) {
 
                 <div className='launch-partners'>
                     <div className='partner-one'>
-                        <img src={vit} alt='Vellore Institute of Technology (VIT) partner'></img>
-                        <img src={arunachala} alt='Arunachala College of Engineering partner'></img>
+                        <img className='partner-logo-dark' src={vit} alt='Vellore Institute of Technology (VIT) partner'></img>
+                        <img className='partner-logo-dark' src={arunachala} alt='Arunachala College of Engineering partner'></img>
                         <img src={sns} alt='SNS College of Technology partner'></img>
                         <img src={hindi} alt='Hindusthan Educational Institutions partner'></img>
                         <img src={telugu} alt='Institution partner'></img>
                         <img src={sit} alt='Sethu Institute of Technology partner'></img>
-                        <img src={christ} alt='Christ College of Engineering partner'></img>
+                        <img className='partner-logo-dark' src={christ} alt='Christ College of Engineering partner'></img>
                         <img src={fatima} alt='Fatima Michael College partner'></img>
                         <img src={fx} alt='Francis Xavier Engineering College partner'></img>
                         <img src={sm} alt='Stella Marys College of Engineering partner'></img>
-                        <img src={niche} alt='Noorul Islam Centre for Higher Education NICHE partner'></img>
+                        <img className='partner-logo-dark' src={niche} alt='Noorul Islam Centre for Higher Education NICHE partner'></img>
                         <img src={xavier} alt='St. Xavier Catholic College of Engineering partner'></img>
                         <img src={dmi} alt='DMI College of Engineering partner'></img>
                         <img src={mt} alt='Mar Ephraem College of Engineering partner'></img>

@@ -26,11 +26,13 @@ const ConnectSection = () => {
     reason: "",
     project: "",
     consent: false,
+    website: "",
   });
 
   // 2️⃣ Error state
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(""); // "", "loading", "success", "error"
+  const [submissionMessage, setSubmissionMessage] = useState("");
 
   // 3️⃣ Handle input changes + clear field error
   const handleChange = (e) => {
@@ -93,22 +95,19 @@ const ConnectSection = () => {
     setStatus("loading");
 
     try {
-      const contactUrl = import.meta.env.VITE_USER_DATA_COLLECTION_URL;
-
-      if (!contactUrl) {
-        console.error('Submit Error: VITE_USER_DATA_COLLECTION_URL is not defined in environment variables.');
-        throw new Error('Script URL missing');
-      }
-
-      console.log('Submitting to:', contactUrl);
-      await fetch(contactUrl, {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, formType: "contact" }),
       });
 
+      const result = await response.json();
+      if (!response.ok || result.ok !== true || result.deliveryStatus !== "accepted") {
+        throw new Error(result.error || "We couldn't send your message right now. Please try again.");
+      }
+
       setStatus("success");
+      setSubmissionMessage("Form submitted successfully!");
       setFormData({
         name: "",
         email: "",
@@ -116,17 +115,20 @@ const ConnectSection = () => {
         reason: "",
         project: "",
         consent: false,
+        website: "",
       });
 
-      setTimeout(() => setStatus(""), 4000);
+      setTimeout(() => {
+        setStatus("");
+        setSubmissionMessage("");
+      }, 4000);
     } catch (error) {
-      console.error('Detailed Submission Error:', {
-        message: error.message,
-        stack: error.stack,
-        env_url: import.meta.env.VITE_USER_DATA_COLLECTION_URL
-      });
       setStatus("error");
-      setTimeout(() => setStatus(""), 4000);
+      setSubmissionMessage(error.message || "We couldn't send your message right now. Please try again.");
+      setTimeout(() => {
+        setStatus("");
+        setSubmissionMessage("");
+      }, 4000);
     }
   };
 
@@ -140,6 +142,19 @@ const ConnectSection = () => {
 
       <div className={styles.right}>
         <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.honeypot} aria-hidden="true">
+            <label htmlFor="contact-website">Leave this field empty</label>
+            <input
+              id="contact-website"
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={formData.website}
+              onChange={handleChange}
+            />
+          </div>
+
           <div className={styles.row}>
             <div>
               <input
@@ -252,6 +267,15 @@ const ConnectSection = () => {
               <ArrowIcon />
             </div>
           </button>
+          {submissionMessage && (
+            <p
+              className={status === "error" ? styles.submitError : styles.submitMessage}
+              role={status === "error" ? "alert" : "status"}
+              aria-live="polite"
+            >
+              {submissionMessage}
+            </p>
+          )}
         </form>
       </div>
     </section>

@@ -1,5 +1,17 @@
 # React + Vite
 
+## Contact form email delivery
+
+The contact form sends submissions through the Vercel serverless function at `api/contact.js`. Configure these environment variables in the Vercel project settings for each deployment environment:
+
+- `BREVO_API_KEY`: Brevo API key. Keep it server-side; do not prefix it with `VITE_`.
+- `BREVO_SENDER_EMAIL`: Sender address verified in Brevo.
+- `COMPANY_EMAIL`: Inbox that receives contact form submissions.
+
+Set the same variables in the ignored local `.env` file when running locally with `vercel dev`. Never commit `.env` or expose the API key in client-side code.
+
+The form reports when Brevo accepts a message for processing. This synchronous response does not confirm delivery to the recipient's inbox; use Brevo's transactional email logs to confirm delivered, bounced, or blocked status.
+
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
 Currently, two official plugins are available:
