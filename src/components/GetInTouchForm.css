@@ -57,6 +57,7 @@
   outline: none;
   transition: border-color 0.25s ease, background-color 0.25s ease;
   box-sizing: border-box;
+  color-scheme: dark;
 }
 
 .contact-input::placeholder,
@@ -71,6 +72,41 @@
 .contact-textarea:focus {
   border-bottom-color: var(--green, #c2e600);
   background: rgba(255, 255, 255, 0.03);
+}
+
+/* =========================================
+   Prevent and remove white/light autofill styling
+   Ensures text stays normal #ffffff on dark background
+   ========================================= */
+.contact-form input:-webkit-autofill,
+.contact-form input:-webkit-autofill:hover,
+.contact-form input:-webkit-autofill:focus,
+.contact-form input:-webkit-autofill:active,
+.contact-form select:-webkit-autofill,
+.contact-form select:-webkit-autofill:hover,
+.contact-form select:-webkit-autofill:focus,
+.contact-form select:-webkit-autofill:active,
+.contact-form textarea:-webkit-autofill,
+.contact-form textarea:-webkit-autofill:hover,
+.contact-form textarea:-webkit-autofill:focus,
+.contact-form textarea:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #121212 inset !important;
+  box-shadow: 0 0 0 1000px #121212 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
+  transition: background-color 5000000s ease-in-out 0s, color 5000000s ease-in-out 0s;
+  font-family: inherit !important;
+  font-size: 16px !important;
+  font-weight: 300 !important;
+}
+
+.contact-form input:autofill,
+.contact-form select:autofill,
+.contact-form textarea:autofill {
+  box-shadow: 0 0 0 1000px #121212 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
 }
 
 /* Error state for inputs */

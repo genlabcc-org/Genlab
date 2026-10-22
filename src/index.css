@@ -88,6 +88,35 @@ body {
   user-select: none;
 }
 
+/* Global autofill reset to preserve dark theme aesthetics */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #121212 inset !important;
+  box-shadow: 0 0 0 1000px #121212 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
+  transition: background-color 5000000s ease-in-out 0s, color 5000000s ease-in-out 0s;
+}
+
+input:autofill,
+textarea:autofill,
+select:autofill {
+  box-shadow: 0 0 0 1000px #121212 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
 /* =========================================
    Custom Interactive Cursor
    ========================================= */
@@ -2931,9 +2960,9 @@ html[data-theme='light'] .works-intro-mark {
   height: 1rem;
 }
 
-/* kstoimenov-style Get In Touch Social Boxes */
+/* kstoimenov-style Get In Touch Social Boxes with GenLab #C2E600 */
 :root {
-  --krs-green-grad: linear-gradient(114.41deg, #0ae448 0%, #66ea22 50%, #a9fc83 100%);
+  --krs-green-grad: linear-gradient(114.41deg, #9ec900 0%, #C2E600 48%, #dcfa38 100%);
   --krs-green-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 
@@ -2946,6 +2975,7 @@ html[data-theme='light'] .works-intro-mark {
   width: fit-content;
   max-width: 100%;
   margin-top: 0.5rem;
+  transition: border-color 0.3s ease;
 }
 
 .footer-social-card {
@@ -2972,10 +3002,11 @@ html[data-theme='light'] .works-intro-mark {
 }
 
 .footer-social-card:hover {
+  background-color: #C2E600;
   background-image: var(--krs-green-noise), var(--krs-green-grad);
   background-blend-mode: overlay, normal;
   background-size: 200px 200px, cover;
-  color: #121212 !important;
+  color: #000000 !important;
 }
 
 .footer-social-card-icon {
