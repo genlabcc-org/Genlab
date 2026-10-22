@@ -1,4 +1,5 @@
 import React from 'react';
+import './PartnersSection.css';
 
 export default function PartnersSection() {
   const partners = [
