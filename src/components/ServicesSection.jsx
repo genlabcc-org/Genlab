@@ -64,6 +64,13 @@ const AsteriskIcon = () => (
   </svg>
 );
 
+const ResearchIcon = () => (
+  <svg viewBox="0 0 40 40" className="cap-glyph-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="17.5" cy="17.5" r="10.5" stroke="currentColor" strokeWidth="3" />
+    <path d="M25.5 25.5L35 35" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
+  </svg>
+);
+
 export default function ServicesSection() {
   const [activeIdx, setActiveIdx] = useState(null);
   const [cardPosition, setCardPosition] = useState({ left: 0, top: 0 });
@@ -148,7 +155,7 @@ export default function ServicesSection() {
         'Product strategy and go-to-market planning',
         'Naming, visual identity and brand guidelines',
       ],
-      icon: <AsteriskIcon />,
+      icon: <ResearchIcon />,
       right: 'Positioning'
     }
   ];
@@ -230,10 +237,10 @@ export default function ServicesSection() {
               {/* Center Typography & Rotating Glyph */}
               <div className="cap-center-wrap">
                 <span
-                  className="cap-icon-glyph"
+                  className={`cap-icon-glyph ${item.left === 'Research' ? 'cap-icon-glyph-research' : ''}`}
                   style={{
                     color: isActive ? 'var(--text-headline)' : undefined,
-                    transform: isActive ? 'rotate(180deg) scale(1.08)' : undefined,
+                    transform: isActive && item.left !== 'Research' ? 'rotate(180deg) scale(1.08)' : undefined,
                   }}
                 >
                   {item.icon}

@@ -1463,6 +1463,33 @@ html[data-theme='light'] .nav-dropdown-sep {
   transform: rotate(180deg) scale(1.08);
 }
 
+@keyframes research-icon-spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  65% {
+    transform: rotate(390deg) scale(1.12);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1.08);
+  }
+}
+
+.services-row:hover .cap-icon-glyph-research,
+.services-row.is-active .cap-icon-glyph-research {
+  transform: rotate(0deg) scale(1.08);
+  animation: research-icon-spin 0.75s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-row:hover .cap-icon-glyph-research,
+  .services-row.is-active .cap-icon-glyph-research {
+    animation: none;
+  }
+}
+
 .services-row:hover .cap-side-label,
 .services-row.is-active .cap-side-label {
   color: rgba(255, 255, 255, 0.9);
@@ -3130,9 +3157,8 @@ html[data-theme='light'] .works-intro-mark {
   }
 
   .mobile-overlay-brand-logo {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
+    width: 40px;
+    height: 40px;
     filter: drop-shadow(0 4px 16px rgba(255, 255, 255, 0.15));
   }
 
