@@ -217,7 +217,7 @@ body {
 /* 2. SCROLLED DOCK STATE: iPhone Liquid Glass Morphism Pill with EQUAL spacing */
 .liquid-navbar.is-dock {
   width: auto;
-  max-width: 38rem;
+  max-width: 42rem;
   padding: 0.4rem 0.65rem;
   border-radius: 9999px;
   background-color: rgba(14, 14, 14, 0.65);
@@ -253,7 +253,6 @@ html[data-theme='light'] .liquid-navbar.is-dock {
   top: 0;
   left: 10%;
   right: 10%;
-  height: 1.5px;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
   border-radius: 9999px;
   opacity: 1;
@@ -1618,6 +1617,7 @@ html[data-theme='light'] .works-intro-mark {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -1627,6 +1627,7 @@ html[data-theme='light'] .works-intro-mark {
   from {
     transform: translate3d(-6vw, -5vh, 0) rotate(-12deg) scale(0.96);
   }
+
   to {
     transform: translate3d(7vw, 5vh, 0) rotate(14deg) scale(1.08);
   }
@@ -1638,6 +1639,7 @@ html[data-theme='light'] .works-intro-mark {
     transform: translate3d(0, 2.5rem, 0);
     clip-path: inset(0 0 100% 0);
   }
+
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
@@ -1650,6 +1652,7 @@ html[data-theme='light'] .works-intro-mark {
     opacity: 0;
     transform: translate3d(0, 1rem, 0);
   }
+
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
@@ -1657,6 +1660,7 @@ html[data-theme='light'] .works-intro-mark {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .work-page,
   .works-intro-title,
   .works-intro-description,
@@ -1686,7 +1690,7 @@ html[data-theme='light'] .works-intro-mark {
   padding: 0;
 }
 
-.works-section:not(.has-intro) .works-inner + .works-inner {
+.works-section:not(.has-intro) .works-inner+.works-inner {
   margin-top: 4rem;
 }
 
@@ -1925,8 +1929,13 @@ html[data-theme='light'] .works-intro-mark {
 }
 
 @keyframes lightboxFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .works-lightbox-modal {
@@ -1941,8 +1950,15 @@ html[data-theme='light'] .works-intro-mark {
 }
 
 @keyframes lightboxPopIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .works-lightbox-close {
@@ -2004,9 +2020,18 @@ html[data-theme='light'] .works-intro-mark {
 }
 
 @media (max-width: 768px) {
-  .works-lightbox-nav.prev { left: 0.5rem; }
-  .works-lightbox-nav.next { right: 0.5rem; }
-  .works-lightbox-close { top: -2.5rem; right: 0.5rem; }
+  .works-lightbox-nav.prev {
+    left: 0.5rem;
+  }
+
+  .works-lightbox-nav.next {
+    right: 0.5rem;
+  }
+
+  .works-lightbox-close {
+    top: -2.5rem;
+    right: 0.5rem;
+  }
 }
 
 .works-lightbox-img-wrap {
@@ -2354,8 +2379,8 @@ html[data-theme='light'] .works-intro-mark {
   width: 3.4rem;
   height: 3.4rem;
   border-radius: 50%;
-  border: 1.5px solid #2ae74d;
-  color: #2ae74d;
+  border: 1.5px solid #c2e600;
+  color: #c2e600;
   background: transparent;
   display: inline-flex;
   align-items: center;
@@ -3171,6 +3196,7 @@ html[data-theme='light'] .works-intro-mark {
       opacity: 0;
       transform: scale(0.98);
     }
+
     to {
       opacity: 1;
       transform: scale(1);
@@ -3286,7 +3312,8 @@ html[data-theme='light'] .works-intro-mark {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    filter: brightness(0); /* Black eye silhouette */
+    filter: brightness(0);
+    /* Black eye silhouette */
   }
 
   .mobile-overlay-arrow {
@@ -3629,8 +3656,13 @@ html[data-theme='light'] .works-intro-mark {
 }
 
 @keyframes lanyardShimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* Pedestal Base Display matching Reference Stone Plinth */
@@ -3788,58 +3820,58 @@ html[data-theme='light'] .works-intro-mark {
     width: 30px;
     height: 30px;
 
-  .reference-team-grid {
-    grid-template-columns: 1fr;
-  }
+    .reference-team-grid {
+      grid-template-columns: 1fr;
+    }
 
-  .cell-lanyard-stage {
-    height: 480px;
-  }
+    .cell-lanyard-stage {
+      height: 480px;
+    }
 
-  .reference-team-header {
-    padding: 1.75rem 1.25rem 0.5rem;
-    gap: 0.85rem;
-  }
+    .reference-team-header {
+      padding: 1.75rem 1.25rem 0.5rem;
+      gap: 0.85rem;
+    }
 
-  .reference-team-title {
-    font-size: clamp(2rem, 6.5vw, 2.4rem);
-    line-height: 1.1;
-  }
+    .reference-team-title {
+      font-size: clamp(2rem, 6.5vw, 2.4rem);
+      line-height: 1.1;
+    }
 
-  .reference-team-subtitle {
-    font-size: 0.95rem;
-    line-height: 1.4;
-  }
+    .reference-team-subtitle {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
 
-  .header-col-right {
-    margin-top: 0.15rem;
-    gap: 0.75rem;
-  }
+    .header-col-right {
+      margin-top: 0.15rem;
+      gap: 0.75rem;
+    }
 
-  .mission-statement {
-    font-size: 0.86rem;
-    line-height: 1.45;
-  }
+    .mission-statement {
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
 
-  .reference-team-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem 1rem;
-  }
+    .reference-team-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem 1rem;
+    }
 
-  .reference-team-stage {
-    padding: 0.5rem 1rem 11rem;
-  }
+    .reference-team-stage {
+      padding: 0.5rem 1rem 11rem;
+    }
 
-  .cell-lanyard-stage {
-    height: 410px;
-  }
+    .cell-lanyard-stage {
+      height: 410px;
+    }
 
-  .cell-pedestal-base {
-    margin-top: 0.25rem;
-    margin-bottom: 1rem;
-    width: min(240px, 80%);
+    .cell-pedestal-base {
+      margin-top: 0.25rem;
+      margin-bottom: 1rem;
+      width: min(240px, 80%);
+    }
   }
-}
 }
 
 /* =========================================
