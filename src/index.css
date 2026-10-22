@@ -2958,8 +2958,14 @@ html[data-theme='light'] .works-intro-mark {
   .showreel-stage {
     width: calc(90% + (10% * var(--expand-p, 0)));
     max-width: 100%;
+    aspect-ratio: 4 / 5;
     border-radius: calc(1.5rem - (0.65rem * var(--expand-p, 0)));
     transform: scale(calc(0.92 + (0.08 * var(--expand-p, 0))));
+  }
+
+  .marquee-sans,
+  .marquee-display {
+    font-size: clamp(2.2rem, 7vw, 3.8rem);
   }
 
   /* Desktop Navbar Hidden on Mobile */

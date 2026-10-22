@@ -1,8 +1,34 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 export default function ShowreelSection() {
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth <= 768;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 768px)');
+    const handleMediaChange = (e) => {
+      setIsMobile(e.matches);
+    };
+
+    setIsMobile(mql.matches);
+    mql.addEventListener('change', handleMediaChange);
+
+    return () => {
+      mql.removeEventListener('change', handleMediaChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -47,8 +73,9 @@ export default function ShowreelSection() {
     <section className="showreel-section" ref={sectionRef} style={{ '--expand-p': '0' }}>
       <div className="showreel-stage" role="region" aria-label="GenLab Video Showreel">
         <video
+          key={isMobile ? 'mob' : 'desk'}
           ref={videoRef}
-          src="/assets/scene.mp4"
+          src={isMobile ? '/assets/Scene_mob.mp4' : '/assets/scene.mp4'}
           autoPlay
           loop
           muted
