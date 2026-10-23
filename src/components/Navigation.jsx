@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import GenLabLogo from './GenLabLogo';
 
 const SECTION_LABELS = {
   home: 'Home',
@@ -423,7 +424,7 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
       {/* =========================================
           3. MOBILE FULLSCREEN MENU OVERLAY
           - Pure black background
-          - Folded ribbon GenLab brand logo at top center
+          - Geometric GenLab brand logo at top center
           - Active item in white bar with serif font & eye icon
           - Launchpad dropdown with Launchpad & Upskilling
           ========================================= */}
@@ -442,11 +443,7 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
               className="mobile-overlay-logo-link"
               aria-label="GenLab Home"
             >
-              <img
-                src="/assets/logo.svg"
-                alt="GenLab"
-                className="mobile-overlay-brand-logo"
-              />
+              <GenLabLogo size={40} color="#ffffff" className="mobile-overlay-brand-logo" />
             </a>
 
             <button
