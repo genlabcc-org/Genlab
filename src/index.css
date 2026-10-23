@@ -3238,7 +3238,8 @@ html[data-theme='light'] .works-intro-mark {
    ========================================= */
 .reference-team-page {
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   background-color: #0c0d12;
   color: #ffffff;
   position: relative;

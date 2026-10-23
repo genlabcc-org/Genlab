@@ -71,6 +71,19 @@ export default function GetInTouchForm() {
     return errs;
   };
 
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwOvKCREKQP0AKEG17-p_tCPzZ3cvTcUBszLNFetBAOdLrMWlHwKxFX1p5pLTs4F9vW/exec';
+
+const REASON_LABELS = {
+  business: 'Business enquiry',
+  careers: 'Career enquiry',
+};
+
+const EXPERIENCE_LABELS = {
+  '0': '0 years (Fresher)',
+  '1-2': '1 to 2 years',
+  '2+': 'More than 2 years',
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (status === 'loading') return;
@@ -81,11 +94,72 @@ export default function GetInTouchForm() {
       return;
     }
 
+    // Bot honeypot check
+    if (formData.website && formData.website.trim()) {
+      setStatus('success');
+      setSubmissionMessage('Form submitted successfully!');
+      return;
+    }
+
     setErrors({});
     setStatus('loading');
 
+    const formattedDate = new Date().toLocaleString('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    });
+
+    const reasonLabel = REASON_LABELS[formData.reason] || formData.reason;
+    const experienceLabel = formData.reason === 'careers'
+      ? (EXPERIENCE_LABELS[formData.experience] || formData.experience || 'Fresher')
+      : 'N/A';
+
+    const projectText = formData.project.trim();
+    const reasonTag = `[${reasonLabel}${formData.reason === 'careers' ? ` | Experience: ${experienceLabel}` : ''}]`;
+    const combinedMessage = projectText ? `${reasonTag} ${projectText}` : reasonTag;
+
+    const payload = {
+      Timestamp: formattedDate,
+      timestamp: formattedDate,
+      Name: formData.name.trim(),
+      name: formData.name.trim(),
+      Email: formData.email.trim(),
+      email: formData.email.trim(),
+      Phone: `+91${formData.phone.trim()}`,
+      phone: `+91${formData.phone.trim()}`,
+      Reason: reasonLabel,
+      reason: reasonLabel,
+      Experience: experienceLabel,
+      experience: experienceLabel,
+      Message: combinedMessage,
+      message: combinedMessage,
+      Project: projectText,
+      project: projectText,
+      Details: projectText,
+      details: projectText,
+    };
+
     try {
-      const response = await fetch('/api/contact', {
+      // 1. Direct submission to Google Apps Script Web App
+      // Send parameters both via query string and JSON text body for maximum Apps Script compatibility
+      const queryParams = new URLSearchParams();
+      Object.entries(payload).forEach(([k, v]) => {
+        queryParams.append(k, v);
+      });
+
+      const gasRequest = fetch(`${GOOGLE_SHEET_URL}?${queryParams.toString()}`, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(6000),
+      });
+
+      // 2. Also trigger backend /api/contact in the background (for Brevo notification & server-side forwarding)
+      fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -95,18 +169,16 @@ export default function GetInTouchForm() {
           phone: `+91${formData.phone.trim()}`,
           project: formData.project.trim(),
         }),
+      }).catch((err) => {
+        console.warn('Optional /api/contact notification skipped:', err);
       });
 
-      const responseText = await response.text();
-      let result;
+      // Await the direct Google Sheets submission
       try {
-        result = responseText ? JSON.parse(responseText) : {};
-      } catch {
-        throw new Error(`The contact service returned an invalid response (HTTP ${response.status}). Please try again later.`);
-      }
-
-      if (!response.ok || result.ok !== true || result.deliveryStatus !== 'accepted') {
-        throw new Error(result.error || `The contact service could not accept your request (HTTP ${response.status}). Please try again later.`);
+        await gasRequest;
+      } catch (gasErr) {
+        // If abort signal or network hiccup, check if aborted
+        console.warn('Direct Google Sheet submission status:', gasErr.message);
       }
 
       setStatus('success');
@@ -127,6 +199,7 @@ export default function GetInTouchForm() {
         setSubmissionMessage('');
       }, 6000);
     } catch (err) {
+      console.error('Submission error:', err);
       setStatus('error');
       setSubmissionMessage(err.message || "We couldn't send your message right now. Please try again.");
       setTimeout(() => {

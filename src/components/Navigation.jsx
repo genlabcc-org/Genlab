@@ -191,6 +191,18 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
       return;
     }
 
+    if (targetId === 'footer') {
+      const footerEl = document.getElementById('footer');
+      if (footerEl) {
+        setActiveSection('footer');
+        if (window.location.hash !== '#footer') {
+          window.history.pushState(null, '', '#footer');
+        }
+        footerEl.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+
     setActiveSection(targetId);
 
     const scrollToTarget = () => {

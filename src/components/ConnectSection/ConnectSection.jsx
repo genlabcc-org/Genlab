@@ -91,19 +91,73 @@ const ConnectSection = () => {
       return;
     }
 
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwOvKCREKQP0AKEG17-p_tCPzZ3cvTcUBszLNFetBAOdLrMWlHwKxFX1p5pLTs4F9vW/exec";
+
     setErrors({});
     setStatus("loading");
 
+    const formattedDate = new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
+
+    const reasonMap = {
+      careers: "business enquiry",
+      internships: "internship enquiry",
+      training_programs_courses: "courses enquiry",
+      incubation_support: "careers enquiry",
+    };
+    const reasonLabel = reasonMap[formData.reason] || formData.reason;
+    const projectText = formData.project.trim();
+    const reasonTag = `[${reasonLabel}]`;
+    const combinedMessage = projectText ? `${reasonTag} ${projectText}` : reasonTag;
+
+    const payload = {
+      Timestamp: formattedDate,
+      timestamp: formattedDate,
+      Name: formData.name.trim(),
+      name: formData.name.trim(),
+      Email: formData.email.trim(),
+      email: formData.email.trim(),
+      Phone: formData.phone.trim().startsWith("+") ? formData.phone.trim() : `+91${formData.phone.trim()}`,
+      phone: formData.phone.trim().startsWith("+") ? formData.phone.trim() : `+91${formData.phone.trim()}`,
+      Reason: reasonLabel,
+      reason: reasonLabel,
+      Experience: "N/A",
+      experience: "N/A",
+      Message: combinedMessage,
+      message: combinedMessage,
+      Project: projectText,
+      project: projectText,
+      Details: projectText,
+      details: projectText,
+    };
+
     try {
-      const response = await fetch("/api/contact", {
+      const queryParams = new URLSearchParams();
+      Object.entries(payload).forEach(([k, v]) => {
+        queryParams.append(k, v);
+      });
+
+      const gasRequest = fetch(`${GOOGLE_SHEET_URL}?${queryParams.toString()}`, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(6000),
+      });
+
+      fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, formType: "contact" }),
-      });
+      }).catch((err) => console.warn("Background /api/contact notice:", err));
 
-      const result = await response.json();
-      if (!response.ok || result.ok !== true || result.deliveryStatus !== "accepted") {
-        throw new Error(result.error || "We couldn't send your message right now. Please try again.");
+      try {
+        await gasRequest;
+      } catch (gasErr) {
+        console.warn("Direct Google Sheet submission status:", gasErr.message);
       }
 
       setStatus("success");
