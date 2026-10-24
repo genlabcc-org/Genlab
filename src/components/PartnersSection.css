@@ -2,149 +2,140 @@
    Partners Section
    ========================================= */
 .partners-section {
-    position: relative;
-    width: 100%;
-    background-color: var(--bg);
-    padding: 6rem 2rem 8rem;
-    display: flex;
-    justify-content: center;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--bg);
+  padding: 6rem 2rem 8rem;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
 }
 
 .partners-inner {
-    width: 100%;
-    max-width: 86rem;
+  width: 100%;
+  max-width: 86rem;
+  box-sizing: border-box;
 }
 
 .partners-header {
-    margin-bottom: 4rem;
+  margin-bottom: 4rem;
 }
 
 .partners-title {
-    font-family: var(--font-sans);
-    font-size: clamp(2.8rem, 4.5vw, 4.8rem);
-    font-weight: 300;
-    margin-bottom: 1rem;
+  font-family: var(--font-sans);
+  font-size: clamp(2.8rem, 4.5vw, 4.8rem);
+  font-weight: 300;
+  margin-bottom: 1rem;
 }
 
 .partners-title em {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 400;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
 }
 
 .partners-desc {
-    font-family: var(--font-sans);
-    font-size: 1.25rem;
-    font-weight: 300;
-    opacity: 0.75;
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 300;
+  opacity: 0.75;
 }
 
 .partners-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    border-left: 1px solid rgba(255, 255, 255, 0.12);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .partner-cell {
-    height: 7.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-right: 1px solid rgba(255, 255, 255, 0.12);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 1.5rem;
-    transition: background-color 0.25s ease;
+  height: 8.5rem;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 1.5rem;
+  transition: background-color 0.25s ease;
 }
 
 .partner-cell:hover {
-    background-color: rgba(255, 255, 255, 0.04);
+  background-color: rgba(255, 255, 255, 0.04);
 }
 
 .partner-logo {
-    max-width: 10rem;
-    max-height: 2.2rem;
-    width: auto;
-    height: auto;
-    opacity: 0.8;
-    filter: grayscale(1);
-    transition: opacity 0.25s ease, filter 0.25s ease;
+  max-width: min(100%, 12rem);
+  max-height: 3.15rem;
+  width: auto;
+  height: auto;
+  opacity: 0.85;
+  filter: grayscale(1);
+  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
 }
 
 .partner-cell:hover .partner-logo {
-    opacity: 1;
-    filter: grayscale(0);
-}
-
-/* =========================================
-   Responsive Media Queries (Mobile 2-Column Matrix)
-   ========================================= */
-@media (max-width: 1024px) {
-    .partners-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+  opacity: 1;
+  filter: grayscale(0) brightness(1.35);
+  transform: scale(1.04);
 }
 
 @media (max-width: 768px) {
-    .partners-section {
-        padding: 4.5rem 1.25rem 5rem;
-    }
+  .partners-section {
+    padding: 3.5rem 1.25rem 5.5rem;
+  }
 
-    .partners-header {
-        margin-bottom: 2.5rem;
-    }
+  .partners-header {
+    margin-bottom: 2rem;
+  }
 
-    .partners-title {
-        font-size: clamp(2.2rem, 7vw, 3.2rem);
-    }
+  .partners-title {
+    font-size: clamp(2.2rem, 8.5vw, 3.2rem);
+    line-height: 1.1;
+  }
 
-    .partners-desc {
-        font-size: 1rem;
-    }
+  .partners-desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
 
-    .partners-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .partners-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: 100%;
+  }
 
-    .partner-cell {
-        height: 6rem;
-        padding: 1rem 0.75rem;
-    }
+  .partner-cell {
+    height: 6rem;
+    padding: 0.85rem 1rem;
+  }
 
-    .partner-cell:last-child:nth-child(odd) {
-        grid-column: 1 / -1;
-    }
+  .partners-grid .partner-cell:last-child {
+    grid-column: 1 / -1 !important;
+  }
 
-    .partner-logo {
-        max-width: 8rem;
-        max-height: 2.2rem;
-    }
+  .partner-logo {
+    max-width: 88% !important;
+    max-height: 2.15rem !important;
+  }
 }
 
 @media (max-width: 480px) {
-    .partners-section {
-        padding: 4rem 1rem 4.5rem;
-    }
+  .partners-section {
+    padding: 3rem 1rem 4.5rem;
+  }
 
-    .partners-header {
-        margin-bottom: 2rem;
-    }
+  .partner-cell {
+    height: 5.5rem;
+    padding: 0.75rem 0.65rem;
+  }
 
-    .partners-title {
-        font-size: clamp(1.9rem, 6.5vw, 2.4rem);
-    }
-
-    .partners-desc {
-        font-size: 0.95rem;
-    }
-
-    .partner-cell {
-        height: 5.25rem;
-        padding: 0.75rem 0.5rem;
-    }
-
-    .partner-logo {
-        max-width: 7rem;
-        max-height: 1.85rem;
-    }
+  .partner-logo {
+    max-width: 86% !important;
+    max-height: 1.95rem !important;
+  }
 }
