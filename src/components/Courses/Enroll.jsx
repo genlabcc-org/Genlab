@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styles from "./Enroll.module.css";
 
 const EnrollModal = ({ isOpen, onClose, courseName }) => {
@@ -7,6 +7,7 @@ const EnrollModal = ({ isOpen, onClose, courseName }) => {
         course: "", status: "", comments: "",
     });
     const [status, setStatus] = useState("");
+    const isSubmittingRef = useRef(false);
 
     useEffect(() => {
         if (courseName) {
@@ -22,9 +23,10 @@ const EnrollModal = ({ isOpen, onClose, courseName }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (status === "loading") return;
+        if (isSubmittingRef.current || status === "loading") return;
+        isSubmittingRef.current = true;
 
-        const url = import.meta.env.VITE_ENROLL_FORM_URL;
+        const url = import.meta.env.VITE_ENROLL_FORM_URL || "https://script.google.com/macros/s/AKfycbzujpykQradwyYRhVHYs6sM2QsXjwmrBaKy1ImlezIOki9yUnxSpSH9a2MmLKO7TsYL/exec";
         setStatus("loading");
         const delay = new Promise((resolve) => setTimeout(resolve, 1500));
 
@@ -37,6 +39,7 @@ const EnrollModal = ({ isOpen, onClose, courseName }) => {
                 status: formData.status,
                 comments: formData.comments,
                 formType: "enrollment",
+                sheet: "upskilling enquiry",
             });
             await fetch(url, {
                 method: "POST",
@@ -51,6 +54,7 @@ const EnrollModal = ({ isOpen, onClose, courseName }) => {
                 setFormData({ name: "", phone: "", email: "", course: "", status: "", comments: "" });
                 onClose();
                 setStatus("");
+                isSubmittingRef.current = false;
             }, 1500);
 
         } catch (error) {
@@ -59,6 +63,7 @@ const EnrollModal = ({ isOpen, onClose, courseName }) => {
             setStatus("error");
             setTimeout(() => {
                 setStatus("");
+                isSubmittingRef.current = false;
             }, 1500);
         }
     };
@@ -144,7 +149,12 @@ const EnrollModal = ({ isOpen, onClose, courseName }) => {
                         <textarea name="comments" rows={3} placeholder="Anything else you'd like us to know" value={formData.comments} onChange={handleChange} />
                     </div>
 
-                    <button type="submit" className={styles.submitBtn} disabled={status === "loading"}>
+                    <button
+                        type="submit"
+                        className={styles.submitBtn}
+                        disabled={status === "loading"}
+                        style={status === "loading" ? { pointerEvents: "none" } : undefined}
+                    >
                         {status === "loading" ? "Submitting..."
                             : status === "success" ? "Submitted ✓"
                                 : status === "error" ? "Failed ✕"

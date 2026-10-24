@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from "./CustomCourses.module.css";
 
 const CheckPill = ({ name, value, checked, onChange, label }) => (
@@ -20,6 +20,7 @@ const CustomCourseModal = ({ isOpen, onClose }) => {
     mode: "", status: "",
   });
   const [submitStatus, setSubmitStatus] = useState("");
+  const isSubmittingRef = useRef(false);
 
   if (!isOpen) return null;
 
@@ -34,15 +35,16 @@ const CustomCourseModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (submitStatus === "loading") return;
+    if (isSubmittingRef.current || submitStatus === "loading") return;
+    isSubmittingRef.current = true;
 
-    const url = import.meta.env.VITE_ENROLL_FORM_URL;
+    const url = import.meta.env.VITE_ENROLL_FORM_URL || "https://script.google.com/macros/s/AKfycbzujpykQradwyYRhVHYs6sM2QsXjwmrBaKy1ImlezIOki9yUnxSpSH9a2MmLKO7TsYL/exec";
     setSubmitStatus("loading");
     const delay = new Promise((resolve) => setTimeout(resolve, 1500));
 
     try {
       const params = new URLSearchParams({
-        sheet: "Custom Courses",
+        sheet: "upskilling enquiry",
         name: formData.name,
         phone: formData.phone,
         course: formData.course === "Others" ? formData.customCourse : formData.course,
@@ -68,6 +70,7 @@ const CustomCourseModal = ({ isOpen, onClose }) => {
         });
         onClose();
         setSubmitStatus("");
+        isSubmittingRef.current = false;
       }, 1500);
     } catch (error) {
       console.error("Custom course submission error:", error);
@@ -75,6 +78,7 @@ const CustomCourseModal = ({ isOpen, onClose }) => {
       setSubmitStatus("error");
       setTimeout(() => {
         setSubmitStatus("");
+        isSubmittingRef.current = false;
       }, 1500);
     }
   };
