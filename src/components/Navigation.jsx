@@ -28,7 +28,7 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
     if (currentView === 'team') return 'team';
     if (currentView === 'work') return 'work';
     if (currentView === 'launchpad') return 'launchpad';
-    if (currentView === 'upskilling') return 'upskilling';
+    if (currentView === 'upskilling' || currentView === 'tracks') return 'upskilling';
     return 'home';
   });
 
@@ -67,7 +67,7 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
       setActiveSection('launchpad');
       return;
     }
-    if (currentView === 'upskilling') {
+    if (currentView === 'upskilling' || currentView === 'tracks') {
       setActiveSection('upskilling');
       return;
     }

@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 const TeamPage = React.lazy(() => import('./components/TeamPage'));
 const LaunchpadPage = React.lazy(() => import('./pages/LaunchPad/launch'));
 const UpskillingPage = React.lazy(() => import('./pages/Upskilling/Upskilling'));
+const TrackSection = React.lazy(() => import('./components/Courses/Tracksection'));
 const AiCompanyNagercoil = React.lazy(() => import('./pages/LocalSEO/AiCompanyNagercoil'));
 
 function resolveCurrentView() {
@@ -28,6 +29,7 @@ function resolveCurrentView() {
   if (path === '/work' || hash === '#work') return 'work';
   if (path === '/launchpad' || hash === '#launchpad') return 'launchpad';
   if (path === '/upskilling' || hash === '#upskilling') return 'upskilling';
+  if (path === '/tracks' || hash === '#tracks') return 'tracks';
   return 'portfolio';
 }
 
@@ -49,13 +51,13 @@ export default function App() {
     };
   }, []);
 
-  const navigateTo = (view) => {
+  const navigateTo = (view, state) => {
     setCurrentView(view);
     const path = view === 'portfolio' ? '/' : `/${view}`;
     const hash = view === 'portfolio' ? '' : `#${view}`;
 
     if (window.location.pathname !== path && window.location.hash !== hash) {
-      window.history.pushState(null, '', path);
+      window.history.pushState(state ?? null, '', path);
     }
     window.scrollTo({ top: 0, behavior: 'auto' });
   };
@@ -115,6 +117,22 @@ export default function App() {
               }
             >
               <UpskillingPage onNavigate={navigateTo} />
+            </React.Suspense>
+          </main>
+          <Footer />
+        </>
+      ) : currentView === 'tracks' ? (
+        <>
+          <Navigation currentView={currentView} onNavigate={navigateTo} />
+          <main className="tracks-view-page" style={{ minHeight: '100vh', background: '#000000', paddingTop: '1.5rem' }}>
+            <React.Suspense
+              fallback={
+                <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div className="nav-active-dot" style={{ width: '1.25rem', height: '1.25rem', background: '#c2e600' }} />
+                </div>
+              }
+            >
+              <TrackSection onNavigate={navigateTo} />
             </React.Suspense>
           </main>
           <Footer />
