@@ -491,10 +491,9 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
 
             {/* Shabdham AI */}
             <a
-              href="https://fot-shabdham.vercel.app/"
+              href="https://shabdam.genlab.cc/"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={(e) => handleNavClick(e, 'shabdham')}
               className="mobile-overlay-link"
             >
               <span className="mobile-overlay-text">Shabdham AI</span>
