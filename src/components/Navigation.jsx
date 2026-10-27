@@ -465,6 +465,25 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
                 <span className="dropdown-item-tagline">Friends of Tech Event</span>
               </div>
             </a>
+
+            <div className="nav-dropdown-sep" />
+
+            <a
+              href="https://careerlaunchpad.genlab.cc/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                setEventDropdownOpen(false);
+                setIsEventDropdownPinned(false);
+              }}
+              className="nav-dropdown-item"
+              style={{ textDecoration: 'none' }}
+            >
+              <div className="dropdown-item-meta">
+                <span className="dropdown-item-name">Career Bootcamp</span>
+                <span className="dropdown-item-tagline">Free 1-Day Career Reset</span>
+              </div>
+            </a>
           </div>
         </div>
 
@@ -691,6 +710,21 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
                   <div className="mobile-sub-texts">
                     <span className="mobile-sub-title">FOT</span>
                     <span className="mobile-sub-desc">Friends of Tech Event</span>
+                  </div>
+                </a>
+
+                <a
+                  href="https://careerlaunchpad.genlab.cc/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="mobile-subnav-item"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <span className="mobile-sub-bullet">•</span>
+                  <div className="mobile-sub-texts">
+                    <span className="mobile-sub-title">Career Bootcamp</span>
+                    <span className="mobile-sub-desc">Free 1-Day Career Reset</span>
                   </div>
                 </a>
               </div>
