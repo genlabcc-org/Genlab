@@ -8,6 +8,7 @@ const SECTION_LABELS = {
   launchpad: 'Launchpad',
   upskilling: 'Upskilling',
   team: 'Team',
+  event: 'Event',
   footer: 'Let’s talk',
 };
 
@@ -21,8 +22,14 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
   const [isDropdownPinned, setIsDropdownPinned] = useState(false);
   const [mobileLaunchpadOpen, setMobileLaunchpadOpen] = useState(false);
 
+  const [eventDropdownOpen, setEventDropdownOpen] = useState(false);
+  const [isEventDropdownPinned, setIsEventDropdownPinned] = useState(false);
+  const [mobileEventOpen, setMobileEventOpen] = useState(false);
+
   const dropdownRef = useRef(null);
   const hoverTimeoutRef = useRef(null);
+  const eventDropdownRef = useRef(null);
+  const eventHoverTimeoutRef = useRef(null);
 
   const [activeSection, setActiveSection] = useState(() => {
     if (currentView === 'team') return 'team';
@@ -100,6 +107,10 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
         setLaunchpadDropdownOpen(false);
         setIsDropdownPinned(false);
       }
+      if (eventDropdownRef.current && !eventDropdownRef.current.contains(e.target)) {
+        setEventDropdownOpen(false);
+        setIsEventDropdownPinned(false);
+      }
     };
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
@@ -124,6 +135,8 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
         setIsMenuOpen(false);
         setLaunchpadDropdownOpen(false);
         setIsDropdownPinned(false);
+        setEventDropdownOpen(false);
+        setIsEventDropdownPinned(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -137,11 +150,17 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
     const nextState = !launchpadDropdownOpen;
     setLaunchpadDropdownOpen(nextState);
     setIsDropdownPinned(nextState);
+    if (nextState) {
+      setEventDropdownOpen(false);
+      setIsEventDropdownPinned(false);
+    }
   };
 
   const handleDropdownMouseEnter = () => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     setLaunchpadDropdownOpen(true);
+    setEventDropdownOpen(false);
+    setIsEventDropdownPinned(false);
   };
 
   const handleDropdownMouseLeave = () => {
@@ -152,11 +171,40 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
     }, 350);
   };
 
+  const handleEventDropdownTriggerClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (eventHoverTimeoutRef.current) clearTimeout(eventHoverTimeoutRef.current);
+    const nextState = !eventDropdownOpen;
+    setEventDropdownOpen(nextState);
+    setIsEventDropdownPinned(nextState);
+    if (nextState) {
+      setLaunchpadDropdownOpen(false);
+      setIsDropdownPinned(false);
+    }
+  };
+
+  const handleEventDropdownMouseEnter = () => {
+    if (eventHoverTimeoutRef.current) clearTimeout(eventHoverTimeoutRef.current);
+    setEventDropdownOpen(true);
+    setLaunchpadDropdownOpen(false);
+    setIsDropdownPinned(false);
+  };
+
+  const handleEventDropdownMouseLeave = () => {
+    if (isEventDropdownPinned) return;
+    eventHoverTimeoutRef.current = setTimeout(() => {
+      setEventDropdownOpen(false);
+    }, 350);
+  };
+
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
     setIsMenuOpen(false);
     setLaunchpadDropdownOpen(false);
     setIsDropdownPinned(false);
+    setEventDropdownOpen(false);
+    setIsEventDropdownPinned(false);
 
     if (targetId === 'shabdam') {
       window.open('https://fot-shabdham.vercel.app/', '_blank', 'noopener,noreferrer');
@@ -366,6 +414,79 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
           {currentView === 'team' && <span className="nav-active-dot" aria-hidden="true" />}
         </button>
 
+        {/* Event Dropdown */}
+        <div
+          className="nav-dropdown-wrap"
+          ref={eventDropdownRef}
+          onMouseEnter={handleEventDropdownMouseEnter}
+          onMouseLeave={handleEventDropdownMouseLeave}
+        >
+          <button
+            type="button"
+            onClick={handleEventDropdownTriggerClick}
+            className="nav-item-link nav-dropdown-btn"
+            aria-expanded={eventDropdownOpen}
+            aria-haspopup="true"
+          >
+            <span>Event</span>
+            <svg
+              viewBox="0 0 10 6"
+              width="9"
+              height="6"
+              className={`nav-dropdown-chevron ${eventDropdownOpen ? 'is-open' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M1 1L5 5L9 1" />
+            </svg>
+          </button>
+
+          {/* Event Dropdown Menu Panel */}
+          <div className={`nav-dropdown-panel ${eventDropdownOpen ? 'is-visible' : ''}`}>
+            <div className="dropdown-panel-gloss" aria-hidden="true" />
+
+            <a
+              href="https://fot.genlab.cc/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                setEventDropdownOpen(false);
+                setIsEventDropdownPinned(false);
+              }}
+              className="nav-dropdown-item"
+              style={{ textDecoration: 'none' }}
+            >
+              <div className="dropdown-item-meta">
+                <span className="dropdown-item-name">FOT</span>
+                <span className="dropdown-item-tagline">Friends of Tech Event</span>
+              </div>
+            </a>
+
+            <div className="nav-dropdown-sep" />
+
+            <a
+              href="https://careerlaunchpad.genlab.cc/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                setEventDropdownOpen(false);
+                setIsEventDropdownPinned(false);
+              }}
+              className="nav-dropdown-item"
+              style={{ textDecoration: 'none' }}
+            >
+              <div className="dropdown-item-meta">
+                <span className="dropdown-item-name">Career Bootcamp</span>
+                <span className="dropdown-item-tagline">Free 1-Day Career Reset</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
         {/* Let's talk */}
         <a
           href="#footer"
@@ -491,10 +612,9 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
 
             {/* Shabdham AI */}
             <a
-              href="https://fot-shabdham.vercel.app/"
+              href="https://shabdam.genlab.cc/"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={(e) => handleNavClick(e, 'shabdham')}
               className="mobile-overlay-link"
             >
               <span className="mobile-overlay-text">Shabdham AI</span>
@@ -560,6 +680,55 @@ export default function Navigation({ currentView = 'portfolio', onNavigate }) {
                 </span>
               )}
             </button>
+
+            {/* Event Expandable Dropdown Accordion */}
+            <div className="mobile-accordion-group">
+              <button
+                type="button"
+                onClick={() => setMobileEventOpen((prev) => !prev)}
+                className="mobile-overlay-link mobile-accordion-trigger"
+              >
+                <span className="mobile-overlay-text">Event</span>
+                <span className={`mobile-accordion-chevron ${mobileEventOpen ? 'is-open' : ''}`}>
+                  <svg viewBox="0 0 10 6" width="12" height="8" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M1 1L5 5L9 1" />
+                  </svg>
+                </span>
+              </button>
+
+              {/* Sub-item: FOT */}
+              <div className={`mobile-subnav-panel ${mobileEventOpen ? 'is-expanded' : ''}`}>
+                <a
+                  href="https://fot.genlab.cc/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="mobile-subnav-item"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <span className="mobile-sub-bullet">•</span>
+                  <div className="mobile-sub-texts">
+                    <span className="mobile-sub-title">FOT</span>
+                    <span className="mobile-sub-desc">Friends of Tech Event</span>
+                  </div>
+                </a>
+
+                <a
+                  href="https://careerlaunchpad.genlab.cc/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="mobile-subnav-item"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <span className="mobile-sub-bullet">•</span>
+                  <div className="mobile-sub-texts">
+                    <span className="mobile-sub-title">Career Bootcamp</span>
+                    <span className="mobile-sub-desc">Free 1-Day Career Reset</span>
+                  </div>
+                </a>
+              </div>
+            </div>
 
             {/* Let's talk */}
             <a

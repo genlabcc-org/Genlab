@@ -9,7 +9,7 @@ export default function AboutSection() {
     [
       {
         type: 'text',
-        value: 'We grew up on the internet, so we build like it. GenLab is a team of young engineers, designers and AI specialists',
+        value: 'GenLab is a team of young engineers, designers and AI specialists',
       },
       {
         type: 'glyph',

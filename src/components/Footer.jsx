@@ -17,7 +17,9 @@ export default function Footer() {
             </div>
 
             <p className="footer-mission">
-              We build products that move people, and move the business.{' '}
+              We build products that move people,
+              <br />
+              and move the business.{' '}
               <a href="mailto:info@genlab.cc" className="footer-write-link">
                 Prefer to write? Send a note.
               </a>
