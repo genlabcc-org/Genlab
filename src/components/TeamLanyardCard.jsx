@@ -59,8 +59,8 @@ export default function TeamLanyardCard({ member, priority = false }) {
             metal="silver"
             cornerRadius={0.2}
             size={0.72}
-            strapLength={0.28}
-            strapWidth={0.42}
+            strapLength={0.18}
+            strapWidth={0.85}
             gravity={1.0}
             damping={0.45}
             elasticity={0.5}
@@ -73,8 +73,8 @@ export default function TeamLanyardCard({ member, priority = false }) {
             <div className="cell-radiant-blur-glow" />
             {textures?.frontUrl ? (
               <img
-                src={textures.frontUrl}
-                alt=""
+                src={typeof textures.frontUrl === 'string' ? textures.frontUrl : (textures.frontUrl.toDataURL ? textures.frontUrl.toDataURL() : '')}
+                alt={member.name}
                 className="cell-lanyard-static-preview"
               />
             ) : (

@@ -1,5 +1,5 @@
 // Generates high-resolution ID card textures matching the authentic GenLab ID card
-const TEXTURE_VERSION = 10;
+const TEXTURE_VERSION = 13;
 const cache = new Map();
 
 const GENLAB_PINWHEEL_PATHS = [
@@ -115,129 +115,111 @@ function roundRect(ctx, x, y, w, h, r) {
 }
 
 export async function getBadgeTextures(member) {
-  const cacheKey = `${member.id}_v${TEXTURE_VERSION}`;
+  const cacheKey = `${member.id}_${member.slug}_v${TEXTURE_VERSION}`;
   if (cache.has(cacheKey)) {
     return cache.get(cacheKey);
   }
 
-  // Load photo
-  const photo = await new Promise((resolve) => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => resolve(img);
-    img.onerror = () => resolve(null);
-    img.src = member.image;
-  });
-
-  const width = 800;
-  const height = 1250;
+  const width = 832;
+  const height = 1301;
 
   // ==========================================
-  // 1. FRONT BADGE CANVAS (Authentic White ID)
+  // 1. FRONT BADGE CANVAS (GenLab Signature White ID)
   // ==========================================
   const frontCanvas = document.createElement('canvas');
   frontCanvas.width = width;
   frontCanvas.height = height;
   const ctx = frontCanvas.getContext('2d');
 
-  if (ctx) {
+  let cardImageDrawn = false;
+
+  // Try loading pre-rendered card asset first
+  if (member.cardImage) {
+    const cardImg = await new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => resolve(img);
+      img.onerror = () => resolve(null);
+      img.src = member.cardImage;
+    });
+
+    if (cardImg && ctx) {
+      ctx.drawImage(cardImg, 0, 0, width, height);
+      cardImageDrawn = true;
+    }
+  }
+
+  // Fallback programmatic render matching exact Figma specifications
+  if (!cardImageDrawn && ctx) {
     // Pure White Card Background
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, width, height);
 
-    // 1. Top-Left: Number Badge (e.g. 01, 02, 03)
-    const numText = String(member.id).padStart(2, '0');
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+    // 1. Top-Left: Member Name
+    ctx.fillStyle = '#000000';
+    ctx.font = 'bold 56px "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(numText, 68, 205);
+    ctx.textBaseline = 'top';
+    ctx.fillText(member.name, 56, 115);
 
-    // 2. Member Name (Bold and Crisp)
+    // 2. Top-Left: Member Role
     ctx.fillStyle = '#111827';
-    ctx.font = 'bold 44px "Plus Jakarta Sans", -apple-system, sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText(member.name, 68, 258);
+    ctx.font = '500 36px "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(member.role, 56, 185);
 
-    // 3. Member Role (Subtle Grey under Name)
-    ctx.fillStyle = '#64748b';
-    ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(member.role, 68, 295);
-
-    // 4. Top-Right: Vibrant Green Diagonal Arrow ↗
+    // 3. Top-Left: Neon Lime Accent Underline
+    const roleWidth = ctx.measureText(member.role).width;
+    const lineWidth = Math.max(120, Math.min(roleWidth, 380));
     ctx.fillStyle = '#c2e600';
-    ctx.font = 'bold 38px "Plus Jakarta Sans", sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText('↗', 732, 230);
+    ctx.fillRect(56, 238, lineWidth, 7);
 
-    // 5. Top-Right: Badge ID Code (e.g. GL/EZ/26/01)
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '500 20px monospace';
-    ctx.textAlign = 'right';
-    const badgeCode = member.badgeId ? member.badgeId.replace('EE', 'EZ') : `GL/EZ/26/${numText}`;
-    ctx.fillText(badgeCode, 732, 268);
-    ctx.textAlign = 'left';
+    // 4. Top-Right: Upright GenLab Pinwheel Logo
+    const logoSize = 104;
+    const logoX = width - 56 - logoSize;
+    const logoY = 48;
+    drawGenLabLogo(ctx, logoX, logoY, logoSize, '#000000');
 
-    // Center: Portrait Photo Box (starts at Y=320)
-    const photoBoxX = 68;
-    const photoBoxY = 320;
-    const photoBoxW = 664;
-    const photoBoxH = 650;
-    const photoRadius = 18;
-
+    // 5. Top-Right: Rotated Vertical Brand Typography (90 deg clockwise)
     ctx.save();
-    roundRect(ctx, photoBoxX, photoBoxY, photoBoxW, photoBoxH, photoRadius);
-    ctx.clip();
-
-    // Soft neutral grey background inside photo box
-    ctx.fillStyle = '#f1f3f5';
-    ctx.fillRect(photoBoxX, photoBoxY, photoBoxW, photoBoxH);
-
-    if (photo) {
-      // Scale and center photo focusing on the face/torso
-      const imgAspect = photo.width / photo.height;
-      const targetAspect = photoBoxW / photoBoxH;
-      let drawW, drawH, drawX, drawY;
-
-      if (imgAspect > targetAspect) {
-        drawH = photoBoxH;
-        drawW = photoBoxH * imgAspect;
-        drawX = photoBoxX + (photoBoxW - drawW) / 2;
-        drawY = photoBoxY;
-      } else {
-        drawW = photoBoxW;
-        drawH = photoBoxW / imgAspect;
-        drawX = photoBoxX;
-        drawY = photoBoxY;
-      }
-
-      ctx.drawImage(photo, drawX, drawY, drawW, drawH);
-    }
-    ctx.restore();
-
-    // Bottom-Left: GenLab Logo & Subtitle
-    const logoSize = 60;
-    const logoX = 68;
-    const logoY = 1005;
-    drawGenLabLogo(ctx, logoX, logoY, logoSize, '#111827');
+    ctx.translate(width - 56, logoY + logoSize + 26);
+    ctx.rotate(Math.PI / 2);
 
     // GenLab text
-    ctx.fillStyle = '#111827';
-    ctx.font = 'bold 46px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = '#000000';
+    ctx.font = 'bold 54px "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText('GenLab', logoX + logoSize + 16, logoY + 42);
+    ctx.textBaseline = 'top';
+    ctx.fillText('GenLab', 0, 0);
 
-    // Yellow star symbol ✦ on the top-right of 'b'
-    ctx.fillStyle = '#f59e0b';
-    ctx.font = 'bold 30px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('✦', logoX + logoSize + 180, logoY + 22);
+    // Star sparkle beside 'b'
+    ctx.fillStyle = '#c2e600';
+    ctx.font = 'bold 36px "Plus Jakarta Sans", sans-serif';
+    const glWidth = ctx.measureText('GenLab').width;
+    ctx.fillText('✦', glWidth + 6, -8);
 
     // Subtitle: The Gen Z Creators' Space
-    ctx.fillStyle = '#64748b';
-    ctx.font = '500 23px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText("The Gen Z Creators' Space", logoX + logoSize + 16, logoY + 80);
+    ctx.fillStyle = '#262626';
+    ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText("The Gen Z Creators' Space", 0, 56);
+    ctx.restore();
 
-    // Bottom-Right: QR Code
-    drawQrCode(ctx, 592, 988, 140, '#111827', '#ffffff');
+    // 6. Member Photo Cutout anchored cleanly at bottom
+    const photo = await new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => resolve(img);
+      img.onerror = () => resolve(null);
+      img.src = member.image;
+    });
+
+    if (photo) {
+      const imgAspect = photo.width / photo.height;
+      const drawW = width;
+      const drawH = width / imgAspect;
+      const drawX = 0;
+      const drawY = height - drawH;
+      ctx.drawImage(photo, drawX, drawY, drawW, drawH);
+    }
   }
 
   // ==========================================
@@ -347,7 +329,8 @@ export async function getBadgeTextures(member) {
   backCanvas._canvasId = `gl_back_${member.id}`;
 
   const result = {
-    frontUrl: frontCanvas,
+    frontUrl: member.cardImage || frontCanvas,
+    frontCanvas: frontCanvas,
     backUrl: backCanvas,
     strapUrl: getSharedStrapCanvas()
   };

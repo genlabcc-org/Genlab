@@ -22,7 +22,7 @@ const STRAP_WIDTH = 0.24;
 const RING_RADIUS = 0.095;
 const RING_TUBE = 0.0135;
 const EYELET_RADIUS = 0.036;
-const CLAMP_BODY = 0.15;
+const CLAMP_BODY = 0.11;
 const FACE_WIDTH = 512;
 
 const FINISHES = {
@@ -236,8 +236,8 @@ const loadImage = (cache, url) => {
 const cardLayout = (orientation, cornerRadius) => {
   const [width, height] = CARD_SIZES[orientation] || CARD_SIZES.portrait;
   const radius = mix(0.03, Math.min(width, height) * 0.2, clamp(cornerRadius, 0, 1));
-  const slot = { width: 0.34, height: 0.07, y: height / 2 - 0.13 };
-  const ringY = height / 2 - 0.055;
+  const slot = { width: 0.26, height: 0.05, y: height / 2 - 0.065 };
+  const ringY = height / 2 - 0.025;
   return { width, height, radius, slot, ringY, hangY: ringY + RING_RADIUS };
 };
 
