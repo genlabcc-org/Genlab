@@ -3542,6 +3542,14 @@ html[data-theme='light'] .works-intro-mark {
   transform: translateY(0) scale(1);
 }
 
+@media (min-width: 1025px) {
+  /* Center the 2 cards on the final row (cards 7 and 8) in the 3-column stage */
+  .reference-team-grid > .reference-grid-cell:nth-child(7),
+  .reference-team-grid > .reference-grid-cell:nth-child(8) {
+    transform: translateX(calc(50% + 0.75rem));
+  }
+}
+
 /* Individual Cell in the Stage */
 .reference-grid-cell {
   display: flex;
