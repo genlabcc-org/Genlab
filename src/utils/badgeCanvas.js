@@ -160,18 +160,18 @@ export async function getBadgeTextures(member) {
     ctx.font = 'bold 56px "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
-    ctx.fillText(member.name, 56, 115);
+    ctx.fillText(member.name, 56, 135);
 
     // 2. Top-Left: Member Role
     ctx.fillStyle = '#111827';
     ctx.font = '500 36px "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(member.role, 56, 185);
+    ctx.fillText(member.role, 56, 205);
 
     // 3. Top-Left: Neon Lime Accent Underline
     const roleWidth = ctx.measureText(member.role).width;
     const lineWidth = Math.max(120, Math.min(roleWidth, 380));
     ctx.fillStyle = '#c2e600';
-    ctx.fillRect(56, 238, lineWidth, 7);
+    ctx.fillRect(56, 258, lineWidth, 7);
 
     // 4. Top-Right: Upright GenLab Pinwheel Logo
     const logoSize = 104;

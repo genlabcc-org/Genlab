@@ -736,6 +736,12 @@ const stepSimulation = (sim, dt, physics, time) => {
       .addScaledVector(normal, across / (1 + physics.broadside * Math.abs(across) * h))
       .multiplyScalar(linearDrag);
     body.angular.multiplyScalar(angularDrag / (1 + physics.spinAir * body.angular.length() * h));
+
+    if (!physics.canSpin) {
+      body.angular.set(0, 0, 0);
+      body.quaternion.identity();
+    }
+
     if (body.velocity.lengthSq() > 3600) body.velocity.setLength(60);
     if (body.angular.lengthSq() > 1600) body.angular.setLength(40);
 
@@ -771,6 +777,7 @@ const Lanyard = ({
   breeze = 0.5,
   interactive = true,
   intro = true,
+  canSpin = true,
   className = '',
   style
 }) => {
@@ -798,7 +805,8 @@ const Lanyard = ({
     elasticity,
     breeze,
     interactive,
-    intro
+    intro,
+    canSpin
   };
 
   useEffect(() => {
@@ -1207,7 +1215,8 @@ gl_FragColor.a *= smoothstep(0.0, 0.35, vStrapProgress);`
         twistDamping: 3,
         grip: 40,
         gripDamping: 6,
-        breeze: reducedMotion ? 0 : clamp(s.breeze, 0, 1)
+        breeze: reducedMotion ? 0 : clamp(s.breeze, 0, 1),
+        canSpin: !!s.canSpin
       };
     };
 
@@ -1259,6 +1268,7 @@ gl_FragColor.a *= smoothstep(0.0, 0.35, vStrapProgress);`
     };
 
     const flip = point => {
+      if (!settingsRef.current.canSpin) return;
       const body = sim.body;
       const up = scratch.a.set(0, 1, 0).applyQuaternion(body.quaternion);
       let direction = sim.turn > 0 ? -1 : 1;

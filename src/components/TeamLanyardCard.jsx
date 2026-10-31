@@ -67,6 +67,7 @@ export default function TeamLanyardCard({ member, priority = false }) {
             breeze={0.06}
             interactive={true}
             intro={false}
+            canSpin={false}
           />
         ) : (
           <div className="cell-lanyard-placeholder cell-radiant-blur" aria-hidden="true">

@@ -3637,7 +3637,7 @@ html[data-theme='light'] .works-intro-mark {
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 6px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-  margin-top: -0.75rem;
+  margin-top: 0.4rem;
   pointer-events: none;
   user-select: none;
 }
