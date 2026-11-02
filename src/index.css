@@ -3290,7 +3290,7 @@ html[data-theme='light'] .works-intro-mark {
 .team-studio-backdrop {
   position: absolute;
   inset: 0;
-  background: url('/assets/team-studio-stage.jpg') center bottom / cover no-repeat;
+  background: url('/assets/team-studio-stage.webp') center bottom / cover no-repeat;
   z-index: 1;
   pointer-events: none;
 }

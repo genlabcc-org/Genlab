@@ -203,7 +203,7 @@ export default function WorksSection({ showIntro = true, showFilterNav = true, l
         <div className="works-intro">
           <img
             className="works-intro-mark"
-            src="/genlab/Genlab.png"
+            src="/genlab/Genlab.webp"
             alt="GenLab logo"
           />
           <div className="works-intro-content">

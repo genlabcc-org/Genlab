@@ -4,13 +4,13 @@ import "./launch.css";
 import Journey from "./Journey";
 
 
-import launchpadImg from "../../assets/logos/academia/Launch_img.png";
+import launchpadImg from "../../assets/logos/academia/Launch_img.webp";
 import vit from "../../assets/logos/academia/vit.webp";
 import arunachala from "../../assets/logos/academia/a_arunachala.webp";
 import sns from "../../assets/logos/academia/a_3.webp";
-import hindi from "../../assets/logos/academia/a_4.png";
-import telugu from "../../assets/logos/academia/a_5.png";
-import sit from "../../assets/logos/academia/a_6.png";
+import hindi from "../../assets/logos/academia/a_4.webp";
+import telugu from "../../assets/logos/academia/a_5.webp";
+import sit from "../../assets/logos/academia/a_6.webp";
 import christ from "../../assets/logos/academia/Christ.webp";
 import fatima from "../../assets/logos/academia/fatima.webp";
 import fx from "../../assets/logos/academia/fx.webp";

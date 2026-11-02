@@ -13,7 +13,7 @@ export default function AiCompanyNagercoil({ onNavigate }) {
           <div className="works-intro" style={{ minHeight: 'auto', paddingTop: '4rem', paddingBottom: '3rem' }}>
             <img
               className="works-intro-mark"
-              src="/genlab/Genlab.png"
+              src="/genlab/Genlab.webp"
               alt="GenLab Logo"
             />
             <div className="works-intro-content">

@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import "./Journey.css";
-import bg from "../../assets/bg.png";
+import bg from "../../assets/bg.webp";
 
 const steps = [
   { number: 1, title: "You're In. Welcome to GenLab.", description: "Onboarding and orientation to your learning path" },

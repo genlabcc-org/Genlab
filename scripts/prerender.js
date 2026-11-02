@@ -187,10 +187,10 @@ routes.forEach((route) => {
     `<meta name="twitter:description" content="${route.description}" />`
   );
 
-  // Inject content inside root
+  // Inject content inside root wrapped with SEO accessibility container
   html = html.replace(
     '<div id="root"></div>',
-    `<div id="root">${route.content.trim()}</div>`
+    `<div id="root"><div class="prerender-seo-content">${route.content.trim()}</div></div>`
   );
 
   if (route.path === '/') {

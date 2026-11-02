@@ -259,7 +259,7 @@
 
 /* ─── LaunchPad Achievement ─────────────────────────────────────────────────── */
 .launch-achieve {
-    background: url("../../assets/bg.png") center/cover no-repeat;
+    background: url("../../assets/bg.webp") center/cover no-repeat;
     padding-top: 120px;
     padding-bottom: 120px;
 }

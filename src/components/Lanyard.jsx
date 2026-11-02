@@ -843,7 +843,6 @@ const Lanyard = ({
     fillLight.position.set(3, -1, 4);
     scene.add(keyLight, fillLight);
 
-    const imageCache = new Map();
     const images = { front: null, back: null, strap: null };
     const frontCanvas = document.createElement('canvas');
     const backCanvas = document.createElement('canvas');

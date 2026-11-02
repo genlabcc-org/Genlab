@@ -25,9 +25,26 @@ export default function ShowreelSection() {
   }, []);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (videoRef.current && videoRef.current.paused) {
+            videoRef.current.play().catch(() => {});
+          }
+        } else {
+          if (videoRef.current && !videoRef.current.paused) {
+            videoRef.current.pause();
+          }
+        }
+      },
+      { rootMargin: '200px 0px 200px 0px', threshold: 0.05 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [isMobile]);
 
   useEffect(() => {
@@ -80,7 +97,7 @@ export default function ShowreelSection() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           className="showreel-billboard-img showreel-billboard-video"
         />
         <div className="showreel-overlay" />

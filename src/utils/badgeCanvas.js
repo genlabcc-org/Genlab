@@ -123,103 +123,87 @@ export async function getBadgeTextures(member) {
   const width = 832;
   const height = 1301;
 
-  // ==========================================
-  // 1. FRONT BADGE CANVAS (GenLab Signature White ID)
-  // ==========================================
-  const frontCanvas = document.createElement('canvas');
-  frontCanvas.width = width;
-  frontCanvas.height = height;
-  const ctx = frontCanvas.getContext('2d');
+  let frontUrl = member.cardImage;
+  let frontCanvas = null;
 
-  let cardImageDrawn = false;
+  // Fallback programmatic render matching exact Figma specifications if no pre-rendered card
+  if (!frontUrl) {
+    frontCanvas = document.createElement('canvas');
+    frontCanvas.width = width;
+    frontCanvas.height = height;
+    const ctx = frontCanvas.getContext('2d');
+    if (ctx) {
+      // Pure White Card Background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, width, height);
 
-  // Try loading pre-rendered card asset first
-  if (member.cardImage) {
-    const cardImg = await new Promise((resolve) => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => resolve(img);
-      img.onerror = () => resolve(null);
-      img.src = member.cardImage;
-    });
+      // 1. Top-Left: Member Name
+      ctx.fillStyle = '#000000';
+      ctx.font = 'bold 56px "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText(member.name, 56, 135);
 
-    if (cardImg && ctx) {
-      ctx.drawImage(cardImg, 0, 0, width, height);
-      cardImageDrawn = true;
+      // 2. Top-Left: Member Role
+      ctx.fillStyle = '#111827';
+      ctx.font = '500 36px "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText(member.role, 56, 205);
+
+      // 3. Top-Left: Neon Lime Accent Underline
+      const roleWidth = ctx.measureText(member.role).width;
+      const lineWidth = Math.max(120, Math.min(roleWidth, 380));
+      ctx.fillStyle = '#c2e600';
+      ctx.fillRect(56, 258, lineWidth, 7);
+
+      // 4. Top-Right: Upright GenLab Pinwheel Logo
+      const logoSize = 104;
+      const logoX = width - 56 - logoSize;
+      const logoY = 48;
+      drawGenLabLogo(ctx, logoX, logoY, logoSize, '#000000');
+
+      // 5. Top-Right: Rotated Vertical Brand Typography (90 deg clockwise)
+      ctx.save();
+      ctx.translate(width - 56, logoY + logoSize + 26);
+      ctx.rotate(Math.PI / 2);
+
+      // GenLab text
+      ctx.fillStyle = '#000000';
+      ctx.font = 'bold 54px "Plus Jakarta Sans", sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText('GenLab', 0, 0);
+
+      // Star sparkle beside 'b'
+      ctx.fillStyle = '#c2e600';
+      ctx.font = 'bold 36px "Plus Jakarta Sans", sans-serif';
+      const glWidth = ctx.measureText('GenLab').width;
+      ctx.fillText('✦', glWidth + 6, -8);
+
+      // Subtitle: The Gen Z Creators' Space
+      ctx.fillStyle = '#262626';
+      ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText("The Gen Z Creators' Space", 0, 56);
+      ctx.restore();
+
+      // 6. Member Photo Cutout anchored cleanly at bottom
+      const photo = await new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(null);
+        img.src = member.image;
+      });
+
+      if (photo) {
+        const imgAspect = photo.width / photo.height;
+        const drawW = width;
+        const drawH = width / imgAspect;
+        const drawX = 0;
+        const drawY = height - drawH;
+        ctx.drawImage(photo, drawX, drawY, drawW, drawH);
+      }
     }
-  }
-
-  // Fallback programmatic render matching exact Figma specifications
-  if (!cardImageDrawn && ctx) {
-    // Pure White Card Background
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, width, height);
-
-    // 1. Top-Left: Member Name
-    ctx.fillStyle = '#000000';
-    ctx.font = 'bold 56px "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-    ctx.fillText(member.name, 56, 135);
-
-    // 2. Top-Left: Member Role
-    ctx.fillStyle = '#111827';
-    ctx.font = '500 36px "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-    ctx.fillText(member.role, 56, 205);
-
-    // 3. Top-Left: Neon Lime Accent Underline
-    const roleWidth = ctx.measureText(member.role).width;
-    const lineWidth = Math.max(120, Math.min(roleWidth, 380));
-    ctx.fillStyle = '#c2e600';
-    ctx.fillRect(56, 258, lineWidth, 7);
-
-    // 4. Top-Right: Upright GenLab Pinwheel Logo
-    const logoSize = 104;
-    const logoX = width - 56 - logoSize;
-    const logoY = 48;
-    drawGenLabLogo(ctx, logoX, logoY, logoSize, '#000000');
-
-    // 5. Top-Right: Rotated Vertical Brand Typography (90 deg clockwise)
-    ctx.save();
-    ctx.translate(width - 56, logoY + logoSize + 26);
-    ctx.rotate(Math.PI / 2);
-
-    // GenLab text
-    ctx.fillStyle = '#000000';
-    ctx.font = 'bold 54px "Plus Jakarta Sans", sans-serif';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-    ctx.fillText('GenLab', 0, 0);
-
-    // Star sparkle beside 'b'
-    ctx.fillStyle = '#c2e600';
-    ctx.font = 'bold 36px "Plus Jakarta Sans", sans-serif';
-    const glWidth = ctx.measureText('GenLab').width;
-    ctx.fillText('✦', glWidth + 6, -8);
-
-    // Subtitle: The Gen Z Creators' Space
-    ctx.fillStyle = '#262626';
-    ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText("The Gen Z Creators' Space", 0, 56);
-    ctx.restore();
-
-    // 6. Member Photo Cutout anchored cleanly at bottom
-    const photo = await new Promise((resolve) => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => resolve(img);
-      img.onerror = () => resolve(null);
-      img.src = member.image;
-    });
-
-    if (photo) {
-      const imgAspect = photo.width / photo.height;
-      const drawW = width;
-      const drawH = width / imgAspect;
-      const drawX = 0;
-      const drawY = height - drawH;
-      ctx.drawImage(photo, drawX, drawY, drawW, drawH);
-    }
+    frontUrl = frontCanvas;
   }
 
   // ==========================================
@@ -322,14 +306,13 @@ export async function getBadgeTextures(member) {
     bctx.fillText('If found, kindly return to address mentioned above.', 260, 920);
   }
 
-  // ==========================================
-  // 3. STRAP CANVAS (Shared Black strap with GenLab mark)
-  // ==========================================
-  frontCanvas._canvasId = `gl_front_${member.id}`;
+  if (frontCanvas) {
+    frontCanvas._canvasId = `gl_front_${member.id}`;
+  }
   backCanvas._canvasId = `gl_back_${member.id}`;
 
   const result = {
-    frontUrl: member.cardImage || frontCanvas,
+    frontUrl: frontUrl,
     frontCanvas: frontCanvas,
     backUrl: backCanvas,
     strapUrl: getSharedStrapCanvas()

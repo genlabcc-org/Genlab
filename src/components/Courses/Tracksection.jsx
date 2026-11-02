@@ -37,7 +37,6 @@ import proMar from "../../assets/courses_icons/ProMan.png";
 import hrmPay from "../../assets/courses_icons/HRM&Pay.png";
 import finMar from "../../assets/courses_icons/FinMar.png";
 
-import ConnectSection from "../ConnectSection/ConnectSection";
 import CustomCourseModal from "./CustomCourses";
 
 
@@ -319,7 +318,6 @@ const TrackSection = ({ onNavigate, initialTrack = 0 }) => {
         onClose={() => setCustomOpen(false)}
       />
 
-      {/* <ConnectSection /> */}
     </>
   );
 };

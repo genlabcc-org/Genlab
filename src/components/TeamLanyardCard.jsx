@@ -64,7 +64,7 @@ export default function TeamLanyardCard({ member, priority = false }) {
             gravity={1.0}
             damping={0.45}
             elasticity={0.5}
-            breeze={0.06}
+            breeze={0}
             interactive={true}
             intro={false}
             canSpin={false}
@@ -72,15 +72,15 @@ export default function TeamLanyardCard({ member, priority = false }) {
         ) : (
           <div className="cell-lanyard-placeholder cell-radiant-blur" aria-hidden="true">
             <div className="cell-radiant-blur-glow" />
-            {textures?.frontUrl ? (
-              <img
-                src={typeof textures.frontUrl === 'string' ? textures.frontUrl : (textures.frontUrl.toDataURL ? textures.frontUrl.toDataURL() : '')}
-                alt={member.name}
-                className="cell-lanyard-static-preview"
-              />
-            ) : (
-              <div className="cell-lanyard-shimmer" />
-            )}
+            <img
+              src={member.cardImage}
+              alt={member.name}
+              className="cell-lanyard-static-preview"
+              loading={priority ? 'eager' : 'lazy'}
+              decoding="async"
+              width="416"
+              height="650"
+            />
           </div>
         )}
       </div>
