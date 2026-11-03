@@ -1,0 +1,89 @@
+# GenLab — Comprehensive Knowledge Graph & System Documentation
+
+## Overview
+GenLab (https://genlab.cc) is a premier full-cycle software development company and agentic artificial intelligence platform founded and led by Gen Z software engineers. Operating from dual hubs in Nagercoil (Kanyakumari district, Tamil Nadu) and Bengaluru (Karnataka, India), GenLab develops end-to-end custom software, retail billing & POS software, ERP/CRM business systems, web and mobile applications, autonomous AI agents, and complete digital brand identities.
+
+## Corporate Identity & Knowledge Graph Entities
+- **Legal Entity:** GenLab Pvt. Ltd.
+- **Brand Names:** GenLab, GenLab Software, GenLab AI, GenLab Launchpad
+- **URL:** https://genlab.cc
+- **Founding Location:** Nagercoil, Tamil Nadu, India
+- **Operating Centers:** Nagercoil (Southern Hub) & Bengaluru (Tech Capital Hub)
+- **Primary Address:** 121/C, Chetti Kulam, Simon Nagar / Kottar-Parvathipuram Road, Nagercoil, Tamil Nadu 629001, India
+- **Coordinates:** Latitude 8.1833° N, Longitude 77.4119° E
+- **Primary Contact:** +91 9994535120 | info@genlab.cc
+- **Social Profiles:**
+  - LinkedIn: https://www.linkedin.com/company/genlabcc / https://in.linkedin.com/company/genlabz
+  - Instagram: https://www.instagram.com/genlab.cc/
+
+## Engineering & Software Development Capabilities
+
+### 1. Custom Billing & Point-of-Sale (POS) Software
+- Custom GST-compliant invoicing, barcode scanning, receipt printing, and billing machines.
+- Real-time inventory tracking, low-stock alerts, warehouse management, and multi-store synchronization.
+- Accounting, profit/loss tracking, tax filing reports (GSTR-1, GSTR-3B), and supplier management.
+- Solutions tailored for retail stores, supermarkets, textiles, electronics, pharmacies, restaurants, and wholesale traders in Nagercoil, Kanyakumari, and pan-India.
+
+### 2. Custom Business Software & Enterprise Applications
+- Custom ERP (Enterprise Resource Planning) and CRM (Customer Relationship Management) solutions.
+- School, college, and hospital management information systems (HMIS).
+- Workflow automation systems, booking engines, appointment scheduling, and internal operational dashboards.
+- Database architecture, legacy software modernization, and system migration.
+
+### 3. Full-Stack Web & Mobile App Engineering
+- Web platforms: React, Next.js, Node.js, Express, Python (FastAPI, Django), PostgreSQL, MySQL, MongoDB.
+- Mobile applications: Native-performance iOS & Android apps built using Flutter and React Native.
+- Cloud hosting, server configuration, API integrations (Payment Gateways like Razorpay/Stripe, SMS, WhatsApp Business API).
+
+### 4. Agentic AI & Autonomous Multi-Agent Workflows
+- Autonomous agents that plan, reason, execute multi-step business workflows, and recover from runtime failures.
+- Tool-calling architectures (Model Context Protocol, LangChain, custom AI orchestration).
+- Automated agentic evaluation and human-in-the-loop validation.
+
+### 5. Enterprise LLM & Private Retrieval-Augmented Generation (RAG)
+- Custom embeddings, vector database integration (Pinecone, Qdrant, pgvector, Chroma).
+- Fine-tuned small language models (SLMs) and private on-premise or cloud deployments.
+- High-precision domain question-answering systems with strict citation constraints.
+
+### 6. AI-Powered Product Research & Market Intelligence
+- Automated competitive analysis, consumer sentiment synthesis, and market discovery.
+- Real-time web extraction and structured semantic data aggregation.
+
+### 7. Digital Branding & Product Identity
+- UI/UX design systems, component libraries, typography, and interactive web experiences.
+- Conversion-driven storefronts, website design, and complete visual branding packages.
+
+## Educational & Ecosystem Initiatives
+
+### GenLab Launchpad
+GenLab Launchpad connects ambitious college learners and engineers with hands-on AI training, software development bootcamps, industry mentorship, hackathons, and corporate placement. Academic partners include premier institutions across Tamil Nadu and South India:
+- Vellore Institute of Technology (VIT)
+- Christ College of Engineering
+- Francis Xavier Engineering College
+- Sethu Institute of Technology
+- Arunachala College of Engineering
+- Noorul Islam Centre for Higher Education (NICHE)
+- Stella Mary's College of Engineering
+- St. Xavier Catholic College of Engineering
+- SCAD College of Engineering
+
+### GenLab Upskilling
+Hands-on, practitioner-led engineering courses covering:
+- Full-Stack Software Engineering (Python, React, Node)
+- Custom Software Development & Database Design
+- Agentic AI & Multi-Agent Architecture
+- Cloud Systems, DevOps & Production Systems
+
+## Regional Geographic Footprint (Southern Tamil Nadu & Pan-India)
+- Primary Regional Focus: Nagercoil (Chetti Kulam, Simon Nagar, Kottar, Vadasery, Parvathipuram, Asaripallam).
+- Kanyakumari District: Marthandam, Thuckalay, Colachel, Kanyakumari Town, Padmanabhapuram, Karungal.
+- Southern Tamil Nadu: Tirunelveli, Tuticorin, Madurai.
+- National & Global: Bengaluru, Karnataka, Pan-India, North America, Europe, and UAE/Middle East.
+
+## Canonical Reference URLs
+- Home: https://genlab.cc/
+- Local SEO (Software & AI Company in Nagercoil): https://genlab.cc/ai-company-nagercoil
+- Case Studies: https://genlab.cc/work
+- Launchpad: https://genlab.cc/launchpad
+- Upskilling: https://genlab.cc/upskilling
+- Team: https://genlab.cc/team

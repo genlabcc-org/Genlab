@@ -21,13 +21,13 @@ const AiCompanyNagercoil = React.lazy(() => import('./pages/LocalSEO/AiCompanyNa
 
 const ROUTE_META = {
   portfolio: {
-    title: 'GenLab – AI Company in Nagercoil, Kanyakumari | Agentic AI',
-    description: 'GenLab is an agentic AI platform built by Gen Z in Nagercoil, Kanyakumari and Bengaluru. We help businesses with AI-powered product research and branding.',
+    title: 'GenLab – AI & Software Development Company in Nagercoil, Kanyakumari',
+    description: 'GenLab is a premier software development and agentic AI platform in Nagercoil, Kanyakumari and Bengaluru. We build custom software, billing & POS systems, web & mobile apps, and autonomous AI agents.',
     canonical: 'https://genlab.cc/',
   },
   'local-nagercoil': {
-    title: 'AI Company in Nagercoil, Kanyakumari | GenLab Agentic AI',
-    description: 'Looking for a premier AI company in Nagercoil, Kanyakumari? GenLab delivers agentic AI platforms, autonomous workflows, and modern digital branding across Tamil Nadu.',
+    title: 'Software Development & AI Company in Nagercoil, Kanyakumari | GenLab',
+    description: 'Looking for a software development company or billing software in Nagercoil, Kanyakumari? GenLab delivers custom enterprise software, GST billing & POS systems, web & mobile apps, and agentic AI.',
     canonical: 'https://genlab.cc/ai-company-nagercoil',
   },
   work: {

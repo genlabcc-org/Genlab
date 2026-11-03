@@ -1,0 +1,45 @@
+# GenLab
+
+> GenLab is a premier software development company and agentic AI platform built by Gen Z engineers. Headquartered in Nagercoil, Kanyakumari district, Tamil Nadu and Bengaluru, Karnataka, India, GenLab develops custom enterprise software, GST billing & POS systems, web & mobile applications, autonomous AI agents, and high-impact digital brands for businesses of all sizes — from local retail and enterprises to global startups.
+
+## Key Facts & Entity Information
+
+- **Company Name:** GenLab (GenLab Pvt. Ltd.)
+- **Website:** https://genlab.cc/
+- **Primary Expertise:** Custom Software Development, Billing & POS Software, ERP & Inventory Systems, Agentic AI, Autonomous Multi-Agent Workflows, Custom LLM Fine-Tuning, Full-Stack Web Development (React, Next.js, Node.js, Python), Mobile App Development (Flutter, React Native), Cloud Solutions, and Digital Branding.
+- **Headquarters / Primary Office:** 121/C, Chetti Kulam, Simon Nagar / Kottar-Parvathipuram Road, Nagercoil, Tamil Nadu 629001, India.
+- **Secondary Hub:** Bengaluru, Karnataka, India.
+- **Phone / WhatsApp:** +91 9994535120
+- **Email:** info@genlab.cc
+- **Operating Hours:** Monday – Saturday, 09:00 – 20:00 IST.
+- **Delivery Model:** Rapid agile development (2–4 week turnaround), custom software architecture, on-premise & cloud deployments, full support & maintenance.
+
+## Core Software & AI Capabilities
+
+- **Custom Billing & POS Software:** Tailored retail POS, GST-compliant invoicing, barcoding, inventory tracking, multi-branch billing, and accounting systems for regional retail shops, supermarkets, restaurants, and wholesale distributors in Tamil Nadu and across India.
+- **End-to-End Custom Software Development:** Business process automation, custom enterprise portals, CRM & ERP platforms, school/hospital management software, booking engines, and database systems.
+- **Web & Mobile Application Development:** Responsive web platforms (React, Next.js, Node.js, Python) and native-speed iOS & Android mobile apps (Flutter, React Native).
+- **Agentic AI & Autonomous Systems:** Multi-agent autonomous workflows, reasoning loops, automated decision pipelines, and intelligent AI assistants.
+- **AI-Powered Product Research & Market Intelligence:** Automated data extraction, competitive market synthesis, and semantic intelligence engines.
+- **Cloud Infrastructure & DevOps:** Secure cloud hosting, database architecture (PostgreSQL, MongoDB, Redis), AWS/GCP deployment, and continuous maintenance.
+- **Digital Branding & UI/UX Design:** User experience design, high-converting digital storefronts, and brand identities.
+
+## Canonical Pages & Documentation
+
+- [Home & Platform Overview](https://genlab.cc/): Overview of GenLab's custom software development, agentic AI stack, services, client case studies, and engineering philosophy.
+- [AI & Software Company in Nagercoil](https://genlab.cc/ai-company-nagercoil): Local engineering presence, billing software, custom software development, client FAQs, and office contact in Nagercoil, Tamil Nadu.
+- [Work & Case Studies](https://genlab.cc/work): Portfolio of shipped software, billing platforms, autonomous systems, and digital transformations.
+- [GenLab Launchpad](https://genlab.cc/launchpad): Career accelerator for developers and students, campus hackathons, and corporate mentorship.
+- [Upskilling Programs](https://genlab.cc/upskilling): Industry-grade curricula covering full-stack software development, AI systems, and modern engineering practices.
+- [Engineering Team](https://genlab.cc/team): Meet the Gen Z founders, software engineers, and AI developers building GenLab.
+
+## Frequently Asked Questions
+
+### Does GenLab develop billing software and custom business software in Nagercoil?
+Yes. GenLab is a full-service software development company in Nagercoil building custom GST billing software, retail point-of-sale (POS) systems, inventory management systems, ERPs, CRM platforms, and tailored business applications for local and regional businesses.
+
+### What software technologies and stacks does GenLab use?
+GenLab builds using modern, robust technologies including React, Next.js, Node.js, Python, Flutter, React Native, PostgreSQL, MySQL, MongoDB, AWS, GCP, and cutting-edge AI architectures.
+
+### Where is GenLab's office located?
+GenLab's main office is located at 121/C, Chetti Kulam, Simon Nagar / Kottar-Parvathipuram Road, Nagercoil, Tamil Nadu 629001, India. Call or WhatsApp +91 9994535120 or email info@genlab.cc.

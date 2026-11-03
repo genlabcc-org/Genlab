@@ -96,20 +96,20 @@ export default function Footer({ onNavigate }) {
         {/* SEO Navigation Directory */}
         <nav aria-label="Directory Navigation" className="footer-seo-nav">
           <div className="footer-seo-col">
-            <h4>AI &amp; Engineering</h4>
+            <h4>Software &amp; AI Engineering</h4>
             <ul>
               <li>
                 <a
                   href="/ai-company-nagercoil"
                   onClick={(e) => handleLinkClick(e, 'local-nagercoil')}
                 >
-                  AI Company in Nagercoil
+                  Software &amp; AI in Nagercoil
                 </a>
               </li>
-              <li><span>Agentic AI Platforms</span></li>
-              <li><span>Multi-Agent Autonomous Systems</span></li>
-              <li><span>Custom LLM &amp; Private RAG</span></li>
-              <li><span>AI Product Research &amp; Synthesis</span></li>
+              <li><span>Custom Billing &amp; POS Software</span></li>
+              <li><span>Enterprise ERP &amp; Business Systems</span></li>
+              <li><span>Web &amp; Mobile App Development</span></li>
+              <li><span>Agentic AI &amp; Autonomous Workflows</span></li>
             </ul>
           </div>
 

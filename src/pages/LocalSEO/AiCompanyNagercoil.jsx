@@ -5,34 +5,34 @@ import './AiCompanyNagercoil.css';
 
 const SERVICES = [
   {
-    badge: 'Core Specialty',
-    title: 'Agentic AI & Autonomous Systems',
-    desc: 'Custom multi-agent workflows, autonomous agent loops, and intelligent reasoning engines built to handle complex enterprise processes end-to-end.',
+    badge: 'Retail & Business',
+    title: 'Custom Billing & POS Software',
+    desc: 'GST-compliant billing systems, barcode scanning, thermal printing, real-time inventory tracking, and multi-counter POS software for retail stores, supermarkets, restaurants, and wholesalers in Nagercoil and Kanyakumari.',
   },
   {
-    badge: 'Intelligence',
-    title: 'AI Product Research & Market Discovery',
-    desc: 'Deep data extraction, competitive market synthesis, and automated semantic research platforms providing actionable business intelligence.',
+    badge: 'Enterprise Software',
+    title: 'Custom ERP, CRM & Business Applications',
+    desc: 'Tailored enterprise platforms, school & hospital management systems, appointment booking engines, automated operational dashboards, and database architectures engineered to scale business operations.',
   },
   {
-    badge: 'Engineering',
-    title: 'Full-Stack Web & Mobile App Engineering',
-    desc: 'Production-ready cloud platforms, reactive web applications, and cross-platform mobile apps engineered with React, Node.js, Python, and Flutter.',
+    badge: 'AI & Autonomous',
+    title: 'Agentic AI & Multi-Agent Workflows',
+    desc: 'Custom autonomous agent systems, intelligent reasoning loops, tool-calling pipelines, and process automation bots built to automate complex business workflows end-to-end.',
   },
   {
-    badge: 'Enterprise AI',
+    badge: 'Web & Mobile Engineering',
+    title: 'Full-Stack Web & Mobile App Development',
+    desc: 'Production-ready web portals, SaaS platforms, and high-performance iOS & Android mobile apps engineered using React, Next.js, Node.js, Python, Flutter, and React Native.',
+  },
+  {
+    badge: 'Enterprise Intelligence',
     title: 'Custom LLM & Private RAG Pipelines',
-    desc: 'Fine-tuned Large Language Models, contextual retrieval-augmented generation (RAG), and secure local embeddings tailored to proprietary datasets.',
+    desc: 'Fine-tuned Large Language Models, contextual retrieval-augmented generation (RAG), and secure local embeddings tailored to proprietary enterprise datasets.',
   },
   {
-    badge: 'Speed to Market',
-    title: 'Rapid AI MVP Development',
-    desc: 'Turn ideas into deployable AI products in weeks. We deliver tested, scalable MVPs for regional founders and global startups without agency bloat.',
-  },
-  {
-    badge: 'Design & Identity',
-    title: 'Digital Branding & UI/UX Design',
-    desc: 'High-converting design systems, intuitive digital user interfaces, and complete brand identity packages built to command market attention.',
+    badge: 'Product Strategy & Design',
+    title: 'Digital Branding & UI/UX Product Design',
+    desc: 'High-converting design systems, intuitive digital user interfaces, and complete brand identity packages built to command regional and global market attention.',
   },
 ];
 
@@ -49,29 +49,34 @@ const LOCAL_AREAS = [
 
 const FAQS = [
   {
-    question: 'Why choose GenLab as your AI company in Nagercoil and Kanyakumari?',
+    question: 'Does GenLab develop billing software and POS systems in Nagercoil?',
     answer:
-      'GenLab is an AI-first software company established directly in Nagercoil, combining Silicon-caliber technical expertise with deep local roots. Our Gen Z engineering team is native to modern AI tools, agentic architectures, and rapid deployment frameworks, ensuring world-class results without agency overhead.',
+      'Yes. GenLab builds custom, modern GST billing software and Point-of-Sale (POS) systems tailored for supermarkets, retail clothing stores, hardware shops, electronics stores, pharmacies, restaurants, and wholesale distributors in Nagercoil and Kanyakumari district. Our billing software includes barcode scanning, thermal receipt printing, stock alerts, GST reporting, and cloud or offline support.',
   },
   {
-    question: 'What types of AI and software solutions does GenLab build?',
+    question: 'What types of custom software development does GenLab provide?',
     answer:
-      'We engineer autonomous AI agents, enterprise LLM integrations, custom RAG search pipelines, full-stack web platforms (React, Next.js, Node, Python), mobile applications (Flutter, React Native), and comprehensive digital branding systems.',
+      'We provide complete software engineering including custom enterprise ERP & CRM systems, hospital & school management platforms, custom booking engines, cloud dashboards, web applications, and iOS/Android mobile apps, along with cutting-edge agentic AI solutions.',
+  },
+  {
+    question: 'Why choose GenLab over traditional software agencies in Nagercoil?',
+    answer:
+      'GenLab combines modern engineering speed with disciplined software craft. Unlike outdated legacy software setups, we build fast, cloud-connected, secure systems using modern stacks (React, Python, Node, Flutter) and AI-assisted workflows, providing superior user experiences with local support right here in Nagercoil.',
   },
   {
     question: 'Where is GenLab’s Nagercoil office located?',
     answer:
-      'Our physical office is located at 121/C, Chetti Kulam, Simon Nagar / Kottar-Parvathipuram Road, Nagercoil, Tamil Nadu 629001, India. You are welcome to schedule a visit or reach out directly at +91 9994535120.',
+      'Our physical office is located at 121/C, Chetti Kulam, Simon Nagar / Kottar-Parvathipuram Road, Nagercoil, Tamil Nadu 629001, India. You are welcome to visit our office or reach out directly via call or WhatsApp at +91 9994535120.',
   },
   {
     question: 'Do you work with local businesses as well as international clients?',
     answer:
-      'Yes. We actively empower local enterprises, retail brands, healthcare providers, and educational institutions in Kanyakumari district and Tamil Nadu, while also serving high-growth startups and enterprises in Bengaluru, the US, Europe, and the Middle East.',
+      'Yes. We actively serve local businesses, retail brands, healthcare providers, and colleges across Kanyakumari district and Tamil Nadu, while also delivering high-growth software and AI platforms for clients in Bengaluru, the US, Europe, and the Middle East.',
   },
   {
-    question: 'How fast can GenLab develop and deploy an AI solution or MVP?',
+    question: 'How fast can GenLab deliver custom software or an MVP?',
     answer:
-      'Depending on the scope, we develop functional proof-of-concept AI agents and production-ready MVPs in as little as 2 to 4 weeks. Following a discovery call, we outline clear milestone deliverables and delivery timelines.',
+      'Depending on the scope, we deliver functional software prototypes, custom billing setups, and production-ready MVPs within 2 to 4 weeks. Following a discovery discussion, we provide a clear roadmap, milestone deliverables, and transparent pricing.',
   },
 ];
 
@@ -101,7 +106,7 @@ export default function AiCompanyNagercoil({ onNavigate }) {
               Home
             </a>
             <span className="local-breadcrumb-separator" aria-hidden="true">/</span>
-            <span aria-current="page">AI Company in Nagercoil</span>
+            <span aria-current="page">AI &amp; Software Development in Nagercoil</span>
           </nav>
 
           {/* Intro Header Section */}
@@ -109,19 +114,19 @@ export default function AiCompanyNagercoil({ onNavigate }) {
             <img
               className="works-intro-mark"
               src="/genlab/Genlab.webp"
-              alt="GenLab AI Company Logo"
+              alt="GenLab Software & AI Company Logo"
               width="120"
               height="120"
             />
             <div className="works-intro-content">
-              <span className="service-badge">Southern Tamil Nadu · Premier AI Hub</span>
+              <span className="service-badge">Southern Tamil Nadu · Software &amp; AI Engineering Hub</span>
               <h1 className="works-intro-title">
-                AI Company in <em>Nagercoil</em>
+                Software &amp; AI Company in <em>Nagercoil</em>
                 <br />
                 <em>&amp; Kanyakumari</em> <span aria-hidden="true">→</span>
               </h1>
               <p className="works-intro-description" style={{ maxWidth: '48rem', marginTop: '1.25rem' }}>
-                GenLab is an agentic AI platform and full-stack software company built by Gen Z. Operating from Nagercoil, Kanyakumari district, Tamil Nadu and Bengaluru, Karnataka, we engineer autonomous AI agents, enterprise software, and high-impact digital brands for ambitious startups and regional enterprises.
+                GenLab is a full-cycle software development company and agentic AI platform based in Nagercoil, Kanyakumari district, Tamil Nadu and Bengaluru, Karnataka. We engineer custom enterprise software, GST billing &amp; POS systems, mobile apps, web applications, and autonomous AI agents for ambitious businesses and startups.
               </p>
             </div>
           </header>
@@ -134,7 +139,7 @@ export default function AiCompanyNagercoil({ onNavigate }) {
                   <span className="metric-value">6+</span>
                   <span className="metric-unit">Years</span>
                 </div>
-                <p className="metric-desc">Of experience delivering AI systems &amp; modern software</p>
+                <p className="metric-desc">Of experience delivering business software, billing systems &amp; AI</p>
               </div>
 
               <div className="metric-card">
@@ -142,15 +147,15 @@ export default function AiCompanyNagercoil({ onNavigate }) {
                   <span className="metric-value">100+</span>
                   <span className="metric-unit">Projects</span>
                 </div>
-                <p className="metric-desc">Shipped for startups, scale-ups, and global companies</p>
+                <p className="metric-desc">Shipped for regional businesses, retail shops, and global startups</p>
               </div>
 
               <div className="metric-card">
                 <div className="metric-header">
-                  <span className="metric-value">AI</span>
-                  <span className="metric-unit">Native</span>
+                  <span className="metric-value">Full</span>
+                  <span className="metric-unit">Stack</span>
                 </div>
-                <p className="metric-desc">Autonomous multi-agent workflows &amp; private LLM systems</p>
+                <p className="metric-desc">Custom software, billing/POS, mobile apps, and agentic AI</p>
               </div>
 
               <div className="metric-card">
@@ -158,19 +163,19 @@ export default function AiCompanyNagercoil({ onNavigate }) {
                   <span className="metric-value">Dual</span>
                   <span className="metric-unit">Hubs</span>
                 </div>
-                <p className="metric-desc">Engineering power in Nagercoil, scaling across Bengaluru</p>
+                <p className="metric-desc">Rooted in Nagercoil, scaling across Bengaluru &amp; India</p>
               </div>
             </div>
           </section>
 
           {/* Core Capabilities Section */}
           <section aria-labelledby="services-heading" style={{ paddingTop: '1rem', paddingBottom: '4rem' }}>
-            <span className="works-tag">Full-Lifecycle Engineering</span>
+            <span className="works-tag">Complete Development Services</span>
             <h2 id="services-heading" className="works-title" style={{ marginTop: '0.5rem' }}>
-              Comprehensive AI &amp; Software Solutions in Nagercoil
+              Custom Software Development, Billing Systems &amp; AI in Nagercoil
             </h2>
             <p className="works-subtitle" style={{ marginTop: '0.5rem', maxWidth: '44rem' }}>
-              From autonomous decision-making agents to enterprise full-stack web and mobile platforms, we bridge deep AI research with production-grade engineering.
+              From retail billing software and enterprise ERPs to high-speed web apps and autonomous AI agents, we build tailored software solutions that drive real business growth.
             </p>
 
             <div className="local-services-grid">
@@ -193,7 +198,7 @@ export default function AiCompanyNagercoil({ onNavigate }) {
               Serving Nagercoil, Kanyakumari District &amp; Beyond
             </h2>
             <p className="works-subtitle" style={{ marginTop: '0.5rem', maxWidth: '44rem' }}>
-              While we serve international clients globally, we are deeply committed to driving digital transformation and tech opportunities throughout southern Tamil Nadu.
+              We build software for businesses across Nagercoil and Kanyakumari district, while also partnering with companies across Tamil Nadu, Bengaluru, and internationally.
             </p>
 
             <div className="local-areas-grid">
@@ -210,10 +215,10 @@ export default function AiCompanyNagercoil({ onNavigate }) {
           <section className="local-faq-section" aria-labelledby="faq-heading" style={{ paddingBottom: '4rem' }}>
             <span className="works-tag">Got Questions?</span>
             <h2 id="faq-heading" className="works-title" style={{ marginTop: '0.5rem' }}>
-              Frequently Asked Questions About AI in Nagercoil
+              Frequently Asked Questions About Software Development in Nagercoil
             </h2>
             <p className="works-subtitle" style={{ marginTop: '0.5rem', maxWidth: '44rem' }}>
-              Everything you need to know about partnering with GenLab for AI systems, web development, and digital branding.
+              Everything you need to know about partnering with GenLab for custom software development, billing solutions, and AI systems.
             </p>
 
             <div className="local-faq-list">
@@ -276,7 +281,7 @@ export default function AiCompanyNagercoil({ onNavigate }) {
 
                 <div className="cta-actions" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
                   <a
-                    href="https://wa.me/919994535120?text=Hi%20GenLab%2C%20I%20am%20looking%20for%20an%20AI%20and%20software%20company%20in%20Nagercoil."
+                    href="https://wa.me/919994535120?text=Hi%20GenLab%2C%20I%20am%20looking%20for%20software%20development%20and%20billing%20solutions%20in%20Nagercoil."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="cta-btn-pill"
@@ -296,9 +301,9 @@ export default function AiCompanyNagercoil({ onNavigate }) {
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', background: 'rgba(255, 255, 255, 0.03)', padding: '2rem', borderRadius: '1rem', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: '500' }}>Ready to launch your AI project?</h3>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: '500' }}>Need software or a billing system for your business?</h3>
                 <p style={{ fontSize: '0.95rem', lineHeight: '1.6', opacity: 0.8 }}>
-                  Whether you need custom agentic automation, a high-speed web application, or full product branding, our Nagercoil engineering team is ready to collaborate.
+                  Whether you need custom GST billing software, an enterprise ERP, mobile apps, or autonomous AI systems, our Nagercoil engineering team is ready to build it.
                 </p>
                 <a
                   href="#footer"
@@ -312,7 +317,7 @@ export default function AiCompanyNagercoil({ onNavigate }) {
                   className="cta-btn-pill"
                   style={{ alignSelf: 'flex-start' }}
                 >
-                  <span>Request a Discovery Call</span>
+                  <span>Request a Free Consultation</span>
                 </a>
               </div>
             </div>
