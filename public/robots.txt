@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.genlab.cc/sitemap.xml
+# Canonical Host and Sitemap
+Host: https://genlab.cc
+Sitemap: https://genlab.cc/sitemap.xml

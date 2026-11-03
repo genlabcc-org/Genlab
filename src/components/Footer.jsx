@@ -1,9 +1,16 @@
 import React from 'react';
 import GetInTouchForm from './GetInTouchForm';
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleLinkClick = (e, view) => {
+    if (onNavigate) {
+      e.preventDefault();
+      onNavigate(view);
+    }
   };
 
   return (
@@ -85,6 +92,78 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        {/* SEO Navigation Directory */}
+        <nav aria-label="Directory Navigation" className="footer-seo-nav">
+          <div className="footer-seo-col">
+            <h4>AI &amp; Engineering</h4>
+            <ul>
+              <li>
+                <a
+                  href="/ai-company-nagercoil"
+                  onClick={(e) => handleLinkClick(e, 'local-nagercoil')}
+                >
+                  AI Company in Nagercoil
+                </a>
+              </li>
+              <li><span>Agentic AI Platforms</span></li>
+              <li><span>Multi-Agent Autonomous Systems</span></li>
+              <li><span>Custom LLM &amp; Private RAG</span></li>
+              <li><span>AI Product Research &amp; Synthesis</span></li>
+            </ul>
+          </div>
+
+          <div className="footer-seo-col">
+            <h4>Explore GenLab</h4>
+            <ul>
+              <li>
+                <a href="/" onClick={(e) => handleLinkClick(e, 'portfolio')}>
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="/work" onClick={(e) => handleLinkClick(e, 'work')}>
+                  Selected Work &amp; Case Studies
+                </a>
+              </li>
+              <li>
+                <a href="/launchpad" onClick={(e) => handleLinkClick(e, 'launchpad')}>
+                  Launchpad AI Accelerator
+                </a>
+              </li>
+              <li>
+                <a href="/upskilling" onClick={(e) => handleLinkClick(e, 'upskilling')}>
+                  Upskilling Programs
+                </a>
+              </li>
+              <li>
+                <a href="/team" onClick={(e) => handleLinkClick(e, 'team')}>
+                  Engineering Team
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="footer-seo-col">
+            <h4>Regional Hubs &amp; Office</h4>
+            <ul>
+              <li>
+                <strong>Nagercoil Office:</strong>
+                <p>121/C, Chetti Kulam, Simon Nagar / Kottar-Parvathipuram Road, Nagercoil, Tamil Nadu 629001</p>
+              </li>
+              <li>
+                <strong>Bengaluru Hub:</strong>
+                <p>Karnataka, India</p>
+              </li>
+              <li>
+                <a href="tel:+919994535120">Tel: +91 9994535120</a>
+              </li>
+              <li>
+                <a href="mailto:info@genlab.cc">Email: info@genlab.cc</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
 
         {/* Bottom Credits & Back to Top */}
         <div className="footer-bottom-bar">

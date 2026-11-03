@@ -19,6 +19,44 @@ const UpskillingPage = React.lazy(() => import('./pages/Upskilling/Upskilling'))
 const TrackSection = React.lazy(() => import('./components/Courses/Tracksection'));
 const AiCompanyNagercoil = React.lazy(() => import('./pages/LocalSEO/AiCompanyNagercoil'));
 
+const ROUTE_META = {
+  portfolio: {
+    title: 'GenLab – AI Company in Nagercoil, Kanyakumari | Agentic AI',
+    description: 'GenLab is an agentic AI platform built by Gen Z in Nagercoil, Kanyakumari and Bengaluru. We help businesses with AI-powered product research and branding.',
+    canonical: 'https://genlab.cc/',
+  },
+  'local-nagercoil': {
+    title: 'AI Company in Nagercoil, Kanyakumari | GenLab Agentic AI',
+    description: 'Looking for a premier AI company in Nagercoil, Kanyakumari? GenLab delivers agentic AI platforms, autonomous workflows, and modern digital branding across Tamil Nadu.',
+    canonical: 'https://genlab.cc/ai-company-nagercoil',
+  },
+  work: {
+    title: 'Our Work & Case Studies | GenLab – AI & Software Agency',
+    description: 'Explore client projects, case studies, and digital products engineered by GenLab. From autonomous agentic workflows to enterprise platforms and creative branding.',
+    canonical: 'https://genlab.cc/work',
+  },
+  launchpad: {
+    title: 'GenLab Launchpad – AI Career Accelerator & Student Incubation',
+    description: 'GenLab Launchpad connects ambitious learners with hands-on AI training, industry mentorship, hackathons, and career placement across premier colleges in India.',
+    canonical: 'https://genlab.cc/launchpad',
+  },
+  upskilling: {
+    title: 'GenLab Upskilling – Industry-Grade AI & Developer Programs',
+    description: 'Learn modern engineering, machine learning, and AI agent architectures through practical, project-first courses designed by industry practitioners.',
+    canonical: 'https://genlab.cc/upskilling',
+  },
+  team: {
+    title: 'Meet the Team | GenLab – Gen Z AI Builders & Engineers',
+    description: 'Meet the team behind GenLab. Gen Z software engineers, AI developers, and designers building the future of autonomous agentic platforms from India.',
+    canonical: 'https://genlab.cc/team',
+  },
+  tracks: {
+    title: 'Engineering Tracks & Programs | GenLab Upskilling',
+    description: 'Explore hands-on curriculum tracks in Agentic AI, Full-Stack Development, Cloud Systems, and DevOps at GenLab.',
+    canonical: 'https://genlab.cc/tracks',
+  },
+};
+
 function resolveCurrentView() {
   if (typeof window === 'undefined') return 'portfolio';
   const path = window.location.pathname.replace(/\/$/, '');
@@ -50,6 +88,37 @@ export default function App() {
       window.removeEventListener('popstate', handleLocationChange);
     };
   }, []);
+
+  useEffect(() => {
+    const meta = ROUTE_META[currentView] || ROUTE_META.portfolio;
+    if (meta) {
+      document.title = meta.title;
+
+      const descEl = document.querySelector('meta[name="description"]');
+      if (descEl) descEl.setAttribute('content', meta.description);
+
+      const canonEl = document.querySelector('link[rel="canonical"]');
+      if (canonEl) canonEl.setAttribute('href', meta.canonical);
+
+      const ogUrlEl = document.querySelector('meta[property="og:url"]');
+      if (ogUrlEl) ogUrlEl.setAttribute('content', meta.canonical);
+
+      const ogTitleEl = document.querySelector('meta[property="og:title"]');
+      if (ogTitleEl) ogTitleEl.setAttribute('content', meta.title);
+
+      const ogDescEl = document.querySelector('meta[property="og:description"]');
+      if (ogDescEl) ogDescEl.setAttribute('content', meta.description);
+
+      const twUrlEl = document.querySelector('meta[name="twitter:url"]');
+      if (twUrlEl) twUrlEl.setAttribute('content', meta.canonical);
+
+      const twTitleEl = document.querySelector('meta[name="twitter:title"]');
+      if (twTitleEl) twTitleEl.setAttribute('content', meta.title);
+
+      const twDescEl = document.querySelector('meta[name="twitter:description"]');
+      if (twDescEl) twDescEl.setAttribute('content', meta.description);
+    }
+  }, [currentView]);
 
   const navigateTo = (view, state) => {
     setCurrentView(view);
@@ -87,7 +156,7 @@ export default function App() {
               <TeamPage onBackToPortfolio={() => navigateTo('portfolio')} />
             </React.Suspense>
           </main>
-          <Footer />
+          <Footer onNavigate={navigateTo} />
         </>
       ) : currentView === 'launchpad' ? (
         <>
@@ -103,7 +172,7 @@ export default function App() {
               <LaunchpadPage onNavigate={navigateTo} />
             </React.Suspense>
           </main>
-          <Footer />
+          <Footer onNavigate={navigateTo} />
         </>
       ) : currentView === 'upskilling' ? (
         <>
@@ -119,7 +188,7 @@ export default function App() {
               <UpskillingPage onNavigate={navigateTo} />
             </React.Suspense>
           </main>
-          <Footer />
+          <Footer onNavigate={navigateTo} />
         </>
       ) : currentView === 'tracks' ? (
         <>
@@ -135,7 +204,7 @@ export default function App() {
               <TrackSection onNavigate={navigateTo} />
             </React.Suspense>
           </main>
-          <Footer />
+          <Footer onNavigate={navigateTo} />
         </>
       ) : currentView === 'local-nagercoil' ? (
         <React.Suspense
@@ -173,7 +242,7 @@ export default function App() {
           )}
 
           {/* Footer */}
-          <Footer />
+          <Footer onNavigate={navigateTo} />
         </>
       )}
     </div>
