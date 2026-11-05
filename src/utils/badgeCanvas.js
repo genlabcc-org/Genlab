@@ -1,5 +1,5 @@
 // Generates high-resolution ID card textures matching the authentic GenLab ID card
-const TEXTURE_VERSION = 18;
+const TEXTURE_VERSION = 21;
 const cache = new Map();
 
 const GENLAB_PINWHEEL_PATHS = [
