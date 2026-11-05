@@ -65,13 +65,15 @@ export default function TeamLanyardCard({ member, priority = false }) {
             damping={0.45}
             elasticity={0.5}
             breeze={0}
-            interactive={true}
+            interactive={false}
             intro={false}
             canSpin={false}
           />
         ) : (
           <div className="cell-lanyard-placeholder cell-radiant-blur" aria-hidden="true">
             <div className="cell-radiant-blur-glow" />
+            <span className="cell-lanyard-preview-clamp" />
+            <span className="cell-lanyard-preview-ring" />
             <img
               src={member.cardImage}
               alt={member.name}

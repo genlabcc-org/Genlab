@@ -3634,8 +3634,8 @@ html[data-theme='light'] .works-intro-mark {
   top: 12%;
   left: 50%;
   transform: translateX(-50%);
-  width: 220px;
-  height: 340px;
+  width: 264px;
+  height: 410px;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -3644,18 +3644,47 @@ html[data-theme='light'] .works-intro-mark {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
   pointer-events: none;
 }
 
 .cell-lanyard-placeholder::before {
   content: '';
   position: absolute;
-  top: -80px;
-  width: 46px;
-  height: 90px;
-  background: #14161a;
+  top: -124px;
+  width: 42px;
+  height: 125px;
+  background: linear-gradient(90deg, #121417 0%, #23262c 25%, #171a1f 75%, #0c0e11 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.08);
+}
+
+.cell-lanyard-preview-clamp,
+.cell-lanyard-preview-ring {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.cell-lanyard-preview-clamp {
+  top: -32px;
+  width: 48px;
+  height: 16px;
+  border: 1px solid #aeb3bb;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #a5a9ae, #34383e 45%, #17191d);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+
+.cell-lanyard-preview-ring {
+  top: -20px;
+  width: 18px;
+  height: 18px;
+  border: 3px solid #adb2b8;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 .cell-lanyard-shimmer {

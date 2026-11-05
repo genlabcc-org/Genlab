@@ -1,5 +1,5 @@
 // Generates high-resolution ID card textures matching the authentic GenLab ID card
-const TEXTURE_VERSION = 13;
+const TEXTURE_VERSION = 18;
 const cache = new Map();
 
 const GENLAB_PINWHEEL_PATHS = [
@@ -123,88 +123,89 @@ export async function getBadgeTextures(member) {
   const width = 832;
   const height = 1301;
 
-  let frontUrl = member.cardImage;
-  let frontCanvas = null;
+  const frontCanvas = document.createElement('canvas');
+  frontCanvas.width = width;
+  frontCanvas.height = height;
+  const ctx = frontCanvas.getContext('2d');
+  if (ctx) {
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, width, height);
 
-  // Fallback programmatic render matching exact Figma specifications if no pre-rendered card
-  if (!frontUrl) {
-    frontCanvas = document.createElement('canvas');
-    frontCanvas.width = width;
-    frontCanvas.height = height;
-    const ctx = frontCanvas.getContext('2d');
-    if (ctx) {
-      // Pure White Card Background
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, width, height);
+    const card = member.cardImage
+      ? await new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = () => resolve(null);
+          img.src = member.cardImage;
+        })
+      : null;
+    if (card) ctx.drawImage(card, 0, 0, width, height);
 
-      // 1. Top-Left: Member Name
+    if (!card) {
+      const photo = member.image
+        ? await new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = () => resolve(null);
+            img.src = member.image;
+          })
+        : null;
+
       ctx.fillStyle = '#000000';
-      ctx.font = 'bold 56px "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.font = 'bold 56px "Plus Jakarta Sans", sans-serif';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
       ctx.fillText(member.name, 56, 135);
 
-      // 2. Top-Left: Member Role
       ctx.fillStyle = '#111827';
-      ctx.font = '500 36px "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.font = '500 36px "Plus Jakarta Sans", sans-serif';
       ctx.fillText(member.role, 56, 205);
 
-      // 3. Top-Left: Neon Lime Accent Underline
-      const roleWidth = ctx.measureText(member.role).width;
-      const lineWidth = Math.max(120, Math.min(roleWidth, 380));
+      const lineWidth = Math.max(120, Math.min(ctx.measureText(member.role).width, 380));
       ctx.fillStyle = '#c2e600';
       ctx.fillRect(56, 258, lineWidth, 7);
 
-      // 4. Top-Right: Upright GenLab Pinwheel Logo
       const logoSize = 104;
       const logoX = width - 56 - logoSize;
       const logoY = 48;
       drawGenLabLogo(ctx, logoX, logoY, logoSize, '#000000');
 
-      // 5. Top-Right: Rotated Vertical Brand Typography (90 deg clockwise)
       ctx.save();
       ctx.translate(width - 56, logoY + logoSize + 26);
       ctx.rotate(Math.PI / 2);
-
-      // GenLab text
       ctx.fillStyle = '#000000';
       ctx.font = 'bold 54px "Plus Jakarta Sans", sans-serif';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'top';
       ctx.fillText('GenLab', 0, 0);
-
-      // Star sparkle beside 'b'
       ctx.fillStyle = '#c2e600';
       ctx.font = 'bold 36px "Plus Jakarta Sans", sans-serif';
-      const glWidth = ctx.measureText('GenLab').width;
-      ctx.fillText('✦', glWidth + 6, -8);
-
-      // Subtitle: The Gen Z Creators' Space
+      ctx.fillText('✦', ctx.measureText('GenLab').width + 6, -8);
       ctx.fillStyle = '#262626';
       ctx.font = '500 24px "Plus Jakarta Sans", sans-serif';
       ctx.fillText("The Gen Z Creators' Space", 0, 56);
       ctx.restore();
 
-      // 6. Member Photo Cutout anchored cleanly at bottom
-      const photo = await new Promise((resolve) => {
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.onload = () => resolve(img);
-        img.onerror = () => resolve(null);
-        img.src = member.image;
-      });
-
       if (photo) {
-        const imgAspect = photo.width / photo.height;
-        const drawW = width;
-        const drawH = width / imgAspect;
-        const drawX = 0;
-        const drawY = height - drawH;
-        ctx.drawImage(photo, drawX, drawY, drawW, drawH);
+        const drawHeight = width * (photo.height / photo.width);
+        ctx.drawImage(photo, 0, height - drawHeight, width, drawHeight);
       }
+    } else {
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, width, 280);
+      ctx.fillStyle = '#111111';
+      ctx.font = '600 68px "Clash Display", Arial, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText(member.name, 54, 128, width - 108);
+
+      ctx.fillStyle = '#333333';
+      ctx.font = '400 36px "TWKLausanne", Arial, sans-serif';
+      ctx.fillText(member.role, 54, 204, width - 108);
     }
-    frontUrl = frontCanvas;
   }
+  frontCanvas._canvasId = `gl_front_${member.id}`;
+  const frontUrl = frontCanvas;
 
   // ==========================================
   // 2. BACK BADGE CANVAS (Authentic Matte Black)
@@ -306,14 +307,10 @@ export async function getBadgeTextures(member) {
     bctx.fillText('If found, kindly return to address mentioned above.', 260, 920);
   }
 
-  if (frontCanvas) {
-    frontCanvas._canvasId = `gl_front_${member.id}`;
-  }
   backCanvas._canvasId = `gl_back_${member.id}`;
 
   const result = {
     frontUrl: frontUrl,
-    frontCanvas: frontCanvas,
     backUrl: backCanvas,
     strapUrl: getSharedStrapCanvas()
   };
