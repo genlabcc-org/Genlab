@@ -2,49 +2,49 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://genlab.cc/</loc>
+    <loc>https://www.genlab.cc/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://genlab.cc/og-image.png</image:loc>
+      <image:loc>https://www.genlab.cc/og-image.png</image:loc>
       <image:title>GenLab – AI Company in Nagercoil, Kanyakumari | Agentic AI</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://genlab.cc/genlab/logo-white.svg</image:loc>
+      <image:loc>https://www.genlab.cc/genlab/logo-white.svg</image:loc>
       <image:title>GenLab Official Logo</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://genlab.cc/ai-company-nagercoil</loc>
+    <loc>https://www.genlab.cc/ai-company-nagercoil</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
-      <image:loc>https://genlab.cc/og-image.png</image:loc>
+      <image:loc>https://www.genlab.cc/og-image.png</image:loc>
       <image:title>GenLab AI Company in Nagercoil &amp; Kanyakumari</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://genlab.cc/work</loc>
+    <loc>https://www.genlab.cc/work</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://genlab.cc/launchpad</loc>
+    <loc>https://www.genlab.cc/launchpad</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://genlab.cc/upskilling</loc>
+    <loc>https://www.genlab.cc/upskilling</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://genlab.cc/team</loc>
+    <loc>https://www.genlab.cc/team</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
